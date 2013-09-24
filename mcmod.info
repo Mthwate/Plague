@@ -1,0 +1,23 @@
+[
+  {
+    "modid": "plague",
+    "name": "Plague",
+    "description": "Adds diseases to Minecraft.",
+    "version": "0.1",
+    "mcversion": "1.5.2",
+    "url": "",
+    "updateUrl": "",
+    "authors": [
+      "LordXarus",
+      "Mthwate"
+    ],
+    "credits": "Mod by LordXarus and Mthwate",
+    "logoFile": "",
+    "screenshots": [
+    ],
+    "parent":"",
+    "dependencies": [
+      "mod_MinecraftForge"
+    ]
+  }
+]
