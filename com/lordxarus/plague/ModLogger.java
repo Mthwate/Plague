@@ -13,7 +13,7 @@ public class ModLogger {
 	}
 	
 	public static void log(Level level, String message) {
-		log(level, message);
+		logger.log(level, message);
 	}
 	
 	public static void log(Level level, String message, boolean verbose) {

@@ -16,6 +16,7 @@ import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -26,7 +27,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Plague {
 	//mod
-	static final String modid = "plague";
+	public static final String modid = "plague";
 	static final String modName = "Plague";
 	
 	//items
@@ -45,6 +46,7 @@ public class Plague {
 	//settings
 	static boolean verbose;
 	
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		//enable logging
 		ModLogger.init();
@@ -66,6 +68,7 @@ public class Plague {
 		MinecraftForge.EVENT_BUS.register(new EventHooksPlague());
 	}
 	
+	@EventHandler
 	public void init(FMLInitializationEvent event) {
 
 		//items
