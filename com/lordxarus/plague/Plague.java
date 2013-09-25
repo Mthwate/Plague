@@ -22,6 +22,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid=Plague.modid, name=Plague.modName, version="0.1")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
@@ -88,5 +90,9 @@ public class Plague {
 		
 		diseaseWestNile = (new DiseaseWestNile().setName("West Nile"));
 		DiseaseRegistry.addDisease(diseaseWestNile);
+	
+		TickRegistry.registerTickHandler(new, TickHandler(), Side.CLIENT);
 	}
+	
+	
 }
