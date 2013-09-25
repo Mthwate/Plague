@@ -90,8 +90,6 @@ public class Plague {
 		
 		diseaseWestNile = (new DiseaseWestNile().setName("West Nile"));
 		DiseaseRegistry.addDisease(diseaseWestNile);
-	
-		TickRegistry.registerTickHandler(new, TickHandler(), Side.CLIENT);
 	}
 	
 	
