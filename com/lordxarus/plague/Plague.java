@@ -12,6 +12,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
@@ -41,9 +42,11 @@ public class Plague {
 	int itemSyringeEmptyId;
 	
 	//diseases
+	// Creates empty list of diseases (individual diseases added in disease class)
 	static List<Disease> diseases = new ArrayList<Disease>();
 	Disease diseaseRabies;
 	Disease diseaseWestNile;
+	Disease diseaseMalaria;
 	
 	//settings
 	static boolean verbose;
@@ -93,6 +96,9 @@ public class Plague {
 		
 		diseaseWestNile = (new DiseaseWestNile().setUnlocalizedName("westNile"));
 		DiseaseRegistry.addDisease(diseaseWestNile);
+		
+		diseaseMalaria = (new DiseaseMalaria().setUnlocalizedName("malaria"));
+		DiseaseRegistry.addDisease(diseaseMalaria);
 	}
 	
 	
