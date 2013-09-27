@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.DiseaseHelper;
 import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.disease.Disease;
 
 public class ItemSyringeEmpty extends ItemBaseFood {
 
@@ -27,10 +28,8 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 		ItemStack itemStack = new ItemStack(Plague.itemSyringeFull);
 		itemStack.setTagCompound(new NBTTagCompound());
 		itemStack.getTagCompound().setString("owner", player.getEntityName());
-		for (String disease : DiseaseHelper.getAllDiseases(player)) {
-			if (disease != ":") {
-				itemStack.getTagCompound().setBoolean(disease, true);
-			}
+		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
+			itemStack.getTagCompound().setBoolean(disease.unlocalizedName, true);
 		}
 		if (ItemStack.stackSize <= 0) {
 			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
