@@ -6,6 +6,9 @@ import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -58,6 +61,29 @@ public class DiseaseRabies extends Disease {
 			entityCarrier.attackEntityFrom(DamageSourcePlague.disease, 1);
 			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}
+		
+		weaken(entityCarrier);
+	}
+	
+	void weaken(Entity entity) {
+		if (entity instanceof EntityLiving) {
+			EntityLiving entityL = ((EntityLiving)entity);
+			AttributeInstance attackDamage = entityL.getEntityAttribute(SharedMonsterAttributes.attackDamage);
+			AttributeInstance movementSpeed = entityL.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			double attackDamageBase = attackDamage.getBaseValue();
+			double movementSpeedBase = movementSpeed.getBaseValue();
+			attackDamage.setAttribute(attackDamageBase - (0.000005 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000005 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+		}
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer entityP = ((EntityPlayer)entity);
+			AttributeInstance attackDamage = entityP.getEntityAttribute(SharedMonsterAttributes.attackDamage);
+			AttributeInstance movementSpeed = entityP.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			double attackDamageBase = attackDamage.getBaseValue();
+			double movementSpeedBase = movementSpeed.getBaseValue();
+			attackDamage.setAttribute(attackDamageBase - (0.000005 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000005 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
+		}
 	}
 	
 	void spread(Entity entityCarrier) {
@@ -71,9 +97,9 @@ public class DiseaseRabies extends Disease {
 				}
 			}
 		}
-		
 	}
 	
+	//randomly contracts disease
 	void contract(Entity entity) {
 		Random rand = new Random();
 		if (rand.nextInt(100000000) == 0) {
