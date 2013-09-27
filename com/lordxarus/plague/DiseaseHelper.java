@@ -1,7 +1,6 @@
 package com.lordxarus.plague;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -11,7 +10,9 @@ import com.lordxarus.plague.disease.Disease;
 public class DiseaseHelper {
 	
 	public static void addDisease(Entity entity, Disease disease) {
-		entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.unlocalizedName, 1);
+		if (!isDiseaseActive(entity, disease)) {
+			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.unlocalizedName, 1);
+		}
 	}
 	
 	public static boolean isDiseaseActive(Entity entity, Disease disease) {
@@ -27,24 +28,13 @@ public class DiseaseHelper {
 	}
 	
 	public static List<Disease> getActiveDiseases(Entity entity) {
-		List<Disease> ret = new ArrayList();
-		String all = entity.getEntityData().toString();
-		all = all.replace("ForgeData:","").replace("[","").replace("]","");
-		List<String> list = new ArrayList<String>(Arrays.asList(all.split(",")));
-		for (String i : list) {
-			if (i.contains(Plague.modid + ".disease.")) {
-				int index = i.indexOf(":");
-				String b = i.substring((Plague.modid + ".disease.").length(), index);
-				if (Integer.parseInt(i.substring(index + 1)) > 0) {
-					for(Disease disease : Plague.diseases) {
-						if(disease.unlocalizedName.equals(b)) {
-							ret.add(disease);
-						}
-					}
-				}
+		List<Disease> active = new ArrayList();
+		for(Disease disease : Plague.diseases) {
+			if (isDiseaseActive(entity, disease)) {
+				active.add(disease);
 			}
 		}
-		return(ret);
+		return(active);
 	}
 	
 	static void count(Entity entity) {

@@ -10,11 +10,14 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
+import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.DiseaseHelper;
 import com.lordxarus.plague.ModLogger;
+import com.lordxarus.plague.TimeHelper;
 
 public class DiseaseRabies extends Disease {
 	
@@ -30,8 +33,31 @@ public class DiseaseRabies extends Disease {
 		}
 	}
 	
-	void effect(Entity entity) {
+	void effect(Entity entityCarrier) {
+
+		Random rand = new Random();
 		
+		//attacks nearby players
+		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(3.0D, 3.0D, 3.0D));
+		for (Entity entityTarget : entities) {
+			if (entityTarget instanceof EntityLiving || entityTarget instanceof EntityPlayer) {
+				if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+					if (entityCarrier instanceof EntityLiving) {
+						entityTarget.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving) entityCarrier), 1);
+						ModLogger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
+					} else if (entityCarrier instanceof EntityPlayer) {
+						entityTarget.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityCarrier), 1);
+						ModLogger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
+					}
+				}
+			}
+		}
+		
+		//attacks self
+		if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+			entityCarrier.attackEntityFrom(DamageSourcePlague.disease, 1);
+			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
+		}
 	}
 	
 	void spread(Entity entityCarrier) {
