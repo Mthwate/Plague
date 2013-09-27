@@ -72,8 +72,8 @@ public class DiseaseRabies extends Disease {
 			AttributeInstance movementSpeed = entityL.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
 			double attackDamageBase = attackDamage.getBaseValue();
 			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000005 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000005 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+			attackDamage.setAttribute(attackDamageBase - (0.000003 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000003 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
 		}
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityP = ((EntityPlayer)entity);
@@ -81,8 +81,8 @@ public class DiseaseRabies extends Disease {
 			AttributeInstance movementSpeed = entityP.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
 			double attackDamageBase = attackDamage.getBaseValue();
 			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000005 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000005 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
+			attackDamage.setAttribute(attackDamageBase - (0.000003 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000003 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
 		}
 	}
 	

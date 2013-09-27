@@ -6,6 +6,9 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -23,11 +26,35 @@ public class DiseaseWestNile extends Disease {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
-				//effect(entity);
-				//spread(entity);
+				effect(entity);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
 				contract(entity);
 			}
+		}
+	}
+	
+	void effect(Entity entity) {
+		weaken(entity);
+	}
+	
+	void weaken(Entity entity) {
+		if (entity instanceof EntityLiving) {
+			EntityLiving entityL = ((EntityLiving)entity);
+			AttributeInstance attackDamage = entityL.getEntityAttribute(SharedMonsterAttributes.attackDamage);
+			AttributeInstance movementSpeed = entityL.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			double attackDamageBase = attackDamage.getBaseValue();
+			double movementSpeedBase = movementSpeed.getBaseValue();
+			attackDamage.setAttribute(attackDamageBase - (0.000004 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000004 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
+		}
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer entityP = ((EntityPlayer)entity);
+			AttributeInstance attackDamage = entityP.getEntityAttribute(SharedMonsterAttributes.attackDamage);
+			AttributeInstance movementSpeed = entityP.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			double attackDamageBase = attackDamage.getBaseValue();
+			double movementSpeedBase = movementSpeed.getBaseValue();
+			attackDamage.setAttribute(attackDamageBase - (0.000004 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
+			movementSpeed.setAttribute(movementSpeedBase - (0.000004 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
 		}
 	}
 	
@@ -41,9 +68,9 @@ public class DiseaseWestNile extends Disease {
 		
 		if (biomes.contains(EntityHelper.getBiome(entity))) {
 			Random rand = new Random();
-			if (rand.nextInt(100000000) == 0) {
+			if (rand.nextInt(1000000) == 0) {
 				DiseaseHelper.addDisease(entity, this);
-				ModLogger.log(Level.INFO, entity.getEntityName() + " contracted rabies!", true);
+				ModLogger.log(Level.INFO, entity.getEntityName() + " contracted west nile virus!", true);
 			}
 		}
 	}
