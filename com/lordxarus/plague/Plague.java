@@ -44,9 +44,9 @@ public class Plague {
 	//diseases
 	// Creates empty list of diseases (individual diseases added in disease class)
 	static List<Disease> diseases = new ArrayList<Disease>();
-	Disease diseaseRabies;
-	Disease diseaseWestNile;
-	Disease diseaseMalaria;
+	public static Disease diseaseRabies;
+	public static Disease diseaseWestNile;
+	public static Disease diseaseMalaria;
 	
 	//settings
 	static boolean verbose;

@@ -2,12 +2,9 @@ package com.lordxarus.plague;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
-import net.minecraft.entity.player.EntityPlayer;
 
 import com.lordxarus.plague.disease.Disease;
 
@@ -15,20 +12,21 @@ public class DiseaseHelper {
 	
 	public static void addDisease(Entity entity, Disease disease) {
 		if (!isDiseaseActive(entity, disease)) {
-			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.unlocalizedName, 1);
+			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
+			ModLogger.log(Level.INFO, disease.getUnlocalizedName() + " added to " + entity.getEntityName() + ".", true);
 		}
 	}
 	
 	public static boolean isDiseaseActive(Entity entity, Disease disease) {
-		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.unlocalizedName) > 0);
+		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.getUnlocalizedName()) > 0);
 	}
 	
 	public static void setDiseaseDuration(Entity entity, Disease disease, int duration) {
-		entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.unlocalizedName, duration);
+		entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), duration);
 	}
 	
 	public static int getDiseaseDuration(Entity entity, Disease disease) {
-		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.unlocalizedName));
+		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.getUnlocalizedName()));
 	}
 	
 	public static List<Disease> getActiveDiseases(Entity entity) {

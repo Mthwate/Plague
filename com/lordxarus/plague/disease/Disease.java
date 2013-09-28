@@ -6,11 +6,15 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 public class Disease {
 	
-	public static String unlocalizedName;
+	private String unlocalizedName;
 	
 	public Disease setUnlocalizedName(String newName) {
-		unlocalizedName = newName;
+		this.unlocalizedName = newName;
 		return(this);
+	}
+	
+	public String getUnlocalizedName() {
+		return(this.unlocalizedName);
 	}
 	
 	public void entityUpdate(LivingUpdateEvent event) {

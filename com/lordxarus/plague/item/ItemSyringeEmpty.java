@@ -29,7 +29,7 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 		itemStack.setTagCompound(new NBTTagCompound());
 		itemStack.getTagCompound().setString("owner", player.getEntityName());
 		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
-			itemStack.getTagCompound().setBoolean(disease.unlocalizedName, true);
+			itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 		}
 		if (ItemStack.stackSize <= 0) {
 			player.attackEntityFrom(DamageSourcePlague.syringe, 1);

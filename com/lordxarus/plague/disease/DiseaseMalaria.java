@@ -44,7 +44,7 @@ public class DiseaseMalaria extends Disease {
 	//	if (entity.)
 		if (rand.nextInt(100000000) == 0) {
 			DiseaseHelper.addDisease(entity, this);
-			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted rabies!", true);
+			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted malaria!", true);
 		}
 	}
 	
