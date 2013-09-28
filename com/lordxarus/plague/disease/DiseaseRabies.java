@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -61,11 +60,14 @@ public class DiseaseRabies extends Disease {
 			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}
 		
-		//weakens players attack
+		//weakens entity's attack
 		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.attackDamage, 0.000003);
 		
-		//slows player
+		//slows entity
 		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.movementSpeed, 0.000003);
+		
+		//reduces knockback resistance
+		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.knockbackResistance, 0.000003);
 	}
 	
 	//called when an entity is attacked

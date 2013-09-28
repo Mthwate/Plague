@@ -2,8 +2,6 @@ package com.lordxarus.plague.disease;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,7 +14,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.lordxarus.plague.DiseaseHelper;
 import com.lordxarus.plague.EntityHelper;
-import com.lordxarus.plague.ModLogger;
 
 public class DiseaseWestNile extends Disease {
 	
@@ -32,8 +29,15 @@ public class DiseaseWestNile extends Disease {
 	}
 	
 	void effect(Entity entity) {
+		
+		//weakens entity's attack
 		DiseaseHelper.weakenAttribute(entity, this, SharedMonsterAttributes.attackDamage, 0.000004);
+		
+		//slows entity
 		DiseaseHelper.weakenAttribute(entity, this, SharedMonsterAttributes.movementSpeed, 0.000004);
+		
+		//reduces knockback resistance
+		DiseaseHelper.weakenAttribute(entity, this, SharedMonsterAttributes.knockbackResistance, 0.000004);
 	}
 	
 	//randomly contracts disease
