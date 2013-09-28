@@ -45,22 +45,16 @@ public class DiseaseWestNile extends Disease {
 		biomes.add(BiomeGenBase.swampland);
 		
 		if (biomes.contains(EntityHelper.getBiome(entity))) {
-			Random rand = new Random();
-			if (rand.nextInt(1000000) == 0) {
-				DiseaseHelper.addDisease(entity, this);
-				ModLogger.log(Level.INFO, entity.getEntityName() + " contracted west nile virus!", true);
-			}
+			DiseaseHelper.contract(entity, this, 1000000);
 		}
 	}
 	
+	//checks if an entity can catch the disease
 	public boolean isVulnerable(Entity entity) {
 		if(
-			entity instanceof EntityPlayer
-			||
-			entity instanceof EntityAnimal
-			||
-			entity instanceof EntityTameable
-			||
+			entity instanceof EntityPlayer ||
+			entity instanceof EntityAnimal ||
+			entity instanceof EntityTameable ||
 			entity instanceof EntityVillager
 		) {
 			return(true);

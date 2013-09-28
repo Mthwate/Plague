@@ -33,9 +33,11 @@ public class Disease {
 	public void entityUpdate(LivingUpdateEvent event) {
 	}
 	
+	//called when an entity is attacked
 	public void entityAttack(LivingAttackEvent event) {
 	}
 	
+	//checks if an entity can catch the disease
 	public boolean isVulnerable(Entity entity) {
 		return(false);
 	}

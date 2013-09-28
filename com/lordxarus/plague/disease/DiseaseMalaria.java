@@ -38,7 +38,7 @@ public class DiseaseMalaria extends Disease {
 		
 	}
 	
-	
+	//checks if an entity can catch the disease
 	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||

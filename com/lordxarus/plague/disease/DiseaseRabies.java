@@ -28,7 +28,7 @@ public class DiseaseRabies extends Disease {
 		if(isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
 				effect(entity);
-				spread(entity);
+				DiseaseHelper.spread(entity, this, 5.0, 100000);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
 				DiseaseHelper.contract(entity, this, 100000000);
 			}
@@ -61,27 +61,19 @@ public class DiseaseRabies extends Disease {
 			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}
 		
+		//weakens players attack
 		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.attackDamage, 0.000003);
+		
+		//slows player
 		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.movementSpeed, 0.000003);
 	}
 	
-	void spread(Entity entityCarrier) {
-		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(5.0D, 5.0D, 5.0D));
-		for (Entity entityTarget : entities) {
-			if (isVulnerable(entityTarget) && !DiseaseHelper.isDiseaseActive(entityTarget, this)) {
-				Random rand = new Random();
-				if (rand.nextInt(100000) == 0) {
-					DiseaseHelper.addDisease(entityCarrier, this);
-					ModLogger.log(Level.INFO, entityTarget.getEntityName() + " contracted rabies from " + entityCarrier.getEntityName() + "!", true);
-				}
-			}
-		}
-	}
-	
+	//called when an entity is attacked
 	public void entityAttack(LivingAttackEvent event) {
 		DiseaseHelper.spreadByAttack(event, this, 100);
 	}
 	
+	//checks if an entity can catch the disease
 	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||

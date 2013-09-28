@@ -18,6 +18,7 @@ public class EventHooksPlague {
 	}
 
 	@ForgeSubscribe
+	//called when an entity is attacked
 	public void onEntityAttack(LivingAttackEvent event) {
 		for(Disease disease : Plague.diseases) {
 			disease.entityAttack(event);

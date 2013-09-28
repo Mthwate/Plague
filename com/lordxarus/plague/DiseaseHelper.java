@@ -52,6 +52,7 @@ public class DiseaseHelper {
 		}
 	}
 	
+	//gives an attacked entity a chance of catching its attacker's disease
 	public static void spreadByAttack(LivingAttackEvent event, Disease disease, int modifier) {
 		Entity entityVictim = event.entity;
 		Entity entityAttacker = event.source.getEntity();
@@ -70,6 +71,7 @@ public class DiseaseHelper {
 		}
 	}
 	
+	//weakens the attribute of an entity
 	public static void weakenAttribute(Entity entityInfected, Disease disease, Attribute attribute, double modifier) {
 		if (entityInfected instanceof EntityLivingBase) {
 			EntityLivingBase entity = ((EntityLivingBase)entityInfected);
@@ -78,11 +80,26 @@ public class DiseaseHelper {
 		}
 	}
 	
+	//gives the entity a small chance of catching the disease randomly
 	public static void contract(Entity entity, Disease disease, int modifier) {
 		Random rand = new Random();
 		if (rand.nextInt(modifier) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
 			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
+		}
+	}
+	
+	//gives an infected entity a chance to spread their disease to others within the radius
+	public static void spread(Entity entityCarrier, Disease disease, double radius, int modifier) {
+		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(radius, radius, radius));
+		for (Entity entityTarget : entities) {
+			if (disease.isVulnerable(entityTarget) && !DiseaseHelper.isDiseaseActive(entityTarget, disease)) {
+				Random rand = new Random();
+				if (rand.nextInt(modifier) == 0) {
+					DiseaseHelper.addDisease(entityCarrier, disease);
+					ModLogger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
+				}
+			}
 		}
 	}
 }
