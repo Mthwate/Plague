@@ -21,8 +21,6 @@ import com.lordxarus.plague.TimeHelper;
 
 public class DiseaseMalaria extends Disease {
 	
-	public String name = "Malaria";
-	
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {

@@ -62,7 +62,7 @@ public class DiseaseHelper {
 						Random rand = new Random();
 						if (rand.nextInt(modifier) == 0) {
 							addDisease(entityVictim, disease);
-							ModLogger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.name.toLowerCase().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
+							ModLogger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.getName().toLowerCase().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
 						}
 					}
 				}
@@ -82,7 +82,7 @@ public class DiseaseHelper {
 		Random rand = new Random();
 		if (rand.nextInt(modifier) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
-			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.name.toLowerCase() + "!", true);
+			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
 		}
 	}
 }

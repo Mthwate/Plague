@@ -20,8 +20,6 @@ import com.lordxarus.plague.ModLogger;
 
 public class DiseaseWestNile extends Disease {
 	
-	public String name = "West Nile Virus";
-	
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {

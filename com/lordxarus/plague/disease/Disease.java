@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 public class Disease {
 	
-	public String name;
+	private String name;
 	private String unlocalizedName;
 	
 	public Disease setUnlocalizedName(String newName) {
@@ -19,6 +19,15 @@ public class Disease {
 	
 	public String getUnlocalizedName() {
 		return(this.unlocalizedName);
+	}
+	
+	public Disease setName(String newName) {
+		this.name = newName;
+		return(this);
+	}
+	
+	public String getName() {
+		return(this.name);
 	}
 	
 	public void entityUpdate(LivingUpdateEvent event) {

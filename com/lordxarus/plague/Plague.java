@@ -92,13 +92,13 @@ public class Plague {
 		//diseases
 		
 		diseaseRabies = (new DiseaseRabies().setUnlocalizedName("rabies"));
-		DiseaseRegistry.addDisease(diseaseRabies);
+		DiseaseRegistry.addDisease(diseaseRabies, "Rabies");
 		
 		diseaseWestNile = (new DiseaseWestNile().setUnlocalizedName("westNile"));
-		DiseaseRegistry.addDisease(diseaseWestNile);
+		DiseaseRegistry.addDisease(diseaseWestNile, "West Nile Virus");
 		
 		diseaseMalaria = (new DiseaseMalaria().setUnlocalizedName("malaria"));
-		DiseaseRegistry.addDisease(diseaseMalaria);
+		DiseaseRegistry.addDisease(diseaseMalaria, "Malaria");
 	}
 	
 	
