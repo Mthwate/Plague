@@ -21,13 +21,15 @@ import com.lordxarus.plague.TimeHelper;
 
 public class DiseaseMalaria extends Disease {
 	
+	public String name = "Malaria";
+	
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
 				effect(entity);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
-				contract(entity);
+				DiseaseHelper.contract(entity, this, 100000000);
 			}
 		}
 	}
@@ -39,17 +41,7 @@ public class DiseaseMalaria extends Disease {
 	}
 	
 	
-	void contract(Entity entity) {
-		Random rand = new Random();
-	//	if (entity.)
-		if (rand.nextInt(100000000) == 0) {
-			DiseaseHelper.addDisease(entity, this);
-			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted malaria!", true);
-		}
-	}
-	
-	
-	boolean isVulnerable(Entity entity) {
+	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||
 			entity instanceof EntityAnimal ||

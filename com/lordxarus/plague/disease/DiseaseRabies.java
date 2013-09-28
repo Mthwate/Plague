@@ -23,6 +23,8 @@ import com.lordxarus.plague.TimeHelper;
 
 public class DiseaseRabies extends Disease {
 	
+	public String name = "Rabies";
+	
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
@@ -30,7 +32,7 @@ public class DiseaseRabies extends Disease {
 				effect(entity);
 				spread(entity);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
-				contract(entity);
+				DiseaseHelper.contract(entity, this, 100000000);
 			}
 		}
 	}
@@ -61,28 +63,8 @@ public class DiseaseRabies extends Disease {
 			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}
 		
-		weaken(entityCarrier);
-	}
-	
-	void weaken(Entity entity) {
-		if (entity instanceof EntityLiving) {
-			EntityLiving entityL = ((EntityLiving)entity);
-			AttributeInstance attackDamage = entityL.getEntityAttribute(SharedMonsterAttributes.attackDamage);
-			AttributeInstance movementSpeed = entityL.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-			double attackDamageBase = attackDamage.getBaseValue();
-			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000003 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000003 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
-		}
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer entityP = ((EntityPlayer)entity);
-			AttributeInstance attackDamage = entityP.getEntityAttribute(SharedMonsterAttributes.attackDamage);
-			AttributeInstance movementSpeed = entityP.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-			double attackDamageBase = attackDamage.getBaseValue();
-			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000003 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000003 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
-		}
+		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.attackDamage, 0.000003);
+		DiseaseHelper.weakenAttribute(entityCarrier, this, SharedMonsterAttributes.movementSpeed, 0.000003);
 	}
 	
 	void spread(Entity entityCarrier) {
@@ -98,34 +80,11 @@ public class DiseaseRabies extends Disease {
 		}
 	}
 	
-	//randomly contracts disease
-	void contract(Entity entity) {
-		Random rand = new Random();
-		if (rand.nextInt(100000000) == 0) {
-			DiseaseHelper.addDisease(entity, this);
-			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted rabies!", true);
-		}
-	}
-	
 	public void entityAttack(LivingAttackEvent event) {
-		Entity entityVictim = event.entity;
-		Entity entityAttacker = event.source.getEntity();
-		if (isVulnerable(entityVictim) && !DiseaseHelper.isDiseaseActive(entityVictim, this)) {
-			if (event.source.getEntity() != null) {
-				if (event.source.getEntity() instanceof EntityLiving) {
-					if(DiseaseHelper.isDiseaseActive(entityAttacker, this)) {
-						Random rand = new Random();
-						if (rand.nextInt(100) == 0) {
-							DiseaseHelper.addDisease(entityVictim, this);
-							ModLogger.log(Level.INFO, entityVictim.getEntityName() + " contracted rabies from " + entityAttacker.getEntityName() + "!", true);
-						}
-					}
-				}
-			}
-		}
+		DiseaseHelper.spreadByAttack(event, this, 100);
 	}
 	
-	boolean isVulnerable(Entity entity) {
+	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||
 			entity instanceof EntityAnimal ||

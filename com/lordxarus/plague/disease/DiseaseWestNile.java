@@ -6,9 +6,7 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -22,6 +20,8 @@ import com.lordxarus.plague.ModLogger;
 
 public class DiseaseWestNile extends Disease {
 	
+	public String name = "West Nile Virus";
+	
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
@@ -34,28 +34,8 @@ public class DiseaseWestNile extends Disease {
 	}
 	
 	void effect(Entity entity) {
-		weaken(entity);
-	}
-	
-	void weaken(Entity entity) {
-		if (entity instanceof EntityLiving) {
-			EntityLiving entityL = ((EntityLiving)entity);
-			AttributeInstance attackDamage = entityL.getEntityAttribute(SharedMonsterAttributes.attackDamage);
-			AttributeInstance movementSpeed = entityL.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-			double attackDamageBase = attackDamage.getBaseValue();
-			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000004 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000004 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityL, this)));
-		}
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer entityP = ((EntityPlayer)entity);
-			AttributeInstance attackDamage = entityP.getEntityAttribute(SharedMonsterAttributes.attackDamage);
-			AttributeInstance movementSpeed = entityP.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-			double attackDamageBase = attackDamage.getBaseValue();
-			double movementSpeedBase = movementSpeed.getBaseValue();
-			attackDamage.setAttribute(attackDamageBase - (0.000004 * attackDamageBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
-			movementSpeed.setAttribute(movementSpeedBase - (0.000004 * movementSpeedBase * DiseaseHelper.getDiseaseDuration(entityP, this)));
-		}
+		DiseaseHelper.weakenAttribute(entity, this, SharedMonsterAttributes.attackDamage, 0.000004);
+		DiseaseHelper.weakenAttribute(entity, this, SharedMonsterAttributes.movementSpeed, 0.000004);
 	}
 	
 	//randomly contracts disease
@@ -75,7 +55,7 @@ public class DiseaseWestNile extends Disease {
 		}
 	}
 	
-	boolean isVulnerable(Entity entity) {
+	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer
 			||
