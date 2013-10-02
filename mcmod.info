@@ -3,8 +3,8 @@
     "modid": "plague",
     "name": "Plague",
     "description": "Adds diseases to Minecraft.",
-    "version": "0.1",
-    "mcversion": "1.5.2",
+    "version": ".ver.",
+    "mcversion": ".mc.",
     "url": "",
     "updateUrl": "",
     "authors": [

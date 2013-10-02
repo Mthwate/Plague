@@ -26,7 +26,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid=Plague.modid, name=Plague.modName, version="0.1")
+@Mod(modid=Plague.modid, name=Plague.modName, version=".ver.")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Plague {
 	//mod
