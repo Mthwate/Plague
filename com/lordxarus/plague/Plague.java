@@ -1,7 +1,9 @@
 package com.lordxarus.plague;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -59,6 +61,9 @@ public class Plague {
 	//a list of all the registered diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
 	
+	//a list of all the diseases enabled in the config file
+	public static Map<String, Boolean> enabledDiseases = new HashMap<String, Boolean>();
+	
 	//diseases
 	public static Disease diseaseRabies;
 	public static Disease diseaseWestNile;
@@ -81,10 +86,15 @@ public class Plague {
 		
 		//items
 		itemSyringeEmptyId = config.getItem("Syringe", 3790).getInt();
-		itemSyringeFullId = config.getItem("Filled Syringe", 3791).getInt();
+		itemSyringeFullId = config.getItem("FilledSyringe", 3791).getInt();
 		
 		//blocks
 		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
+		
+		//diseases
+		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
+		enabledDiseases.put("westNile", config.get("Diseases", "WestNileVirus", true).getBoolean(true));
+		enabledDiseases.put("malaria", config.get("Diseases", "Malaria", true).getBoolean(true));
 		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
