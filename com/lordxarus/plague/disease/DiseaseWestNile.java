@@ -12,8 +12,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
-import com.lordxarus.plague.DiseaseHelper;
-import com.lordxarus.plague.EntityHelper;
+import com.lordxarus.plague.lib.DiseaseHelper;
+import com.lordxarus.plague.lib.EntityHelper;
 
 public class DiseaseWestNile extends Disease {
 	

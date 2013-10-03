@@ -1,4 +1,4 @@
-package com.lordxarus.plague;
+package com.lordxarus.plague.lib;
 
 public class TimeHelper {
 	

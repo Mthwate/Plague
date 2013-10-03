@@ -1,4 +1,4 @@
-package com.lordxarus.plague;
+package com.lordxarus.plague.lib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
+import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 
 public class DiseaseHelper {
@@ -46,7 +47,7 @@ public class DiseaseHelper {
 		return(active);
 	}
 	
-	static void count(Entity entity) {
+	public static void count(Entity entity) {
 		List<Disease> diseases = getActiveDiseases(entity);
 		for(Disease disease : diseases) {
 			setDiseaseDuration(entity, disease, getDiseaseDuration(entity, disease) + 1);

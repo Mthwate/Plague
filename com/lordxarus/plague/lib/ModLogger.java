@@ -1,7 +1,9 @@
-package com.lordxarus.plague;
+package com.lordxarus.plague.lib;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.lordxarus.plague.Plague;
 
 import cpw.mods.fml.common.FMLLog;
 

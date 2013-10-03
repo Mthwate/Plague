@@ -18,6 +18,7 @@ import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
+import com.lordxarus.plague.lib.ModLogger;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
 
 import cpw.mods.fml.common.Mod;
@@ -56,13 +57,13 @@ public class Plague {
 	
 	//diseases
 	// Creates empty list of diseases (individual diseases added in disease class)
-	static List<Disease> diseases = new ArrayList<Disease>();
+	public static List<Disease> diseases = new ArrayList<Disease>();
 	public static Disease diseaseRabies;
 	public static Disease diseaseWestNile;
 	public static Disease diseaseMalaria;
 	
 	//settings
-	static boolean verbose;
+	public static boolean verbose;
 	
 	//misc
 	public static World world = Minecraft.getMinecraft().theWorld;

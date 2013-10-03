@@ -5,6 +5,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class EventHooksPlague {
 

@@ -10,9 +10,9 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 import com.lordxarus.plague.DamageSourcePlague;
-import com.lordxarus.plague.DiseaseHelper;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class ItemSyringeEmpty extends ItemBaseFood {
 

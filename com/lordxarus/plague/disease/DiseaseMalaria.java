@@ -15,9 +15,9 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.lordxarus.plague.DamageSourcePlague;
-import com.lordxarus.plague.DiseaseHelper;
-import com.lordxarus.plague.ModLogger;
-import com.lordxarus.plague.TimeHelper;
+import com.lordxarus.plague.lib.DiseaseHelper;
+import com.lordxarus.plague.lib.ModLogger;
+import com.lordxarus.plague.lib.TimeHelper;
 
 public class DiseaseMalaria extends Disease {
 	
