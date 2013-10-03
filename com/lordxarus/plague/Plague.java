@@ -134,6 +134,11 @@ public class Plague {
 		
 		diseaseMalaria = (new DiseaseMalaria().setUnlocalizedName("malaria"));
 		DiseaseRegistry.addDisease(diseaseMalaria, "Malaria");
+		
+		//death messages
+		
+		LanguageRegistry.instance().addStringLocalization("death.attack.syringe", "%1$s died of blood loss.");
+		LanguageRegistry.instance().addStringLocalization("death.attack.disease", "%1$s died of disease.");
 	}
 	
 	
