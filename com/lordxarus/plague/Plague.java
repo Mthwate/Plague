@@ -15,6 +15,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.lordxarus.plague.block.BlockExtractor;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
@@ -68,6 +69,7 @@ public class Plague {
 	public static Disease diseaseRabies;
 	public static Disease diseaseWestNile;
 	public static Disease diseaseMalaria;
+	public static Disease diseaseChickenpox;
 	
 	//settings
 	public static boolean verbose;
@@ -95,6 +97,7 @@ public class Plague {
 		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
 		enabledDiseases.put("westNile", config.get("Diseases", "WestNileVirus", true).getBoolean(true));
 		enabledDiseases.put("malaria", config.get("Diseases", "Malaria", true).getBoolean(true));
+		enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
 		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
@@ -144,6 +147,9 @@ public class Plague {
 		
 		diseaseMalaria = (new DiseaseMalaria().setUnlocalizedName("malaria"));
 		DiseaseRegistry.addDisease(diseaseMalaria, "Malaria");
+		
+		diseaseChickenpox = (new DiseaseChickenpox().setUnlocalizedName("chickenpox"));
+		DiseaseRegistry.addDisease(diseaseChickenpox, "Chickenpox");
 		
 		//death messages
 		
