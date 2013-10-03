@@ -27,6 +27,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -96,7 +97,11 @@ public class Plague {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		
-		new GuiHandler();
+		//gui handler
+		
+		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
+		
+		//tile entities
 		
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 
