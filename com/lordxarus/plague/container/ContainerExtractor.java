@@ -29,6 +29,7 @@ public class ContainerExtractor extends Container {
 			}
 		}
 		
+		//adds the container's slots
 		this.addSlotToContainer(new Slot(entity, 0, 43, 35));
 		this.addSlotToContainer(new Slot(entity, 1, 79, 35));
 	}

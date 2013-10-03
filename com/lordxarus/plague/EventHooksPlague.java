@@ -10,11 +10,13 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 public class EventHooksPlague {
 
 	@ForgeSubscribe
+	//called when an entity updates (every tick)
 	public void onEntityUpdate(LivingUpdateEvent event) {
 		for(Disease disease : Plague.diseases) {
 			disease.entityUpdate(event);
 		}
 		
+		//increases the duration of all active diseases
 		DiseaseHelper.count(event.entity);
 	}
 

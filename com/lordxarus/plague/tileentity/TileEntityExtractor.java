@@ -14,6 +14,7 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 	private ItemStack[] inventory;
 
 	public TileEntityExtractor() {
+		//sets the number of slots in the inventory
 		inventory = new ItemStack[2];
 	}
 

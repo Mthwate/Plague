@@ -56,9 +56,10 @@ public class Plague {
 	//block ids
 	int blockExtractorId;
 	
-	//diseases
-	// Creates empty list of diseases (individual diseases added in disease class)
+	//a list of all the registered diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
+	
+	//diseases
 	public static Disease diseaseRabies;
 	public static Disease diseaseWestNile;
 	public static Disease diseaseMalaria;

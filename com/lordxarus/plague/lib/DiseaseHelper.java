@@ -18,6 +18,7 @@ import com.lordxarus.plague.disease.Disease;
 
 public class DiseaseHelper {
 	
+	//gives the entity the specified disease
 	public static void addDisease(Entity entity, Disease disease) {
 		if (!isDiseaseActive(entity, disease)) {
 			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
@@ -25,18 +26,22 @@ public class DiseaseHelper {
 		}
 	}
 	
+	//checks if the entity has the specified disease
 	public static boolean isDiseaseActive(Entity entity, Disease disease) {
 		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.getUnlocalizedName()) > 0);
 	}
-	
+
+	//sets the length of time an entity has had a disease
 	public static void setDiseaseDuration(Entity entity, Disease disease, int duration) {
 		entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), duration);
 	}
-	
+
+	//gets the length of time an entity has had a disease
 	public static int getDiseaseDuration(Entity entity, Disease disease) {
 		return(entity.getEntityData().getInteger(Plague.modid + ".disease." + disease.getUnlocalizedName()));
 	}
 	
+	//gets all diseases and entity has
 	public static List<Disease> getActiveDiseases(Entity entity) {
 		List<Disease> active = new ArrayList();
 		for(Disease disease : Plague.diseases) {
@@ -47,6 +52,7 @@ public class DiseaseHelper {
 		return(active);
 	}
 	
+	//increases the duration of all diseases an entity has by 1 (the durration is measured in ticks)
 	public static void count(Entity entity) {
 		List<Disease> diseases = getActiveDiseases(entity);
 		for(Disease disease : diseases) {
@@ -56,9 +62,14 @@ public class DiseaseHelper {
 	
 	//gives an attacked entity a chance of catching its attacker's disease
 	public static void spreadByAttack(LivingAttackEvent event, Disease disease, int modifier) {
+		
+		//gets the attacker and the victim of the attack
 		Entity entityVictim = event.entity;
 		Entity entityAttacker = event.source.getEntity();
+		
+		//checks if the entity is able to contract the disease and does not already have it
 		if (disease.isVulnerable(entityVictim) && !DiseaseHelper.isDiseaseActive(entityVictim, disease)) {
+			
 			if (event.source.getEntity() != null) {
 				if (event.source.getEntity() instanceof EntityLiving) {
 					if(DiseaseHelper.isDiseaseActive(entityAttacker, disease)) {
@@ -70,10 +81,11 @@ public class DiseaseHelper {
 					}
 				}
 			}
+			
 		}
 	}
 	
-	//weakens the attribute of an entity
+	//weakens the specified attribute of an entity
 	public static void weakenAttribute(Entity entityInfected, Disease disease, Attribute attribute, double modifier) {
 		if (entityInfected instanceof EntityLivingBase) {
 			EntityLivingBase entity = ((EntityLivingBase)entityInfected);
