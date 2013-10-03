@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import com.lordxarus.plague.disease.Disease;
@@ -75,8 +76,10 @@ public class DiseaseHelper {
 	public static void weakenAttribute(Entity entityInfected, Disease disease, Attribute attribute, double modifier) {
 		if (entityInfected instanceof EntityLivingBase) {
 			EntityLivingBase entity = ((EntityLivingBase)entityInfected);
-			AttributeInstance attributeInstance = entity.getEntityAttribute(attribute);
-			attributeInstance.setAttribute(attributeInstance.getBaseValue() - (modifier * attributeInstance.getBaseValue() * getDiseaseDuration(entity, disease)));
+			if (entity.getAttributeMap().getAllAttributes().contains(attribute)) {
+				AttributeInstance attributeInstance = entity.getEntityAttribute(attribute);
+				attributeInstance.setAttribute(attributeInstance.getBaseValue() - (modifier * attributeInstance.getBaseValue() * getDiseaseDuration(entity, disease)));
+			}
 		}
 	}
 	

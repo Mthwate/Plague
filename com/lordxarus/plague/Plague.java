@@ -11,15 +11,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
+import com.lordxarus.plague.block.BlockExtractor;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
+import com.lordxarus.plague.tileentity.TileEntityExtractor;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -33,6 +36,10 @@ public class Plague {
 	public static final String modid = "plague";
 	static final String modName = "Plague";
 	
+	//instance
+	@Instance(modid)
+	public static Plague instance;
+	
 	//items
 	public static Item itemSyringeFull;
 	public static Item itemSyringeEmpty;
@@ -40,6 +47,12 @@ public class Plague {
 	//item ids
 	int itemSyringeFullId;
 	int itemSyringeEmptyId;
+	
+	//blocks
+	public static Block blockExtractor;
+	
+	//block ids
+	int blockExtractorId;
 	
 	//diseases
 	// Creates empty list of diseases (individual diseases added in disease class)
@@ -67,6 +80,9 @@ public class Plague {
 		itemSyringeEmptyId = config.getItem("Syringe", 3790).getInt();
 		itemSyringeFullId = config.getItem("Filled Syringe", 3791).getInt();
 		
+		//blocks
+		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
+		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
 		
@@ -78,16 +94,28 @@ public class Plague {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		
+		new GuiHandler();
+		
+		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 
 		//items
 		
 		itemSyringeEmpty = (new ItemSyringeEmpty(itemSyringeEmptyId)).setUnlocalizedName("syringeEmpty");
+		GameRegistry.registerItem(itemSyringeEmpty, "syringeEmpty");
 		LanguageRegistry.addName(itemSyringeEmpty, "Syringe");
 		GameRegistry.addRecipe(new ItemStack(itemSyringeEmpty), "x", "x", "x",
 				'x', Block.glass);
 
 		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
+		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
 		LanguageRegistry.addName(itemSyringeFull, "Filled Syringe");
+
+		//blocks
+		
+		blockExtractor = (new BlockExtractor(blockExtractorId)).setUnlocalizedName("extractor");
+		GameRegistry.registerBlock(blockExtractor, "extractor");
+		LanguageRegistry.addName(blockExtractor, "Extractor");
 		
 		//diseases
 		
