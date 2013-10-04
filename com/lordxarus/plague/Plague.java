@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -73,9 +72,6 @@ public class Plague {
 	
 	//settings
 	public static boolean verbose;
-	
-	//misc
-	public static World world = Minecraft.getMinecraft().theWorld;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -155,7 +151,7 @@ public class Plague {
 		
 		LanguageRegistry.instance().addStringLocalization("death.attack.syringe", "%1$s died of blood loss.");
 		LanguageRegistry.instance().addStringLocalization("death.attack.disease", "%1$s died of disease.");
+		
 	}
-	
 	
 }
