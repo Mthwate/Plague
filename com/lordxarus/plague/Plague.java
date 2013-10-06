@@ -127,8 +127,8 @@ public class Plague {
 		itemSyringeEmpty = (new ItemSyringeEmpty(itemSyringeEmptyId)).setUnlocalizedName("syringeEmpty");
 		GameRegistry.registerItem(itemSyringeEmpty, "syringeEmpty");
 		LanguageRegistry.addName(itemSyringeEmpty, "Syringe");
-		GameRegistry.addRecipe(new ItemStack(itemSyringeEmpty), "x", "x", "x",
-				'x', Block.glass);
+		GameRegistry.addRecipe(new ItemStack(itemSyringeEmpty), "g", "g", "g",
+				'g', Block.glass);
 
 		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
 		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
@@ -137,6 +137,8 @@ public class Plague {
 		itemDiseaseVileEmpty = (new ItemDiseaseVileEmpty(itemDiseaseVileEmptyId)).setUnlocalizedName("diseaseVileEmpty");
 		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
 		LanguageRegistry.addName(itemDiseaseVileEmpty, "Disease Filled Vile");
+		GameRegistry.addRecipe(new ItemStack(itemDiseaseVileEmpty), "w", "g", "i",
+				'w', Block.wood, 'g', Block.glass ,'i', Item.ingotIron);
 
 		itemDiseaseVileFull = (new ItemDiseaseVileFull(itemDiseaseVileFullId)).setUnlocalizedName("diseaseVileFull");
 		GameRegistry.registerItem(itemDiseaseVileFull, "diseaseVileFull");
