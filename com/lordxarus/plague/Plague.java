@@ -138,7 +138,7 @@ public class Plague {
 		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
 		LanguageRegistry.addName(itemDiseaseVileEmpty, "Disease Vile");
 		GameRegistry.addRecipe(new ItemStack(itemDiseaseVileEmpty), "w", "g", "i",
-				'w', Block.wood, 'g', Block.glass ,'i', Item.ingotIron);
+				'w', Block.planks, 'g', Block.glass ,'i', Item.ingotIron);
 
 		itemDiseaseVileFull = (new ItemDiseaseVileFull(itemDiseaseVileFullId)).setUnlocalizedName("diseaseVileFull");
 		GameRegistry.registerItem(itemDiseaseVileFull, "diseaseVileFull");
