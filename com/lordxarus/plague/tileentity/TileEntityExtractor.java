@@ -1,7 +1,5 @@
 package com.lordxarus.plague.tileentity;
 
-import java.util.logging.Level;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -11,7 +9,6 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
-import com.lordxarus.plague.lib.ModLogger;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
 	
@@ -149,7 +146,6 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 		if (stackOne != null) {
 			if ((stackOne.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
 				stackOne.getTagCompound().setInteger("duration", stackOne.getTagCompound().getInteger("duration") + 1);
-				ModLogger.log(Level.INFO, "a");
 			}
 		}
 	}
