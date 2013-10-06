@@ -19,7 +19,7 @@ public class GuiExtractor extends GuiContainer {
 		super(new ContainerExtractor(invPlayer, entity));
 		
 		xSize = 176;
-		ySize = 165;
+		ySize = 166;
 	}
 	
 	@Override
