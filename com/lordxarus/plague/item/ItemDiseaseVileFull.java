@@ -13,9 +13,11 @@ public class ItemDiseaseVileFull extends ItemBase {
 	}
 	
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
-		boolean complete = stack.getTagCompound().getBoolean("complete");
-		if ((!complete) && (entity instanceof EntityPlayer)) {
-			stack.getTagCompound().setBoolean("complete", true);
+		if (stack.getTagCompound() != null) {
+			boolean complete = stack.getTagCompound().getBoolean("complete");
+			if ((!complete) && (entity instanceof EntityPlayer)) {
+				stack.getTagCompound().setBoolean("complete", true);
+			}
 		}
 	}
 
