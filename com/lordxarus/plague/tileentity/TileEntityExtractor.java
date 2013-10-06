@@ -121,16 +121,17 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
-		ItemStack stack = this.getStackInSlot(0);
-		if (stack != null) {
-			if ((stack.getItem().itemID == Plague.itemSyringeFull.itemID) && (this.getStackInSlot(1) == null)) {
+		ItemStack stackZero = this.getStackInSlot(0);
+		ItemStack stackOne = this.getStackInSlot(1);
+		if ((stackZero != null) && (stackOne != null)) {
+			if ((stackZero.getItem().itemID == Plague.itemSyringeFull.itemID) && (stackOne.getItem().itemID == Plague.itemDiseaseVileEmpty.itemID)) {
 				
 				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
 				itemStack.setTagCompound(new NBTTagCompound());
-				itemStack.getTagCompound().setString("owner", stack.getTagCompound().getString("owner"));
+				itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
 				
 				for (Disease disease : Plague.diseases) {
-					if (stack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
 						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 					}
 				}
