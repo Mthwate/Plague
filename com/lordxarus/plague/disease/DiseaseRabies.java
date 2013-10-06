@@ -27,7 +27,7 @@ public class DiseaseRabies extends Disease {
 		if(isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
 				effect(entity);
-				DiseaseHelper.spread(entity, this, 5.0, 100000);
+				DiseaseHelper.spread(entity, this, 5.0, 10000);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
 				DiseaseHelper.contract(entity, this, 100000000);
 			}
