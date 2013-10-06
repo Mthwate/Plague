@@ -1,5 +1,7 @@
 package com.lordxarus.plague.tileentity;
 
+import java.util.logging.Level;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.lib.ModLogger;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
 	
@@ -129,6 +132,8 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
 				itemStack.setTagCompound(new NBTTagCompound());
 				itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
+				itemStack.getTagCompound().setInteger("duration", 0);
+				itemStack.getTagCompound().setBoolean("complete", false);
 				
 				for (Disease disease : Plague.diseases) {
 					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
@@ -138,6 +143,13 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 				
 				setInventorySlotContents(1, itemStack);
 				decrStackSize(0,1);
+			}
+		}
+		
+		if (stackOne != null) {
+			if ((stackOne.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
+				stackOne.getTagCompound().setInteger("duration", stackOne.getTagCompound().getInteger("duration") + 1);
+				ModLogger.log(Level.INFO, "a");
 			}
 		}
 	}
