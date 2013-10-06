@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.disease.Disease;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
 	
@@ -97,23 +98,45 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 			ItemStack itemstack = getStackInSlot(i);
 			if(itemstack != null) {
 				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("SlotTutDeployer", (byte) i);
+				item.setByte("SlotExtractor", (byte) i);
 				itemstack.writeToNBT(item);
 				list.appendTag(item);
 			}
 		}
-		compound.setTag("ItemsTutDeployer", list);
+		compound.setTag("ItemsExtractor", list);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		NBTTagList list = compound.getTagList("ItemsTutDeployer");
+		NBTTagList list = compound.getTagList("ItemsExtractor");
 		for(int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound item = (NBTTagCompound) list.tagAt(i);
-			int slot = item.getByte("SlotTutDeployer");
+			int slot = item.getByte("SlotExtractor");
 			if(slot >= 0 && slot < getSizeInventory()) {
 				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
+			}
+		}
+	}
+	
+	@Override
+	public void updateEntity() {
+		ItemStack stack = this.getStackInSlot(0);
+		if (stack != null) {
+			if ((stack.getItem().itemID == Plague.itemSyringeFull.itemID) && (this.getStackInSlot(1) == null)) {
+				
+				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
+				itemStack.setTagCompound(new NBTTagCompound());
+				itemStack.getTagCompound().setString("owner", stack.getTagCompound().getString("owner"));
+				
+				for (Disease disease : Plague.diseases) {
+					if (stack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
+					}
+				}
+				
+				setInventorySlotContents(1, itemStack);
+				decrStackSize(0,1);
 			}
 		}
 	}

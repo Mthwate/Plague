@@ -52,7 +52,7 @@ public class DiseaseHelper {
 		return(active);
 	}
 	
-	//increases the duration of all diseases an entity has by 1 (the durration is measured in ticks)
+	//increases the duration of all diseases an entity has by 1 (the duration is measured in ticks)
 	public static void count(Entity entity) {
 		List<Disease> diseases = getActiveDiseases(entity);
 		for(Disease disease : diseases) {

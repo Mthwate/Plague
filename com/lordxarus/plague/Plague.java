@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -18,6 +17,8 @@ import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
+import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
+import com.lordxarus.plague.item.ItemDiseaseVileFull;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
 import com.lordxarus.plague.lib.ModLogger;
@@ -47,10 +48,14 @@ public class Plague {
 	//items
 	public static Item itemSyringeFull;
 	public static Item itemSyringeEmpty;
+	public static Item itemDiseaseVileFull;
+	public static Item itemDiseaseVileEmpty;
 	
 	//item ids
 	int itemSyringeFullId;
 	int itemSyringeEmptyId;
+	int itemDiseaseVileFullId;
+	int itemDiseaseVileEmptyId;
 	
 	//blocks
 	public static Block blockExtractor;
@@ -85,6 +90,8 @@ public class Plague {
 		//items
 		itemSyringeEmptyId = config.getItem("Syringe", 3790).getInt();
 		itemSyringeFullId = config.getItem("FilledSyringe", 3791).getInt();
+		itemDiseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
+		itemDiseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
 		
 		//blocks
 		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
@@ -126,6 +133,14 @@ public class Plague {
 		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
 		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
 		LanguageRegistry.addName(itemSyringeFull, "Filled Syringe");
+
+		itemDiseaseVileEmpty = (new ItemDiseaseVileEmpty(itemDiseaseVileEmptyId)).setUnlocalizedName("diseaseVileEmpty");
+		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
+		LanguageRegistry.addName(itemDiseaseVileEmpty, "Disease Filled Vile");
+
+		itemDiseaseVileFull = (new ItemDiseaseVileFull(itemDiseaseVileFullId)).setUnlocalizedName("diseaseVileFull");
+		GameRegistry.registerItem(itemDiseaseVileFull, "diseaseVileFull");
+		LanguageRegistry.addName(itemDiseaseVileFull, "Disease Filled Vile");
 
 		//blocks
 		
