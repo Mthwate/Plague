@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
+import com.lordxarus.plague.block.BlockAnalyzer;
 import com.lordxarus.plague.block.BlockExtractor;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseChickenpox;
@@ -59,9 +60,11 @@ public class Plague {
 	
 	//blocks
 	public static Block blockExtractor;
+	public static Block blockAnalyzer;
 	
 	//block ids
 	int blockExtractorId;
+	int blockAnalyzerId;
 	
 	//a list of all the registered diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
@@ -95,6 +98,7 @@ public class Plague {
 		
 		//blocks
 		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
+		blockAnalyzerId = config.getBlock("Analyzer", 2791).getInt();
 		
 		//diseases
 		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
@@ -149,6 +153,10 @@ public class Plague {
 		blockExtractor = (new BlockExtractor(blockExtractorId)).setUnlocalizedName("extractor");
 		GameRegistry.registerBlock(blockExtractor, "extractor");
 		LanguageRegistry.addName(blockExtractor, "Extractor");
+		
+		blockAnalyzer = (new BlockAnalyzer(blockAnalyzerId)).setUnlocalizedName("analyzer");
+		GameRegistry.registerBlock(blockAnalyzer, "analyzer");
+		LanguageRegistry.addName(blockAnalyzer, "Analyzer");
 		
 		//diseases
 		

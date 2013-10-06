@@ -1,5 +1,7 @@
 package com.lordxarus.plague.tileentity;
 
+import java.util.logging.Level;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,14 +11,15 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.lib.ModLogger;
 
-public class TileEntityExtractor extends TileEntity implements IInventory {
+public class TileEntityAnalyzer extends TileEntity implements IInventory {
 	
 	private ItemStack[] inventory;
 
-	public TileEntityExtractor() {
+	public TileEntityAnalyzer() {
 		//sets the number of slots in the inventory
-		inventory = new ItemStack[2];
+		inventory = new ItemStack[1];
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return(Plague.blockExtractor.getUnlocalizedName().substring(5));
+		return(Plague.blockAnalyzer.getUnlocalizedName().substring(5));
 	}
 
 	@Override
@@ -98,21 +101,21 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 			ItemStack itemstack = getStackInSlot(i);
 			if(itemstack != null) {
 				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("SlotExtractor", (byte) i);
+				item.setByte("SlotAnalyzer", (byte) i);
 				itemstack.writeToNBT(item);
 				list.appendTag(item);
 			}
 		}
-		compound.setTag("ItemsExtractor", list);
+		compound.setTag("ItemsAnalyzer", list);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		NBTTagList list = compound.getTagList("ItemsExtractor");
+		NBTTagList list = compound.getTagList("ItemsAnalyzer");
 		for(int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound item = (NBTTagCompound) list.tagAt(i);
-			int slot = item.getByte("SlotExtractor");
+			int slot = item.getByte("SlotAnalyzer");
 			if(slot >= 0 && slot < getSizeInventory()) {
 				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
 			}
@@ -121,30 +124,10 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
-		ItemStack stackZero = this.getStackInSlot(0);
-		ItemStack stackOne = this.getStackInSlot(1);
-		if ((stackZero != null) && (stackOne != null)) {
-			if ((stackZero.getItem().itemID == Plague.itemSyringeFull.itemID) && (stackOne.getItem().itemID == Plague.itemDiseaseVileEmpty.itemID)) {
-				
-				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
-				itemStack.setTagCompound(new NBTTagCompound());
-				itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
-				itemStack.getTagCompound().setBoolean("complete", false);
-				
-				for (Disease disease : Plague.diseases) {
-					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
-					}
-				}
-				
-				setInventorySlotContents(1, itemStack);
-				decrStackSize(0,1);
-			}
-		}
-		
-		if (stackOne != null) {
-			if ((stackOne.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
-				stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 1);
+		ItemStack stack = this.getStackInSlot(0);
+		if (stack != null) {
+			if (stack.getItem().itemID == Plague.itemDiseaseVileFull.itemID) {
+				stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 1);
 			}
 		}
 	}
