@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.ModLogger;
+import com.lordxarus.plague.lib.TimeHelper;
 
 public class TileEntityAnalyzer extends TileEntity implements IInventory {
 	
@@ -127,7 +128,9 @@ public class TileEntityAnalyzer extends TileEntity implements IInventory {
 		ItemStack stack = this.getStackInSlot(0);
 		if (stack != null) {
 			if (stack.getItem().itemID == Plague.itemDiseaseVileFull.itemID) {
-				stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 1);
+				if (stack.getTagCompound().getInteger("analyzerDuration") < TimeHelper.mcToTick(100, 0, 0)) {
+					stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 1);
+				}
 			}
 		}
 	}

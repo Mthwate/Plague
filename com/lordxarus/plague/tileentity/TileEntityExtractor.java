@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.lib.TimeHelper;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
 	
@@ -144,7 +145,9 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 		
 		if (stackOne != null) {
 			if ((stackOne.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
-				stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 1);
+				if (stackOne.getTagCompound().getInteger("extractorDuration") < TimeHelper.mcToTick(100, 0, 0)) {
+					stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 1);
+				}
 			}
 		}
 	}
