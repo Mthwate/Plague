@@ -13,6 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.lordxarus.plague.block.BlockAnalyzer;
 import com.lordxarus.plague.block.BlockExtractor;
+import com.lordxarus.plague.block.BlockProcessor;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseMalaria;
@@ -62,10 +63,12 @@ public class Plague {
 	//blocks
 	public static Block blockExtractor;
 	public static Block blockAnalyzer;
+	public static Block blockProcessor;
 	
 	//block ids
 	int blockExtractorId;
 	int blockAnalyzerId;
+	int blockProcessorId;
 	
 	//a list of all the registered diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
@@ -100,6 +103,7 @@ public class Plague {
 		//blocks
 		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
 		blockAnalyzerId = config.getBlock("Analyzer", 2791).getInt();
+		blockProcessorId = config.getBlock("Processor", 2792).getInt();
 		
 		//diseases
 		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
@@ -159,6 +163,10 @@ public class Plague {
 		blockAnalyzer = (new BlockAnalyzer(blockAnalyzerId)).setUnlocalizedName("analyzer");
 		GameRegistry.registerBlock(blockAnalyzer, "analyzer");
 		LanguageRegistry.addName(blockAnalyzer, "Analyzer");
+		
+		blockProcessor = (new BlockProcessor(blockProcessorId)).setUnlocalizedName("processor");
+		GameRegistry.registerBlock(blockProcessor, "processor");
+		LanguageRegistry.addName(blockProcessor, "Processor");
 		
 		//diseases
 		
