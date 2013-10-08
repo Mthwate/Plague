@@ -27,6 +27,7 @@ import com.lordxarus.plague.item.ItemSyringeFull;
 import com.lordxarus.plague.lib.ModLogger;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
+import com.lordxarus.plague.tileentity.TileEntityProcessor;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -135,6 +136,7 @@ public class Plague {
 		
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 		GameRegistry.registerTileEntity(TileEntityAnalyzer.class, "plagueAnalyzer");
+		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
 
 		//items
 		
