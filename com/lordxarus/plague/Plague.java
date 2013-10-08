@@ -169,14 +169,20 @@ public class Plague {
 		blockExtractor = (new BlockExtractor(blockExtractorId)).setUnlocalizedName("extractor");
 		GameRegistry.registerBlock(blockExtractor, "extractor");
 		LanguageRegistry.addName(blockExtractor, "Extractor");
+		GameRegistry.addRecipe(new ItemStack(blockExtractor), "ppp", "i i", "i",
+				'p', Block.planks ,'i', Item.ingotIron);
 		
 		blockAnalyzer = (new BlockAnalyzer(blockAnalyzerId)).setUnlocalizedName("analyzer");
 		GameRegistry.registerBlock(blockAnalyzer, "analyzer");
 		LanguageRegistry.addName(blockAnalyzer, "Analyzer");
+		GameRegistry.addRecipe(new ItemStack(blockAnalyzer), "pvp", "ppp",
+				'p', Block.planks ,'i', Item.ingotIron, 'v', Plague.itemDiseaseVileEmpty);
 		
 		blockProcessor = (new BlockProcessor(blockProcessorId)).setUnlocalizedName("processor");
 		GameRegistry.registerBlock(blockProcessor, "processor");
 		LanguageRegistry.addName(blockProcessor, "Processor");
+		GameRegistry.addRecipe(new ItemStack(blockExtractor), "ppp", "i i", "g",
+				'p', Block.planks ,'i', Item.ingotIron ,'g', Item.ingotGold);
 		
 		//diseases
 		
