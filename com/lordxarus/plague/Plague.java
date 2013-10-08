@@ -19,6 +19,7 @@ import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
+import com.lordxarus.plague.item.ItemCure;
 import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
 import com.lordxarus.plague.item.ItemDiseaseVileFull;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
@@ -53,12 +54,14 @@ public class Plague {
 	public static Item itemSyringeEmpty;
 	public static Item itemDiseaseVileFull;
 	public static Item itemDiseaseVileEmpty;
+	public static Item itemCure;
 	
 	//item ids
 	int itemSyringeFullId;
 	int itemSyringeEmptyId;
 	int itemDiseaseVileFullId;
 	int itemDiseaseVileEmptyId;
+	int itemCureId;
 	
 	//blocks
 	public static Block blockExtractor;
@@ -99,6 +102,7 @@ public class Plague {
 		itemSyringeFullId = config.getItem("FilledSyringe", 3791).getInt();
 		itemDiseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
 		itemDiseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
+		itemCureId = config.getItem("Cure", 3794).getInt();
 		
 		//blocks
 		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
@@ -143,6 +147,10 @@ public class Plague {
 		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
 		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
 		LanguageRegistry.addName(itemSyringeFull, "Filled Syringe");
+
+		itemCure = (new ItemCure(itemCureId)).setUnlocalizedName("cure");
+		GameRegistry.registerItem(itemCure, "cure");
+		LanguageRegistry.addName(itemCure, "Cure");
 
 		itemDiseaseVileEmpty = (new ItemDiseaseVileEmpty(itemDiseaseVileEmptyId)).setUnlocalizedName("diseaseVileEmpty");
 		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
