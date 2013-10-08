@@ -1,5 +1,11 @@
 package com.lordxarus.plague.tileentity;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -122,6 +128,55 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
+		ItemStack stackZero = this.getStackInSlot(0);
+		ItemStack stackOne = this.getStackInSlot(1);
+		if ((stackZero != null) && (stackOne != null)) {
+			if ((stackZero.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (stackOne.getItem().itemID == Plague.itemSyringeEmpty.itemID)) {
+				
+				
+				List<String> diseaseNames = new ArrayList<String>();
+				
+				for (Disease disease : Plague.diseases) {
+					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+						diseaseNames.add(disease.getUnlocalizedName());
+					}
+				}
+				
+				if (diseaseNames.size() > 0) {
+					ItemStack itemStack = new ItemStack(Plague.itemCure);
+					itemStack.setTagCompound(new NBTTagCompound());
+					itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
+					
+					Random rand = new Random();
+					String cureDisease = diseaseNames.get(rand.nextInt(diseaseNames.size()));
+					itemStack.getTagCompound().setString("cureDisease", cureDisease);
+					
+					double analyzerDuration = TimeHelper.tickToMc(stackOne.getTagCompound().getInteger("analyzerDuration")) / (60 * 60);
+					double extractorDuration = TimeHelper.tickToMc(stackOne.getTagCompound().getInteger("extractorDuration")) / (60 * 60);
+					
+					int chance = (int) ((analyzerDuration * extractorDuration));
+					
+					String displayDisease = null;
+					
+					if (rand.nextInt(10000) < chance) {
+						displayDisease = cureDisease;
+					} else {
+						displayDisease = cureDisease;
+						while (displayDisease.equals(cureDisease)) {
+							displayDisease = Plague.diseases.get(rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
+						}
+					}
+					
+					itemStack.getTagCompound().setString("displayDisease", displayDisease);
+					
+					setInventorySlotContents(1, itemStack);
+					decrStackSize(0,1);
+				} else {
+					ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileEmpty);
+					setInventorySlotContents(0, itemStack);
+				}
+			}
+		}
 	}
 
 }
