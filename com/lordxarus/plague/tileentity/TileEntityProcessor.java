@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.TimeHelper;
 
 public class TileEntityProcessor extends TileEntity implements IInventory {
@@ -16,7 +17,7 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 
 	public TileEntityProcessor() {
 		//sets the number of slots in the inventory
-		inventory = new ItemStack[1];
+		inventory = new ItemStack[2];
 	}
 
 	@Override
