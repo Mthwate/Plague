@@ -137,9 +137,9 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 					}
 				}
-				
+
+				setInventorySlotContents(0, new ItemStack(Plague.itemSyringeEmpty));
 				setInventorySlotContents(1, itemStack);
-				decrStackSize(0,1);
 			}
 		}
 		
