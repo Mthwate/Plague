@@ -4,10 +4,10 @@ import com.lordxarus.plague.disease.Disease;
 
 public class DiseaseRegistry {
 	
-	static void addDisease(Disease disease, String name) {
+	static void addDisease(Disease disease) {
 		if (Plague.enabledDiseases.get(disease.getUnlocalizedName())) {
 			Plague.diseases.add(disease);
-			disease.setName(name);
+			disease.setName("disease." + disease.getUnlocalizedName() + ".name");
 		}
 	}
 

@@ -1,0 +1,17 @@
+death.attack.syringe=%1$s died of blood loss.
+death.attack.disease=%1$s died of disease.
+
+item.syringeEmpty.name=Syringe
+item.cure.name=Cure
+item.syringeFull.name=Filled Syringe
+item.diseaseVileFull.name=Disease Filled Vile
+item.diseaseVileEmpty.name=Disease Vile
+
+block.extractor.name=Extractor
+block.analyzer.name=Analyzer
+block.processor.name=Processor
+
+disease.malaria.name=Malaria
+disease.chickenpox.name=Chickenpox
+disease.westNile.name=West Nile Virus
+disease.rabies.name=Rabies

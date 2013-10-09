@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -32,12 +33,12 @@ import com.lordxarus.plague.tileentity.TileEntityProcessor;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid=Plague.modid, name=Plague.modName, version=".ver.")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
@@ -126,6 +127,12 @@ public class Plague {
 	}
 	
 	@EventHandler
+	public void invalidFingerprint(FMLFingerprintViolationEvent event) {
+		ModLogger.log(Level.INFO, event.expectedFingerprint);
+		ModLogger.log(Level.INFO, event.fingerprints + "");
+	}
+	
+	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		
 		//gui handler
@@ -142,66 +149,53 @@ public class Plague {
 		
 		itemSyringeEmpty = (new ItemSyringeEmpty(itemSyringeEmptyId)).setUnlocalizedName("syringeEmpty");
 		GameRegistry.registerItem(itemSyringeEmpty, "syringeEmpty");
-		LanguageRegistry.addName(itemSyringeEmpty, "Syringe");
 		GameRegistry.addRecipe(new ItemStack(itemSyringeEmpty), "g", "g", "g",
 				'g', Block.glass);
 
 		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
 		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
-		LanguageRegistry.addName(itemSyringeFull, "Filled Syringe");
 
 		itemCure = (new ItemCure(itemCureId)).setUnlocalizedName("cure");
 		GameRegistry.registerItem(itemCure, "cure");
-		LanguageRegistry.addName(itemCure, "Cure");
 
 		itemDiseaseVileEmpty = (new ItemDiseaseVileEmpty(itemDiseaseVileEmptyId)).setUnlocalizedName("diseaseVileEmpty");
 		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
-		LanguageRegistry.addName(itemDiseaseVileEmpty, "Disease Vile");
 		GameRegistry.addRecipe(new ItemStack(itemDiseaseVileEmpty), "w", "g", "i",
 				'w', Block.planks, 'g', Block.glass ,'i', Item.ingotIron);
 
 		itemDiseaseVileFull = (new ItemDiseaseVileFull(itemDiseaseVileFullId)).setUnlocalizedName("diseaseVileFull");
 		GameRegistry.registerItem(itemDiseaseVileFull, "diseaseVileFull");
-		LanguageRegistry.addName(itemDiseaseVileFull, "Disease Filled Vile");
 
 		//blocks
 		
 		blockExtractor = (new BlockExtractor(blockExtractorId)).setUnlocalizedName("extractor");
 		GameRegistry.registerBlock(blockExtractor, "extractor");
-		LanguageRegistry.addName(blockExtractor, "Extractor");
 		GameRegistry.addRecipe(new ItemStack(blockExtractor), "ppp", "i i", "i",
 				'p', Block.planks ,'i', Item.ingotIron);
 		
 		blockAnalyzer = (new BlockAnalyzer(blockAnalyzerId)).setUnlocalizedName("analyzer");
 		GameRegistry.registerBlock(blockAnalyzer, "analyzer");
-		LanguageRegistry.addName(blockAnalyzer, "Analyzer");
 		GameRegistry.addRecipe(new ItemStack(blockAnalyzer), "pvp", "ppp",
 				'p', Block.planks ,'i', Item.ingotIron, 'v', Plague.itemDiseaseVileEmpty);
 		
 		blockProcessor = (new BlockProcessor(blockProcessorId)).setUnlocalizedName("processor");
 		GameRegistry.registerBlock(blockProcessor, "processor");
-		LanguageRegistry.addName(blockProcessor, "Processor");
 		GameRegistry.addRecipe(new ItemStack(blockProcessor), "ppp", "i i", "g",
 				'p', Block.planks ,'i', Item.ingotIron ,'g', Item.ingotGold);
 		
 		//diseases
 		
 		diseaseRabies = (new DiseaseRabies().setUnlocalizedName("rabies"));
-		DiseaseRegistry.addDisease(diseaseRabies, "Rabies");
+		DiseaseRegistry.addDisease(diseaseRabies);
 		
 		diseaseWestNile = (new DiseaseWestNile().setUnlocalizedName("westNile"));
-		DiseaseRegistry.addDisease(diseaseWestNile, "West Nile Virus");
+		DiseaseRegistry.addDisease(diseaseWestNile);
 		
 		diseaseMalaria = (new DiseaseMalaria().setUnlocalizedName("malaria"));
-		DiseaseRegistry.addDisease(diseaseMalaria, "Malaria");
+		DiseaseRegistry.addDisease(diseaseMalaria);
 		
 		diseaseChickenpox = (new DiseaseChickenpox().setUnlocalizedName("chickenpox"));
-		DiseaseRegistry.addDisease(diseaseChickenpox, "Chickenpox");
-		
-		//death messages
-		
-		LanguageRegistry.instance().addStringLocalization("death.attack.syringe", "%1$s died of blood loss.");
-		LanguageRegistry.instance().addStringLocalization("death.attack.disease", "%1$s died of disease.");
+		DiseaseRegistry.addDisease(diseaseChickenpox);
 		
 	}
 	
