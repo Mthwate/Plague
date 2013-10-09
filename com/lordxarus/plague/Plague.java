@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -25,6 +24,7 @@ import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
 import com.lordxarus.plague.item.ItemDiseaseVileFull;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
+import com.lordxarus.plague.lib.LangHelper;
 import com.lordxarus.plague.lib.ModLogger;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
@@ -33,7 +33,6 @@ import com.lordxarus.plague.tileentity.TileEntityProcessor;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -127,13 +126,10 @@ public class Plague {
 	}
 	
 	@EventHandler
-	public void invalidFingerprint(FMLFingerprintViolationEvent event) {
-		ModLogger.log(Level.INFO, event.expectedFingerprint);
-		ModLogger.log(Level.INFO, event.fingerprints + "");
-	}
-	
-	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		
+		//lang
+		LangHelper.register("en_US");
 		
 		//gui handler
 		

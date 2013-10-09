@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import com.lordxarus.plague.Plague;
@@ -22,7 +21,7 @@ public class DiseaseHelper {
 	public static void addDisease(Entity entity, Disease disease) {
 		if (!isDiseaseActive(entity, disease)) {
 			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
-			ModLogger.log(Level.INFO, disease.getUnlocalizedName() + " added to " + entity.getEntityName() + ".", true);
+			ModLogger.log(Level.INFO, LangHelper.getLocalization(disease.getName()) + " added to " + entity.getEntityName() + ".", true);
 		}
 	}
 	
@@ -76,7 +75,7 @@ public class DiseaseHelper {
 						Random rand = new Random();
 						if (rand.nextInt(modifier) == 0) {
 							addDisease(entityVictim, disease);
-							ModLogger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.getName().toLowerCase().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
+							ModLogger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
 						}
 					}
 				}
@@ -101,7 +100,7 @@ public class DiseaseHelper {
 		Random rand = new Random();
 		if (rand.nextInt(modifier) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
-			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
+			ModLogger.log(Level.INFO, entity.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase() + "!", true);
 		}
 	}
 	
@@ -113,7 +112,7 @@ public class DiseaseHelper {
 				Random rand = new Random();
 				if (rand.nextInt(modifier) == 0) {
 					DiseaseHelper.addDisease(entityCarrier, disease);
-					ModLogger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
+					ModLogger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
 				}
 			}
 		}
