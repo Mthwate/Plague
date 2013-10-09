@@ -181,7 +181,7 @@ public class Plague {
 		blockProcessor = (new BlockProcessor(blockProcessorId)).setUnlocalizedName("processor");
 		GameRegistry.registerBlock(blockProcessor, "processor");
 		LanguageRegistry.addName(blockProcessor, "Processor");
-		GameRegistry.addRecipe(new ItemStack(blockExtractor), "ppp", "i i", "g",
+		GameRegistry.addRecipe(new ItemStack(blockProcessor), "ppp", "i i", "g",
 				'p', Block.planks ,'i', Item.ingotIron ,'g', Item.ingotGold);
 		
 		//diseases
