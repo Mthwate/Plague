@@ -149,8 +149,8 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					String cureDisease = diseaseNames.get(rand.nextInt(diseaseNames.size()));
 					itemStack.getTagCompound().setString("cureDisease", cureDisease);
 					
-					double analyzerDuration = TimeHelper.tickToMc(stackOne.getTagCompound().getInteger("analyzerDuration")) / (60 * 60);
-					double extractorDuration = TimeHelper.tickToMc(stackOne.getTagCompound().getInteger("extractorDuration")) / (60 * 60);
+					double analyzerDuration = TimeHelper.tickToMc(stackZero.getTagCompound().getInteger("analyzerDuration")) / (60 * 60);
+					double extractorDuration = TimeHelper.tickToMc(stackZero.getTagCompound().getInteger("extractorDuration")) / (60 * 60);
 					
 					int chance = (int) ((analyzerDuration * extractorDuration));
 					
