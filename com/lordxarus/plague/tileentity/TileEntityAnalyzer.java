@@ -1,7 +1,5 @@
 package com.lordxarus.plague.tileentity;
 
-import java.util.logging.Level;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,9 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
-import com.lordxarus.plague.disease.Disease;
-import com.lordxarus.plague.lib.ModLogger;
-import com.lordxarus.plague.lib.TimeHelper;
+import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityAnalyzer extends TileEntity implements IInventory {
 	

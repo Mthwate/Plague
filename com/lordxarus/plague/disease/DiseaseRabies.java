@@ -16,9 +16,9 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.lordxarus.plague.DamageSourcePlague;
+import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.lordxarus.plague.lib.ModLogger;
-import com.lordxarus.plague.lib.TimeHelper;
+import com.mthwate.bookcase.TimeHelper;
 
 public class DiseaseRabies extends Disease {
 	
@@ -45,10 +45,10 @@ public class DiseaseRabies extends Disease {
 				if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 					if (entityCarrier instanceof EntityLiving) {
 						entityTarget.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving) entityCarrier), 1);
-						ModLogger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
+						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
 					} else if (entityCarrier instanceof EntityPlayer) {
 						entityTarget.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityCarrier), 1);
-						ModLogger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
+						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
 					}
 				}
 			}
@@ -57,7 +57,7 @@ public class DiseaseRabies extends Disease {
 		//attacks self
 		if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 			entityCarrier.attackEntityFrom(DamageSourcePlague.disease, 1);
-			ModLogger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
+			Plague.logger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}
 		
 		//weakens entity's attack

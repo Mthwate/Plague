@@ -24,11 +24,11 @@ import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
 import com.lordxarus.plague.item.ItemDiseaseVileFull;
 import com.lordxarus.plague.item.ItemSyringeEmpty;
 import com.lordxarus.plague.item.ItemSyringeFull;
-import com.lordxarus.plague.lib.LangHelper;
-import com.lordxarus.plague.lib.ModLogger;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
 import com.lordxarus.plague.tileentity.TileEntityProcessor;
+import com.mthwate.bookcase.LangHelper;
+import com.mthwate.bookcase.ModLogger;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -89,10 +89,11 @@ public class Plague {
 	//settings
 	public static boolean verbose;
 	
+	//logger
+	public static ModLogger logger;
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		//enable logging
-		ModLogger.init();
 		
 		//configuration
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -123,13 +124,16 @@ public class Plague {
 		
 		//event hooks
 		MinecraftForge.EVENT_BUS.register(new EventHooksPlague());
+		
+		//enable logging
+		logger = new ModLogger(modid, verbose);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		
 		//lang
-		LangHelper.register("en_US");
+		LangHelper.register(modid, "en_US");
 		
 		//gui handler
 		

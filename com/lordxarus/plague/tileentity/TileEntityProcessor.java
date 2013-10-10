@@ -1,7 +1,5 @@
 package com.lordxarus.plague.tileentity;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
-import com.lordxarus.plague.lib.TimeHelper;
+import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityProcessor extends TileEntity implements IInventory {
 	

@@ -13,7 +13,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.lordxarus.plague.lib.EntityHelper;
+import com.mthwate.bookcase.EntityHelper;
 
 public class DiseaseWestNile extends Disease {
 	

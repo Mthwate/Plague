@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
-import com.lordxarus.plague.lib.TimeHelper;
+import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
 	

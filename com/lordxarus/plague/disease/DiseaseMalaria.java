@@ -1,23 +1,15 @@
 package com.lordxarus.plague.disease;
 
-import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
-import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.lordxarus.plague.lib.ModLogger;
-import com.lordxarus.plague.lib.TimeHelper;
 
 public class DiseaseMalaria extends Disease {
 	
