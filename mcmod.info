@@ -17,6 +17,7 @@
     ],
     "parent":"",
     "dependencies": [
+      "bookcase",
       "mod_MinecraftForge"
     ]
   }
