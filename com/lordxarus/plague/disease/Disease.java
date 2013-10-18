@@ -1,15 +1,13 @@
 package com.lordxarus.plague.disease;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
+import com.mthwate.bookcase.LangHelper;
+
 public class Disease {
 	
-	private String name;
 	private String unlocalizedName;
 	
 	public Disease setUnlocalizedName(String newName) {
@@ -21,13 +19,8 @@ public class Disease {
 		return(this.unlocalizedName);
 	}
 	
-	public Disease setName(String newName) {
-		this.name = newName;
-		return(this);
-	}
-	
 	public String getName() {
-		return(this.name);
+		return(LangHelper.getLocalization("disease." + unlocalizedName + ".name"));
 	}
 	
 	public void entityUpdate(LivingUpdateEvent event) {

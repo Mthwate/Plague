@@ -22,7 +22,7 @@ public class DiseaseHelper {
 	public static void addDisease(Entity entity, Disease disease) {
 		if (!isDiseaseActive(entity, disease)) {
 			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
-			Plague.logger.log(Level.INFO, LangHelper.getLocalization(disease.getName()) + " added to " + entity.getEntityName() + ".", true);
+			Plague.logger.log(Level.INFO, disease.getName() + " added to " + entity.getEntityName() + ".", true);
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class DiseaseHelper {
 						Random rand = new Random();
 						if (rand.nextInt(modifier) == 0) {
 							addDisease(entityVictim, disease);
-							Plague.logger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
+							Plague.logger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
 						}
 					}
 				}
@@ -101,7 +101,7 @@ public class DiseaseHelper {
 		Random rand = new Random();
 		if (rand.nextInt(modifier) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
-			Plague.logger.log(Level.INFO, entity.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase() + "!", true);
+			Plague.logger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
 		}
 	}
 	
@@ -113,7 +113,7 @@ public class DiseaseHelper {
 				Random rand = new Random();
 				if (rand.nextInt(modifier) == 0) {
 					DiseaseHelper.addDisease(entityCarrier, disease);
-					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + LangHelper.getLocalization(disease.getName()).toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
+					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
 				}
 			}
 		}
