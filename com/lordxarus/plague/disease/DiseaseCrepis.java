@@ -34,11 +34,11 @@ public class DiseaseCrepis extends Disease {
 			double z = entity.posZ;
 			int tickDuration = DiseaseHelper.getDiseaseDuration(entity, this);
 			double mcDuration  = TimeHelper.tickToMc(tickDuration);
-			int strength = (int) (mcDuration / 24);
+			int strength = (int) (mcDuration / (24 * 60 * 60));
 			if (strength > 14) {
 				strength = 14;
 			}
-			entity.worldObj.createExplosion(entity, x, y, z, strength, true);
+			entity.worldObj.createExplosion(entity, x, y, z, strength + 1, true);
 		}
 	}
 	
