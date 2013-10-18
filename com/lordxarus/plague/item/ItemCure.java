@@ -54,7 +54,7 @@ public class ItemCure extends ItemBaseFood {
 				}
 			}
 			
-			dataList.add("Cure for " + diseaseName);
+			dataList.add(itemStack.getDisplayName() + " for " + diseaseName);
 		}
 	}
 	
