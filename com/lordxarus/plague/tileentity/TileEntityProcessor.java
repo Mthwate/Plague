@@ -193,9 +193,9 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					//sets the display name of the cure
 					itemStack.getTagCompound().setString("displayDisease", displayDisease);
 					
-					//removes all items and gives the player a cure
+					//empties the disease vile and gives the player a cure
 					setInventorySlotContents(1, itemStack);
-					decrStackSize(0,1);
+					setInventorySlotContents(0, new ItemStack(Plague.itemDiseaseVileEmpty));
 				
 				//if the disease filled vile does not contain a disease
 				} else {
