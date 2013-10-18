@@ -16,7 +16,8 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 import com.mthwate.bookcase.EntityHelper;
 
 public class DiseaseWestNile extends Disease {
-	
+
+	@Override
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
@@ -54,6 +55,7 @@ public class DiseaseWestNile extends Disease {
 	}
 	
 	//checks if an entity can catch the disease
+	@Override
 	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||

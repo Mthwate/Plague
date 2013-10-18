@@ -16,6 +16,7 @@ import com.lordxarus.plague.block.BlockExtractor;
 import com.lordxarus.plague.block.BlockProcessor;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseChickenpox;
+import com.lordxarus.plague.disease.DiseaseCrepis;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
@@ -85,6 +86,7 @@ public class Plague {
 	public static Disease diseaseWestNile;
 	public static Disease diseaseMalaria;
 	public static Disease diseaseChickenpox;
+	public static Disease diseaseCrepis;
 	
 	//settings
 	public static boolean verbose;
@@ -116,6 +118,7 @@ public class Plague {
 		enabledDiseases.put("westNile", config.get("Diseases", "WestNileVirus", true).getBoolean(true));
 		enabledDiseases.put("malaria", config.get("Diseases", "Malaria", true).getBoolean(true));
 		enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
+		enabledDiseases.put("crepis", config.get("Diseases", "Crepis", true).getBoolean(true));
 		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
@@ -196,6 +199,9 @@ public class Plague {
 		
 		diseaseChickenpox = (new DiseaseChickenpox().setUnlocalizedName("chickenpox"));
 		DiseaseRegistry.addDisease(diseaseChickenpox);
+		
+		diseaseCrepis = (new DiseaseCrepis().setUnlocalizedName("crepis"));
+		DiseaseRegistry.addDisease(diseaseCrepis);
 		
 	}
 	

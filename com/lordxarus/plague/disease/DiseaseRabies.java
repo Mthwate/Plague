@@ -21,7 +21,8 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 import com.mthwate.bookcase.TimeHelper;
 
 public class DiseaseRabies extends Disease {
-	
+
+	@Override
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
@@ -33,7 +34,7 @@ public class DiseaseRabies extends Disease {
 			}
 		}
 	}
-	
+
 	void effect(Entity entityCarrier) {
 
 		Random rand = new Random();
@@ -71,11 +72,13 @@ public class DiseaseRabies extends Disease {
 	}
 	
 	//called when an entity is attacked
+	@Override
 	public void entityAttack(LivingAttackEvent event) {
 		DiseaseHelper.spreadByAttack(event, this, 100);
 	}
 	
 	//checks if an entity can catch the disease
+	@Override
 	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||

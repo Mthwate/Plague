@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
-import com.mthwate.bookcase.LangHelper;
 
 public class DiseaseHelper {
 	

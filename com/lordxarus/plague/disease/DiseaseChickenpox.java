@@ -10,7 +10,8 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class DiseaseChickenpox extends Disease {
-	
+
+	@Override
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
@@ -36,11 +37,13 @@ public class DiseaseChickenpox extends Disease {
 	}
 	
 	//called when an entity is attacked
+	@Override
 	public void entityAttack(LivingAttackEvent event) {
 		DiseaseHelper.spreadByAttack(event, this, 75);
 	}
 	
 	//checks if an entity can catch the disease
+	@Override
 	public boolean isVulnerable(Entity entity) {
 		if(
 			entity instanceof EntityPlayer ||
