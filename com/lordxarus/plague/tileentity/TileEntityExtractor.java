@@ -122,9 +122,13 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
+		
+		//gets the item stacks in all inventory slots
 		ItemStack stackZero = this.getStackInSlot(0);
 		ItemStack stackOne = this.getStackInSlot(1);
+		
 		if ((stackZero != null) && (stackOne != null)) {
+			
 			if ((stackZero.getItem().itemID == Plague.itemSyringeFull.itemID) && (stackOne.getItem().itemID == Plague.itemDiseaseVileEmpty.itemID)) {
 				
 				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
