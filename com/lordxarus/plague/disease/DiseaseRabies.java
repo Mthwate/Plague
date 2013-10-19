@@ -1,7 +1,6 @@
 package com.lordxarus.plague.disease;
 
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
@@ -18,6 +17,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.lib.DiseaseHelper;
+import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
 public class DiseaseRabies extends Disease {
@@ -36,14 +36,12 @@ public class DiseaseRabies extends Disease {
 	}
 
 	void effect(Entity entityCarrier) {
-
-		Random rand = new Random();
 		
 		//attacks nearby players
 		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(3.0D, 3.0D, 3.0D));
 		for (Entity entityTarget : entities) {
 			if (entityTarget instanceof EntityLiving || entityTarget instanceof EntityPlayer) {
-				if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+				if (Rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 					if (entityCarrier instanceof EntityLiving) {
 						entityTarget.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving) entityCarrier), 1);
 						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s rabies.", true);
@@ -56,7 +54,7 @@ public class DiseaseRabies extends Disease {
 		}
 		
 		//attacks self
-		if (rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+		if (Rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 			entityCarrier.attackEntityFrom(DamageSourcePlague.disease, 1);
 			Plague.logger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s rabies.", true);
 		}

@@ -1,7 +1,6 @@
 package com.lordxarus.plague.item;
 
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -12,6 +11,7 @@ import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.DiseaseHelper;
+import com.mthwate.bookcase.Rand;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -69,8 +69,7 @@ public class ItemCure extends ItemBaseFood {
 				}
 			}
 		} else {
-			Random rand = new Random();
-			int index = rand.nextInt(Plague.diseases.size());
+			int index = Rand.nextInt(Plague.diseases.size());
 			DiseaseHelper.addDisease(player, Plague.diseases.get(index));
 		}
 	}

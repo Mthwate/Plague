@@ -2,7 +2,6 @@ package com.lordxarus.plague.tileentity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityProcessor extends TileEntity implements IInventory {
@@ -157,9 +157,8 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					//set the owner of the disease to the cure item
 					itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
 					
-					//picks a random disease in the disease filled vile
-					Random rand = new Random();
-					String cureDisease = diseaseNames.get(rand.nextInt(diseaseNames.size()));
+					//picks a Random disease in the disease filled vile
+					String cureDisease = diseaseNames.get(Rand.nextInt(diseaseNames.size()));
 					
 					//sets the disease to the item cure
 					itemStack.getTagCompound().setString("cureDisease", cureDisease);
@@ -174,7 +173,7 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					String displayDisease = null;
 					
 					//if the cure will work
-					if (rand.nextInt(10000) < chance) {
+					if (Rand.nextInt(10000) < chance) {
 						
 						//set the display name to the disease it is curing
 						displayDisease = cureDisease;
@@ -182,10 +181,10 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					//if the cure will not work
 					} else {
 						
-						//sets the display name to a random disease other than the correct one
+						//sets the display name to a Random disease other than the correct one
 						displayDisease = cureDisease;
 						while (displayDisease.equals(cureDisease)) {
-							displayDisease = Plague.diseases.get(rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
+							displayDisease = Plague.diseases.get(Rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
 						}
 						
 					}

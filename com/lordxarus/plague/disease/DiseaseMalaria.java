@@ -1,7 +1,5 @@
 package com.lordxarus.plague.disease;
 
-import java.util.Random;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -26,9 +24,6 @@ public class DiseaseMalaria extends Disease {
 	}
 	
 	void effect(Entity entityCarrier) {
-
-		Random rand = new Random();
-		
 	}
 	
 	//checks if an entity can catch the disease

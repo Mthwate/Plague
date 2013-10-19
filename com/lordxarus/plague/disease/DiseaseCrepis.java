@@ -1,13 +1,12 @@
 package com.lordxarus.plague.disease;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 
 import com.lordxarus.plague.lib.DiseaseHelper;
 import com.mthwate.bookcase.TimeHelper;
@@ -19,7 +18,11 @@ public class DiseaseCrepis extends Disease {
 		Entity entity = event.entity;
 		if(isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
-				DiseaseHelper.spread(entity, this, 6.0, 250);
+				DiseaseHelper.spread(entity, this, 5.0, 1000);
+			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
+				if (event.entityLiving instanceof EntityCreeper) {
+					DiseaseHelper.contract(entity, this, 10000);
+				}
 			}
 		}
 	}
@@ -28,25 +31,19 @@ public class DiseaseCrepis extends Disease {
 	@Override
 	public void entityDeath(LivingDeathEvent event) {
 		EntityLivingBase entity = event.entityLiving;
-		if (!(entity instanceof EntityCreeper)) {
-			double x = entity.posX;
-			double y = entity.posY;
-			double z = entity.posZ;
-			int tickDuration = DiseaseHelper.getDiseaseDuration(entity, this);
-			double mcDuration  = TimeHelper.tickToMc(tickDuration);
-			int strength = (int) (mcDuration / (24 * 60 * 60));
-			if (strength > 14) {
-				strength = 14;
+		if (DiseaseHelper.isDiseaseActive(entity, this)) {
+			if (!(entity instanceof EntityCreeper)) {
+				double x = entity.posX;
+				double y = entity.posY;
+				double z = entity.posZ;
+				int tickDuration = DiseaseHelper.getDiseaseDuration(entity, this);
+				double mcDuration  = TimeHelper.tickToMc(tickDuration);
+				int strength = (int) (mcDuration / (48 * 60 * 60));
+				if (strength > 7) {
+					strength = 7;
+				}
+				entity.worldObj.createExplosion(entity, x, y, z, strength, true);
 			}
-			entity.worldObj.createExplosion(entity, x, y, z, strength + 1, true);
-		}
-	}
-	
-	//called when an entity spawn
-	@Override
-	public void entitySpawn(LivingSpawnEvent event) {
-		if (event.entityLiving instanceof EntityCreeper) {
-			DiseaseHelper.contract(event.entityLiving, this, 100);
 		}
 	}
 	
@@ -60,7 +57,7 @@ public class DiseaseCrepis extends Disease {
 	@Override
 	public boolean isVulnerable(Entity entity) {
 		if(
-			entity instanceof EntityLiving
+			entity instanceof EntityLivingBase
 		) {
 			return(true);
 		} else {

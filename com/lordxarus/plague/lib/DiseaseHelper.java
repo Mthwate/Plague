@@ -2,7 +2,6 @@ package com.lordxarus.plague.lib;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 
 import net.minecraft.entity.Entity;
@@ -14,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
+import com.mthwate.bookcase.Rand;
 
 public class DiseaseHelper {
 	
@@ -72,8 +72,7 @@ public class DiseaseHelper {
 			if (event.source.getEntity() != null) {
 				if (event.source.getEntity() instanceof EntityLiving) {
 					if(DiseaseHelper.isDiseaseActive(entityAttacker, disease)) {
-						Random rand = new Random();
-						if (rand.nextInt(modifier) == 0) {
+						if (Rand.nextInt(modifier) == 0) {
 							addDisease(entityVictim, disease);
 							Plague.logger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
 						}
@@ -95,10 +94,9 @@ public class DiseaseHelper {
 		}
 	}
 	
-	//gives the entity a small chance of catching the disease randomly
+	//gives the entity a small chance of catching the disease Randomly
 	public static void contract(Entity entity, Disease disease, int modifier) {
-		Random rand = new Random();
-		if (rand.nextInt(modifier) == 0) {
+		if (Rand.nextInt(modifier) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
 			Plague.logger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
 		}
@@ -109,9 +107,8 @@ public class DiseaseHelper {
 		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(radius, radius, radius));
 		for (Entity entityTarget : entities) {
 			if (disease.isVulnerable(entityTarget) && !DiseaseHelper.isDiseaseActive(entityTarget, disease)) {
-				Random rand = new Random();
-				if (rand.nextInt(modifier) == 0) {
-					DiseaseHelper.addDisease(entityCarrier, disease);
+				if (Rand.nextInt(modifier) == 0) {
+					DiseaseHelper.addDisease(entityTarget, disease);
 					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
 				}
 			}
