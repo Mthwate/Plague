@@ -20,6 +20,7 @@ import com.lordxarus.plague.disease.DiseaseCrepis;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
+import com.lordxarus.plague.disease.DiseaseZVirus;
 import com.lordxarus.plague.item.ItemCure;
 import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
 import com.lordxarus.plague.item.ItemDiseaseVileFull;
@@ -87,6 +88,7 @@ public class Plague {
 	public static Disease diseaseMalaria;
 	public static Disease diseaseChickenpox;
 	public static Disease diseaseCrepis;
+	public static Disease diseaseZVirus;
 	
 	//settings
 	public static boolean verbose;
@@ -119,6 +121,7 @@ public class Plague {
 		enabledDiseases.put("malaria", config.get("Diseases", "Malaria", true).getBoolean(true));
 		enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
 		enabledDiseases.put("crepis", config.get("Diseases", "Crepis", true).getBoolean(true));
+		enabledDiseases.put("zVirus", config.get("Diseases", "ZVirus", true).getBoolean(true));
 		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
@@ -202,6 +205,9 @@ public class Plague {
 		
 		diseaseCrepis = (new DiseaseCrepis().setUnlocalizedName("crepis"));
 		DiseaseRegistry.addDisease(diseaseCrepis);
+		
+		diseaseZVirus = (new DiseaseZVirus().setUnlocalizedName("zVirus"));
+		DiseaseRegistry.addDisease(diseaseZVirus);
 		
 	}
 	

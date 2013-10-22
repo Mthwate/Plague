@@ -1,6 +1,5 @@
 package com.lordxarus.plague;
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;

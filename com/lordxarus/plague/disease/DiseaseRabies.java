@@ -41,7 +41,7 @@ public class DiseaseRabies extends Disease {
 		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(3.0D, 3.0D, 3.0D));
 		for (Entity entityTarget : entities) {
 			if (entityTarget instanceof EntityLiving || entityTarget instanceof EntityPlayer) {
-				if (Rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+				if (Rand.nextInt((int) TimeHelper.mcToTick(1000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 					if (entityCarrier instanceof EntityLiving) {
 						entityTarget.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving) entityCarrier), 1);
 						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
@@ -54,7 +54,7 @@ public class DiseaseRabies extends Disease {
 		}
 		
 		//attacks self
-		if (Rand.nextInt(TimeHelper.timeToTick(20 * 1000, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
+		if (Rand.nextInt((int) TimeHelper.mcToTick(1000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
 			entityCarrier.attackEntityFrom(DamageSourcePlague.disease, 1);
 			Plague.logger.log(Level.INFO, entityCarrier.getEntityName() + " was hurt by " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
 		}
