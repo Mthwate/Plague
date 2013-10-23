@@ -7,7 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.block.BlockPlague;
+import com.lordxarus.plague.item.ItemPlague;
 import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityAnalyzer extends TileEntity implements IInventory {
@@ -61,7 +62,7 @@ public class TileEntityAnalyzer extends TileEntity implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return(Plague.blockAnalyzer.getUnlocalizedName().substring(5));
+		return(BlockPlague.analyzer.getUnlocalizedName().substring(5));
 	}
 
 	@Override
@@ -123,7 +124,7 @@ public class TileEntityAnalyzer extends TileEntity implements IInventory {
 	public void updateEntity() {
 		ItemStack stack = this.getStackInSlot(0);
 		if (stack != null) {
-			if (stack.getItem().itemID == Plague.itemDiseaseVileFull.itemID) {
+			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID) {
 				if (stack.getTagCompound().getInteger("analyzerDuration") < TimeHelper.mcToTick(100, 0, 0)) {
 					stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 1);
 				}

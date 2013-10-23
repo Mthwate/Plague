@@ -1,16 +1,13 @@
 package com.lordxarus.plague.item;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 import com.lordxarus.plague.DamageSourcePlague;
-import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.DiseaseHelper;
 
@@ -25,7 +22,7 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 
 	public ItemStack onEaten(ItemStack ItemStack, World world, EntityPlayer player) {
 		--ItemStack.stackSize;
-		ItemStack itemStack = new ItemStack(Plague.itemSyringeFull);
+		ItemStack itemStack = new ItemStack(ItemPlague.syringeFull);
 		itemStack.setTagCompound(new NBTTagCompound());
 		itemStack.getTagCompound().setString("owner", player.getEntityName());
 		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {

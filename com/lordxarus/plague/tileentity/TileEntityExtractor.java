@@ -8,7 +8,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.item.ItemPlague;
 import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityExtractor extends TileEntity implements IInventory {
@@ -62,7 +64,7 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return(Plague.blockExtractor.getUnlocalizedName().substring(5));
+		return(BlockPlague.extractor.getUnlocalizedName().substring(5));
 	}
 
 	@Override
@@ -129,9 +131,9 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 		
 		if ((stackZero != null) && (stackOne != null)) {
 			
-			if ((stackZero.getItem().itemID == Plague.itemSyringeFull.itemID) && (stackOne.getItem().itemID == Plague.itemDiseaseVileEmpty.itemID)) {
+			if ((stackZero.getItem().itemID == ItemPlague.syringeFull.itemID) && (stackOne.getItem().itemID == ItemPlague.diseaseVileEmpty.itemID)) {
 				
-				ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileFull);
+				ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileFull);
 				itemStack.setTagCompound(new NBTTagCompound());
 				itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
 				itemStack.getTagCompound().setBoolean("complete", false);
@@ -142,13 +144,13 @@ public class TileEntityExtractor extends TileEntity implements IInventory {
 					}
 				}
 
-				setInventorySlotContents(0, new ItemStack(Plague.itemSyringeEmpty));
+				setInventorySlotContents(0, new ItemStack(ItemPlague.syringeEmpty));
 				setInventorySlotContents(1, itemStack);
 			}
 		}
 		
 		if (stackOne != null) {
-			if ((stackOne.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
+			if ((stackOne.getItem().itemID == ItemPlague.diseaseVileFull.itemID) && (!stackOne.getTagCompound().getBoolean("complete"))) {
 				if (stackOne.getTagCompound().getInteger("extractorDuration") < TimeHelper.mcToTick(100, 0, 0)) {
 					stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 1);
 				}

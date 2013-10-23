@@ -29,7 +29,7 @@ public class ItemCure extends ItemBaseFood {
 		
 		cure(itemStack, player);
 		
-		ItemStack itemStackSyringeEmpty = new ItemStack(Plague.itemSyringeEmpty);
+		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
 		if (itemStack.stackSize <= 0) {
 			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 			return itemStackSyringeEmpty;

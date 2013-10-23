@@ -5,15 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
-import com.lordxarus.plague.block.BlockAnalyzer;
-import com.lordxarus.plague.block.BlockExtractor;
-import com.lordxarus.plague.block.BlockProcessor;
+import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseCrepis;
@@ -21,11 +16,7 @@ import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.disease.DiseaseZVirus;
-import com.lordxarus.plague.item.ItemCure;
-import com.lordxarus.plague.item.ItemDiseaseVileEmpty;
-import com.lordxarus.plague.item.ItemDiseaseVileFull;
-import com.lordxarus.plague.item.ItemSyringeEmpty;
-import com.lordxarus.plague.item.ItemSyringeFull;
+import com.lordxarus.plague.item.ItemPlague;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
 import com.lordxarus.plague.tileentity.TileEntityProcessor;
@@ -51,30 +42,6 @@ public class Plague {
 	//instance
 	@Instance(modid)
 	public static Plague instance;
-	
-	//items
-	public static Item itemSyringeFull;
-	public static Item itemSyringeEmpty;
-	public static Item itemDiseaseVileFull;
-	public static Item itemDiseaseVileEmpty;
-	public static Item itemCure;
-	
-	//item ids
-	int itemSyringeFullId;
-	int itemSyringeEmptyId;
-	int itemDiseaseVileFullId;
-	int itemDiseaseVileEmptyId;
-	int itemCureId;
-	
-	//blocks
-	public static Block blockExtractor;
-	public static Block blockAnalyzer;
-	public static Block blockProcessor;
-	
-	//block ids
-	int blockExtractorId;
-	int blockAnalyzerId;
-	int blockProcessorId;
 	
 	//a list of all the registered diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
@@ -104,16 +71,16 @@ public class Plague {
 		config.load();
 		
 		//items
-		itemSyringeEmptyId = config.getItem("Syringe", 3790).getInt();
-		itemSyringeFullId = config.getItem("FilledSyringe", 3791).getInt();
-		itemDiseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
-		itemDiseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
-		itemCureId = config.getItem("Cure", 3794).getInt();
+		ItemPlague.syringeEmptyId = config.getItem("Syringe", 3790).getInt();
+		ItemPlague.syringeFullId = config.getItem("FilledSyringe", 3791).getInt();
+		ItemPlague.diseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
+		ItemPlague.diseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
+		ItemPlague.cureId = config.getItem("Cure", 3794).getInt();
 		
 		//blocks
-		blockExtractorId = config.getBlock("Extractor", 2790).getInt();
-		blockAnalyzerId = config.getBlock("Analyzer", 2791).getInt();
-		blockProcessorId = config.getBlock("Processor", 2792).getInt();
+		BlockPlague.extractorId = config.getBlock("Extractor", 2790).getInt();
+		BlockPlague.analyzerId = config.getBlock("Analyzer", 2791).getInt();
+		BlockPlague.processorId = config.getBlock("Processor", 2792).getInt();
 		
 		//diseases
 		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
@@ -150,44 +117,12 @@ public class Plague {
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 		GameRegistry.registerTileEntity(TileEntityAnalyzer.class, "plagueAnalyzer");
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
-
-		//items
 		
-		itemSyringeEmpty = (new ItemSyringeEmpty(itemSyringeEmptyId)).setUnlocalizedName("syringeEmpty");
-		GameRegistry.registerItem(itemSyringeEmpty, "syringeEmpty");
-		GameRegistry.addRecipe(new ItemStack(itemSyringeEmpty), "g", "g", "g",
-				'g', Block.glass);
-
-		itemSyringeFull = (new ItemSyringeFull(itemSyringeFullId)).setUnlocalizedName("syringeFull");
-		GameRegistry.registerItem(itemSyringeFull, "syringeFull");
-
-		itemCure = (new ItemCure(itemCureId)).setUnlocalizedName("cure");
-		GameRegistry.registerItem(itemCure, "cure");
-
-		itemDiseaseVileEmpty = (new ItemDiseaseVileEmpty(itemDiseaseVileEmptyId)).setUnlocalizedName("diseaseVileEmpty");
-		GameRegistry.registerItem(itemDiseaseVileEmpty, "diseaseVileEmpty");
-		GameRegistry.addRecipe(new ItemStack(itemDiseaseVileEmpty), "w", "g", "i",
-				'w', Block.planks, 'g', Block.glass ,'i', Item.ingotIron);
-
-		itemDiseaseVileFull = (new ItemDiseaseVileFull(itemDiseaseVileFullId)).setUnlocalizedName("diseaseVileFull");
-		GameRegistry.registerItem(itemDiseaseVileFull, "diseaseVileFull");
+		ItemPlague.register();
+		
+		BlockPlague.register();
 
 		//blocks
-		
-		blockExtractor = (new BlockExtractor(blockExtractorId)).setUnlocalizedName("extractor");
-		GameRegistry.registerBlock(blockExtractor, "extractor");
-		GameRegistry.addRecipe(new ItemStack(blockExtractor), "ppp", "i i", " i ",
-				'p', Block.planks ,'i', Item.ingotIron);
-		
-		blockAnalyzer = (new BlockAnalyzer(blockAnalyzerId)).setUnlocalizedName("analyzer");
-		GameRegistry.registerBlock(blockAnalyzer, "analyzer");
-		GameRegistry.addRecipe(new ItemStack(blockAnalyzer), "pvp", "ppp",
-				'p', Block.planks ,'i', Item.ingotIron, 'v', Plague.itemDiseaseVileEmpty);
-		
-		blockProcessor = (new BlockProcessor(blockProcessorId)).setUnlocalizedName("processor");
-		GameRegistry.registerBlock(blockProcessor, "processor");
-		GameRegistry.addRecipe(new ItemStack(blockProcessor), "ppp", "i i", " g ",
-				'p', Block.planks ,'i', Item.ingotIron ,'g', Item.ingotGold);
 		
 		//diseases
 		

@@ -11,7 +11,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.lordxarus.plague.Plague;
+import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.disease.Disease;
+import com.lordxarus.plague.item.ItemPlague;
 import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
@@ -66,7 +68,7 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return(Plague.blockProcessor.getUnlocalizedName().substring(5));
+		return(BlockPlague.processor.getUnlocalizedName().substring(5));
 	}
 
 	@Override
@@ -133,7 +135,7 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 		
 		if ((stackZero != null) && (stackOne != null)) {
 			
-			if ((stackZero.getItem().itemID == Plague.itemDiseaseVileFull.itemID) && (stackOne.getItem().itemID == Plague.itemSyringeEmpty.itemID)) {
+			if ((stackZero.getItem().itemID == ItemPlague.diseaseVileFull.itemID) && (stackOne.getItem().itemID == ItemPlague.syringeEmpty.itemID)) {
 				
 				//a list of all diseases the disease vile contains
 				List<String> diseaseNames = new ArrayList<String>();
@@ -149,7 +151,7 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 				if (diseaseNames.size() > 0) {
 					
 					//make a new cure item
-					ItemStack itemStack = new ItemStack(Plague.itemCure);
+					ItemStack itemStack = new ItemStack(ItemPlague.cure);
 					
 					//initialize the item's NBT tag compound
 					itemStack.setTagCompound(new NBTTagCompound());
@@ -194,13 +196,13 @@ public class TileEntityProcessor extends TileEntity implements IInventory {
 					
 					//empties the disease vile and gives the player a cure
 					setInventorySlotContents(1, itemStack);
-					setInventorySlotContents(0, new ItemStack(Plague.itemDiseaseVileEmpty));
+					setInventorySlotContents(0, new ItemStack(ItemPlague.diseaseVileEmpty));
 				
 				//if the disease filled vile does not contain a disease
 				} else {
 					
 					//empties the disease filled vile
-					ItemStack itemStack = new ItemStack(Plague.itemDiseaseVileEmpty);
+					ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileEmpty);
 					setInventorySlotContents(0, itemStack);
 					
 				}
