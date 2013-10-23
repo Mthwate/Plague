@@ -7,9 +7,9 @@ item.syringeFull.name=Filled Syringe
 item.diseaseVileFull.name=Disease Filled Vile
 item.diseaseVileEmpty.name=Disease Vile
 
-block.extractor.name=Extractor
-block.analyzer.name=Analyzer
-block.processor.name=Processor
+tile.extractor.name=Extractor
+tile.analyzer.name=Analyzer
+tile.processor.name=Processor
 
 disease.malaria.name=Malaria
 disease.chickenpox.name=Chickenpox
