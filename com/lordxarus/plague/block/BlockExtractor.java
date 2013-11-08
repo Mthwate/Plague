@@ -1,6 +1,5 @@
 package com.lordxarus.plague.block;
 
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +11,7 @@ import com.lordxarus.plague.tileentity.TileEntityExtractor;
 
 import cpw.mods.fml.common.network.FMLNetworkHandler;
 
-public class BlockExtractor extends BlockContainer {
+public class BlockExtractor extends BlockContainerBase {
 	
 	public BlockExtractor(int id) {
 		super(id, Material.iron);
