@@ -3,15 +3,15 @@
     "modid": "plague",
     "name": "Plague",
     "description": "Adds diseases to Minecraft.",
-    "version": ".ver.",
-    "mcversion": ".mc.",
+    "version": "@VERSION@",
+    "mcversion": "@MCVERSION@",
     "url": "",
     "updateUrl": "",
     "authors": [
       "LordXarus",
       "Mthwate"
     ],
-    "credits": "Mod by LordXarus and Mthwate",
+    "credits": "Mod by LordXarus and Mthwate. Textures by Jethro",
     "logoFile": "",
     "screenshots": [
     ],

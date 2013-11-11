@@ -131,5 +131,4 @@ public class TileEntityAnalyzer extends TileEntity implements IInventory {
 			}
 		}
 	}
-
 }

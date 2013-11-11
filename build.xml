@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<project name="Plague" default="build">
+
+	<!-- Public property files-->
+	<property file="build.properties"/>
+
+	<target name="clean">
+		<delete file="${location.mcp}/src/minecraft/mcmod.info" />
+		<delete dir="${location.mcp}/src/minecraft/com/" />
+		<delete dir="${location.mcp}/reobf/minecraft" />
+	</target>
+
+	<target name="prep">
+		<copy todir="${location.mcp}/src/minecraft">
+			<fileset dir="${location.src}/common/" />
+		</copy>
+	</target>
+
+	<target name="replace_tokens">
+		<replace dir="${location.mcp}/src/minecraft/com/" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.mcp}/src/minecraft/com/" token="@MCVERSION@" value="${minecraft.version}" />
+	</target>
+
+	<target name="recompile">
+		<exec dir="${location.mcp}" executable="cmd" osfamily="windows">
+			<arg line="/c recompile.bat" />
+		</exec>
+		<exec dir="${location.mcp}" executable="python2" osfamily="unix">
+			<arg line="runtime/recompile.py" />
+		</exec>
+	</target>
+
+	<target name="reobfuscate">
+		<exec dir="${location.mcp}" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate_srg.bat" />
+		</exec>
+		<exec dir="${location.mcp}" executable="python2" osfamily="unix">
+			<arg line="runtime/reobfuscate.py --srgnames" />
+		</exec>
+	</target>
+
+	<target name="build" depends="clean, prep, replace_tokens, recompile, reobfuscate">
+
+		<!-- Build the jar -->
+		<mkdir dir="${location.out}" />
+		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
+			<fileset dir="${location.mcp}/reobf/minecraft" includes="com/" />
+			<fileset dir="${location.src}/resources"/>
+		</jar>
+
+		<!-- Clean up the MCP source now that we are done -->
+		<antcall target="clean" />
+	</target>
+</project>
