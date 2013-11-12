@@ -26,6 +26,7 @@
 	<target name="prep">
 		<copy todir="${location.mcp}/src/minecraft">
 			<fileset dir="${location.src}/common/" />
+			<fileset dir="${location.bookcase}/common/" />
 		</copy>
 	</target>
 

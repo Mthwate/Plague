@@ -1,3 +1,4 @@
 location.src=./
 location.mcp=${location.src}/forge/mcp
 location.out=${location.src}/bin
+location.bookcase=${location.src}/Bookcase
