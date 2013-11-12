@@ -39,8 +39,10 @@
 	</target>
 
 	<target name="replace-tokens">
-		<replace dir="${location.mcp.new}/src/minecraft/com/" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.mcp.new}/src/minecraft/com/" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.src}/common/" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.src}/common/" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.src}/resources/" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.src}/resources/" token="@MCVERSION@" value="${minecraft.version}" />
 	</target>
 
 	<target name="recompile">
@@ -61,7 +63,7 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="set-forge-version, clean, prep, replace-tokens, recompile, reobfuscate">
+	<target name="build" depends="set-forge-version, clean, replace-tokens, prep, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
