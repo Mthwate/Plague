@@ -4,10 +4,18 @@
 	<!-- Public property files-->
 	<property file="build.properties"/>
 
+	<tstamp>
+		<format property="mod.version" pattern="yy.M.d" />
+	</tstamp>
+
 	<target name="clean">
 		<delete file="${location.mcp}/src/minecraft/mcmod.info" />
 		<delete dir="${location.mcp}/src/minecraft/com/" />
 		<delete dir="${location.mcp}/reobf/minecraft" />
+	</target>
+
+	<target name="clean-builds">
+		<delete dir="${location.out}/*" />
 	</target>
 
 	<target name="prep">
@@ -16,7 +24,7 @@
 		</copy>
 	</target>
 
-	<target name="replace_tokens">
+	<target name="replace-tokens">
 		<replace dir="${location.mcp}/src/minecraft/com/" token="@VERSION@" value="${mod.version}" />
 		<replace dir="${location.mcp}/src/minecraft/com/" token="@MCVERSION@" value="${minecraft.version}" />
 	</target>
@@ -39,7 +47,7 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="clean, prep, replace_tokens, recompile, reobfuscate">
+	<target name="build" depends="clean, prep, replace-tokens, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
