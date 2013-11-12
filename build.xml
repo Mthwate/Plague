@@ -3,6 +3,7 @@
 
 	<!-- Public property files-->
 	<property file="build.properties"/>
+	<property file="environment.properties"/>
 
 	<tstamp>
 		<format property="mod.version" pattern="yy.M.d" />
