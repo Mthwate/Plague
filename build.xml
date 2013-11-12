@@ -19,7 +19,7 @@
 	</target>
 
 	<target name="set-forge-version">
-		<replace file="environment.porperties" token="@FORGEVER@" value="${forge.version}" />
+		<replace file="environment.properties" token="@FORGEVER@" value="${forge.version}" />
 	</target>
 
 	<target name="prep">
