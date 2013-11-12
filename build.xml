@@ -18,6 +18,10 @@
 		<delete dir="${location.out}/*" />
 	</target>
 
+	<target name="set-forge-version">
+		<replace file="environment.porperties" token="@FORGEVER@" value="${forge.version}" />
+	</target>
+
 	<target name="prep">
 		<copy todir="${location.mcp}/src/minecraft">
 			<fileset dir="${location.src}/common/" />
