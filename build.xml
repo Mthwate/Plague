@@ -10,9 +10,9 @@
 	</tstamp>
 
 	<target name="clean">
-		<delete file="${location.mcp}/src/minecraft/mcmod.info" />
-		<delete dir="${location.mcp}/src/minecraft/com/" />
-		<delete dir="${location.mcp}/reobf/minecraft" />
+		<delete file="${location.mcp.new}/src/minecraft/mcmod.info" />
+		<delete dir="${location.mcp.new}/src/minecraft/com/" />
+		<delete dir="${location.mcp.new}/reobf/minecraft" />
 	</target>
 
 	<target name="clean-builds">
@@ -20,45 +20,53 @@
 	</target>
 
 	<target name="set-forge-version">
-		<replace file="environment.properties" token="@FORGEVER@" value="${forge.version}" />
+		<loadresource property="location.mcp.new">
+			<propertyresource name="location.mcp"/>
+			<filterchain>
+				<tokenfilter>
+					<filetokenizer/>
+					<replacestring from="@FORGEVER@" to="${forge.version}"/>
+				</tokenfilter>
+			</filterchain>
+		</loadresource>
 	</target>
 
 	<target name="prep">
-		<copy todir="${location.mcp}/src/minecraft">
+		<copy todir="${location.mcp.new}/src/minecraft">
 			<fileset dir="${location.src}/common/" />
 			<fileset dir="${location.bookcase}/common/" />
 		</copy>
 	</target>
 
 	<target name="replace-tokens">
-		<replace dir="${location.mcp}/src/minecraft/com/" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.mcp}/src/minecraft/com/" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.mcp.new}/src/minecraft/com/" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.mcp.new}/src/minecraft/com/" token="@MCVERSION@" value="${minecraft.version}" />
 	</target>
 
 	<target name="recompile">
-		<exec dir="${location.mcp}" executable="cmd" osfamily="windows">
+		<exec dir="${location.mcp.new}" executable="cmd" osfamily="windows">
 			<arg line="/c recompile.bat" />
 		</exec>
-		<exec dir="${location.mcp}" executable="python2" osfamily="unix">
+		<exec dir="${location.mcp.new}" executable="python2" osfamily="unix">
 			<arg line="runtime/recompile.py" />
 		</exec>
 	</target>
 
 	<target name="reobfuscate">
-		<exec dir="${location.mcp}" executable="cmd" osfamily="windows">
+		<exec dir="${location.mcp.new}" executable="cmd" osfamily="windows">
 			<arg line="/c reobfuscate_srg.bat" />
 		</exec>
-		<exec dir="${location.mcp}" executable="python2" osfamily="unix">
+		<exec dir="${location.mcp.new}" executable="python2" osfamily="unix">
 			<arg line="runtime/reobfuscate.py --srgnames" />
 		</exec>
 	</target>
 
-	<target name="build" depends="clean, prep, replace-tokens, recompile, reobfuscate">
+	<target name="build" depends="set-forge-version, clean, prep, replace-tokens, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
 		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
-			<fileset dir="${location.mcp}/reobf/minecraft" includes="com/" />
+			<fileset dir="${location.mcp.new}/reobf/minecraft" includes="com/" />
 			<fileset dir="${location.src}/resources"/>
 		</jar>
 
