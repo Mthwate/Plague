@@ -14,16 +14,19 @@ public class BlockPlague {
 	public static Block extractor;
 	public static Block analyzer;
 	public static Block processor;
+	public static Block weaponizer;
 	
 	//block ids
 	public static int extractorId;
 	public static int analyzerId;
 	public static int processorId;
+	public static int weaponizerId;
 	
 	public static void register() {
 		extractor = registerBlock(extractor, new BlockExtractor(extractorId), "extractor");
 		analyzer = registerBlock(analyzer, new BlockAnalyzer(analyzerId), "analyzer");
 		processor = registerBlock(processor, new BlockProcessor(processorId), "processor");
+		weaponizer = registerBlock(weaponizer, new BlockWeaponizer(weaponizerId), "weaponizer");
 		
 		registerRecipes();
 	}
@@ -39,10 +42,13 @@ public class BlockPlague {
 				'p', Block.planks ,'i', Item.ingotIron);
 		
 		GameRegistry.addRecipe(new ItemStack(analyzer), "pvp", "ppp",
-				'p', Block.planks ,'i', Item.ingotIron, 'v', ItemPlague.diseaseVileEmpty);
+				'p', Block.planks , 'v', ItemPlague.diseaseVileEmpty);
 		
 		GameRegistry.addRecipe(new ItemStack(processor), "ppp", "i i", " g ",
 				'p', Block.planks ,'i', Item.ingotIron ,'g', Item.ingotGold);
+		
+		GameRegistry.addRecipe(new ItemStack(weaponizer), "iii", "iei", "iii",
+				'i', Item.ingotIron ,'e', Item.eyeOfEnder);
 	}
 
 }

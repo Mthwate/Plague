@@ -24,12 +24,4 @@ public class BlockExtractor extends BlockContainerBase {
 	public TileEntity createNewTileEntity(World world) {
 		return(new TileEntityExtractor());
 	}
-	
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		if(!world.isRemote) {
-			FMLNetworkHandler.openGui(player, Plague.instance, 0, world, x, y, z);
-		}
-		return(true);
-	}
 }

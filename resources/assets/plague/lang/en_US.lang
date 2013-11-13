@@ -6,10 +6,12 @@ item.cure.name=Cure
 item.syringeFull.name=Filled Syringe
 item.diseaseVileFull.name=Disease Filled Vile
 item.diseaseVileEmpty.name=Disease Vile
+item.weaponizedDisease.name=Weaponized Disease
 
 tile.extractor.name=Extractor
 tile.analyzer.name=Analyzer
 tile.processor.name=Processor
+tile.weaponizer.name=Weaponizer
 
 disease.malaria.name=Malaria
 disease.chickenpox.name=Chickenpox

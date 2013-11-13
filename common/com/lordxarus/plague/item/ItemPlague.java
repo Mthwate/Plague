@@ -13,6 +13,7 @@ public class ItemPlague {
 	public static Item diseaseVileFull;
 	public static Item diseaseVileEmpty;
 	public static Item cure;
+	public static Item weaponizedDisease;
 	
 	//item ids
 	public static int syringeFullId;
@@ -20,6 +21,7 @@ public class ItemPlague {
 	public static int diseaseVileFullId;
 	public static int diseaseVileEmptyId;
 	public static int cureId;
+	public static int weaponizedDiseaseId;
 	
 	public static void register() {
 		syringeEmpty = registerItem(syringeEmpty, new ItemSyringeEmpty(syringeEmptyId), "syringeEmpty");
@@ -27,6 +29,7 @@ public class ItemPlague {
 		diseaseVileEmpty = registerItem(diseaseVileEmpty, new ItemDiseaseVileEmpty(diseaseVileEmptyId), "diseaseVileEmpty");
 		diseaseVileFull = registerItem(diseaseVileFull, new ItemDiseaseVileFull(diseaseVileFullId), "diseaseVileFull");
 		cure = registerItem(cure, new ItemCure(cureId), "cure");
+		weaponizedDisease = registerItem(weaponizedDisease, new ItemWeaponizedDisease(weaponizedDiseaseId), "weaponizedDisease");
 		
 		registerRecipes();
 	}

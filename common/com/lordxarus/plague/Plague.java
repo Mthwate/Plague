@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -16,13 +17,16 @@ import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.disease.DiseaseZVirus;
+import com.lordxarus.plague.entity.EntityWeaponizedDisease;
 import com.lordxarus.plague.item.ItemPlague;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
 import com.lordxarus.plague.tileentity.TileEntityProcessor;
+import com.lordxarus.plague.tileentity.TileEntityWeaponizer;
 import com.mthwate.bookcase.LangHelper;
 import com.mthwate.bookcase.ModLogger;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -30,6 +34,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid=Plague.modid, name=Plague.modName, version=".ver.")
@@ -76,11 +81,13 @@ public class Plague {
 		ItemPlague.diseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
 		ItemPlague.diseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
 		ItemPlague.cureId = config.getItem("Cure", 3794).getInt();
+		ItemPlague.weaponizedDiseaseId = config.getItem("WeaponizedDisease", 3795).getInt();
 		
 		//blocks
 		BlockPlague.extractorId = config.getBlock("Extractor", 2790).getInt();
 		BlockPlague.analyzerId = config.getBlock("Analyzer", 2791).getInt();
 		BlockPlague.processorId = config.getBlock("Processor", 2792).getInt();
+		BlockPlague.weaponizerId = config.getBlock("Weaponizer", 2793).getInt();
 		
 		//diseases
 		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
@@ -117,12 +124,11 @@ public class Plague {
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 		GameRegistry.registerTileEntity(TileEntityAnalyzer.class, "plagueAnalyzer");
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
+		GameRegistry.registerTileEntity(TileEntityWeaponizer.class, "plagueWeaponizer");
 		
 		ItemPlague.register();
 		
 		BlockPlague.register();
-
-		//blocks
 		
 		//diseases
 		
@@ -144,6 +150,8 @@ public class Plague {
 		diseaseZVirus = (new DiseaseZVirus().setUnlocalizedName("zVirus"));
 		DiseaseRegistry.addDisease(diseaseZVirus);
 		
+		RenderingRegistry.registerEntityRenderingHandler(EntityWeaponizedDisease.class, new RenderSnowball(ItemPlague.weaponizedDisease));
+		EntityRegistry.registerModEntity(EntityWeaponizedDisease.class, "weaponizedDisease", 1, this, 80, 1, true);
 	}
 	
 }
