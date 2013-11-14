@@ -43,13 +43,7 @@ public class EntityWeaponizedDisease extends EntityThrowable {
 		
 		String diseaseName = this.getEntityData().getString("disease");
 		
-		Disease weaponDisease = null;
-		
-		for(Disease disease : Plague.diseases) {
-			if(disease.getUnlocalizedName() == diseaseName) {
-				weaponDisease = disease;
-			}
-		}
+		Disease weaponDisease = DiseaseHelper.getDiseaseFromString(diseaseName);
 		
 		double effectiveness = this.getEntityData().getDouble("effectiveness");
 		double radius = effectiveness/10;
@@ -58,7 +52,7 @@ public class EntityWeaponizedDisease extends EntityThrowable {
 		List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(radius, radius, radius));
 		for(Entity entity : entities) {
 			if ((weaponDisease != null) && Rand.nextInt(100) < effectiveness) {
-				DiseaseHelper.contract(entity, weaponDisease, 1);
+				DiseaseHelper.addDisease(entity, weaponDisease);
 			}
 		}
 

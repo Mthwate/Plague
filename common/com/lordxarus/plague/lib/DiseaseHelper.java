@@ -19,9 +19,11 @@ public class DiseaseHelper {
 	
 	//gives the entity the specified disease
 	public static void addDisease(Entity entity, Disease disease) {
-		if (!isDiseaseActive(entity, disease)) {
-			entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
-			Plague.logger.log(Level.INFO, disease.getName() + " added to " + entity.getEntityName() + ".", true);
+		if (disease != null) {
+			if (!isDiseaseActive(entity, disease)) {
+				entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), 1);
+				Plague.logger.log(Level.INFO, disease.getName() + " added to " + entity.getEntityName() + ".", true);
+			}
 		}
 	}
 	
@@ -113,5 +115,14 @@ public class DiseaseHelper {
 				}
 			}
 		}
+	}
+	
+	public static Disease getDiseaseFromString(String diseaseName) {
+		for(Disease disease : Plague.diseases) {
+			if(disease.getUnlocalizedName().equalsIgnoreCase(diseaseName)) {
+				return(disease);
+			}
+		}
+		return(null);
 	}
 }

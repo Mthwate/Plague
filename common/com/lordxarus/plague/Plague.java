@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.lordxarus.plague.block.BlockPlague;
+import com.lordxarus.plague.command.CommandContract;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.disease.DiseaseChickenpox;
 import com.lordxarus.plague.disease.DiseaseCrepis;
+import com.lordxarus.plague.disease.DiseaseEndt;
 import com.lordxarus.plague.disease.DiseaseMalaria;
 import com.lordxarus.plague.disease.DiseaseRabies;
 import com.lordxarus.plague.disease.DiseaseWestNile;
@@ -32,12 +35,13 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid=Plague.modid, name=Plague.modName, version=".ver.")
+@Mod(modid=Plague.modid, name=Plague.modName, version="@VERSION@")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Plague {
 	//mod
@@ -61,12 +65,16 @@ public class Plague {
 	public static Disease diseaseChickenpox;
 	public static Disease diseaseCrepis;
 	public static Disease diseaseZVirus;
+	public static Disease diseaseEndt;
 	
 	//settings
 	public static boolean verbose;
 	
 	//logger
 	public static ModLogger logger;
+	
+	//random
+	public static Random rand = new Random();
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -96,6 +104,7 @@ public class Plague {
 		enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
 		enabledDiseases.put("crepis", config.get("Diseases", "Crepis", true).getBoolean(true));
 		enabledDiseases.put("zVirus", config.get("Diseases", "ZVirus", true).getBoolean(true));
+		enabledDiseases.put("endt", config.get("Diseases", "Endt", true).getBoolean(true));
 		
 		//settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
@@ -150,8 +159,16 @@ public class Plague {
 		diseaseZVirus = (new DiseaseZVirus().setUnlocalizedName("zVirus"));
 		DiseaseRegistry.addDisease(diseaseZVirus);
 		
+		diseaseEndt = (new DiseaseEndt().setUnlocalizedName("endt"));
+		DiseaseRegistry.addDisease(diseaseEndt);
+		
 		RenderingRegistry.registerEntityRenderingHandler(EntityWeaponizedDisease.class, new RenderSnowball(ItemPlague.weaponizedDisease));
 		EntityRegistry.registerModEntity(EntityWeaponizedDisease.class, "weaponizedDisease", 1, this, 80, 1, true);
+	}
+	
+	@EventHandler
+	public void serverStart(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandContract());
 	}
 	
 }

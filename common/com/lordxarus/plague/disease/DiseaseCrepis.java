@@ -11,7 +11,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
 public class DiseaseCrepis extends Disease {
@@ -33,7 +32,7 @@ public class DiseaseCrepis extends Disease {
 	
 	public void effect(EntityLivingBase entity) {
 		if (!(entity instanceof EntityCreeper)) {
-			if (Rand.nextInt((int) TimeHelper.mcToTick(100000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entity, this)) {
+			if (Plague.rand.nextInt((int) TimeHelper.mcToTick(100000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entity, this)) {
 				
 				entity.attackEntityFrom(DamageSourcePlague.disease, 0.1F);
 				Minecraft.getMinecraft().sndManager.playSound("mob.creeper.say", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
