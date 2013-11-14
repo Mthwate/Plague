@@ -10,7 +10,6 @@ import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.item.ItemPlague;
-import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityProcessor extends TileEntityBase {
@@ -53,7 +52,7 @@ public class TileEntityProcessor extends TileEntityBase {
 					itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
 					
 					//picks a Random disease in the disease filled vile
-					String cureDisease = diseaseNames.get(Rand.nextInt(diseaseNames.size()));
+					String cureDisease = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));
 					
 					//sets the disease to the item cure
 					itemStack.getTagCompound().setString("cureDisease", cureDisease);
@@ -68,7 +67,7 @@ public class TileEntityProcessor extends TileEntityBase {
 					String displayDisease = null;
 					
 					//if the cure will work
-					if (Rand.nextInt(10000) < chance) {
+					if (Plague.rand.nextInt(10000) < chance) {
 						
 						//set the display name to the disease it is curing
 						displayDisease = cureDisease;
@@ -79,7 +78,7 @@ public class TileEntityProcessor extends TileEntityBase {
 						//sets the display name to a Random disease other than the correct one
 						displayDisease = cureDisease;
 						while (displayDisease.equals(cureDisease)) {
-							displayDisease = Plague.diseases.get(Rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
+							displayDisease = Plague.diseases.get(Plague.rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
 						}
 						
 					}

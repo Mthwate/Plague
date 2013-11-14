@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.mthwate.bookcase.Rand;
 
 public class EntityWeaponizedDisease extends EntityThrowable {
 	
@@ -51,7 +50,7 @@ public class EntityWeaponizedDisease extends EntityThrowable {
 		
 		List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(radius, radius, radius));
 		for(Entity entity : entities) {
-			if ((weaponDisease != null) && Rand.nextInt(100) < effectiveness) {
+			if ((weaponDisease != null) && Plague.rand.nextInt(100) < effectiveness) {
 				DiseaseHelper.addDisease(entity, weaponDisease);
 			}
 		}

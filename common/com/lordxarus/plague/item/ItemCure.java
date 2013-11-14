@@ -11,7 +11,6 @@ import com.lordxarus.plague.DamageSourcePlague;
 import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.DiseaseHelper;
-import com.mthwate.bookcase.Rand;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -69,7 +68,7 @@ public class ItemCure extends ItemBaseFood {
 				}
 			}
 		} else {
-			int index = Rand.nextInt(Plague.diseases.size());
+			int index = Plague.rand.nextInt(Plague.diseases.size());
 			DiseaseHelper.addDisease(player, Plague.diseases.get(index));
 		}
 	}

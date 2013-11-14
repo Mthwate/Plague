@@ -10,7 +10,6 @@ import com.lordxarus.plague.Plague;
 import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.item.ItemPlague;
-import com.mthwate.bookcase.Rand;
 import com.mthwate.bookcase.TimeHelper;
 
 public class TileEntityWeaponizer extends TileEntityBase {
@@ -36,7 +35,7 @@ public class TileEntityWeaponizer extends TileEntityBase {
 					}
 				}
 				
-				String diseaseName = diseaseNames.get(Rand.nextInt(diseaseNames.size()));
+				String diseaseName = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));
 				weaponStack.getTagCompound().setString("disease", diseaseName);
 				
 				setInventorySlotContents(0, weaponStack);
