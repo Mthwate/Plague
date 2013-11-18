@@ -1,5 +1,5 @@
 location.src=./
 location.mcp=${location.src}/forge/mcp
 location.out=${location.src}/bin
-location.out=${location.src}/tmp
+location.tmp=${location.src}/tmp
 location.bookcase=${location.src}/Bookcase
