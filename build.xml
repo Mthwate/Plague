@@ -13,6 +13,7 @@
 		<delete file="${location.mcp.new}/src/minecraft/mcmod.info" />
 		<delete dir="${location.mcp.new}/src/minecraft/com/" />
 		<delete dir="${location.mcp.new}/reobf/minecraft" />
+		<delete dir="${location.tmp}" />
 	</target>
 
 	<target name="clean-builds">
@@ -36,13 +37,17 @@
 			<fileset dir="${location.src}/common/" />
 			<fileset dir="${location.bookcase}/common/" />
 		</copy>
+		<mkdir dir="${location.tmp}" />
+		<copy todir="${location.tmp}">
+			<fileset dir="${location.src}/resources" />
+		</copy>
 	</target>
 
 	<target name="replace-tokens">
-		<replace dir="${location.src}/common/" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.src}/common/" token="@MCVERSION@" value="${minecraft.version}" />
-		<replace dir="${location.src}/resources/" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.src}/resources/" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.mcp.new}/src/minecraft" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.mcp.new}/src/minecraft" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.tmp}" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.tmp}" token="@MCVERSION@" value="${minecraft.version}" />
 	</target>
 
 	<target name="recompile">
@@ -63,13 +68,13 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="set-forge-version, clean, replace-tokens, prep, recompile, reobfuscate">
+	<target name="build" depends="set-forge-version, clean, prep, replace-tokens, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
 		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
 			<fileset dir="${location.mcp.new}/reobf/minecraft" includes="com/" />
-			<fileset dir="${location.src}/resources"/>
+			<fileset dir="${location.tmp}"/>
 		</jar>
 
 		<!-- Clean up the MCP source now that we are done -->
