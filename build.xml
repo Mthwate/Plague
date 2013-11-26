@@ -10,9 +10,6 @@
 	</tstamp>
 
 	<target name="clean">
-		<delete file="${location.mcp.new}/src/minecraft/mcmod.info" />
-		<delete dir="${location.mcp.new}/src/minecraft/com/" />
-		<delete dir="${location.mcp.new}/reobf/minecraft" />
 		<delete dir="${location.tmp}" />
 	</target>
 
@@ -33,37 +30,41 @@
 	</target>
 
 	<target name="prep">
-		<copy todir="${location.mcp.new}/src/minecraft">
-			<fileset dir="${location.src}/common/" />
-			<fileset dir="${location.bookcase}/common/" />
-		</copy>
 		<mkdir dir="${location.tmp}" />
 		<copy todir="${location.tmp}">
-			<fileset dir="${location.src}/resources" />
+			<fileset dir="${location.src}" includes="resources/" />
+		</copy>
+		<mkdir dir="${location.tmp}/mcp" />
+		<copy todir="${location.tmp}/mcp">
+			<fileset dir="${location.mcp.new}" />
+		</copy>
+		<copy todir="${location.tmp}/mcp/src/minecraft">
+			<fileset dir="${location.src}/common/" />
+			<fileset dir="${location.bookcase}/common/" />
 		</copy>
 	</target>
 
 	<target name="replace-tokens">
-		<replace dir="${location.mcp.new}/src/minecraft" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.mcp.new}/src/minecraft" token="@MCVERSION@" value="${minecraft.version}" />
-		<replace dir="${location.tmp}" token="@VERSION@" value="${mod.version}" />
-		<replace dir="${location.tmp}" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.tmp}/mcp/src/minecraft" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.tmp}/mcp/src/minecraft" token="@MCVERSION@" value="${minecraft.version}" />
+		<replace dir="${location.tmp}/resources" token="@VERSION@" value="${mod.version}" />
+		<replace dir="${location.tmp}/resources" token="@MCVERSION@" value="${minecraft.version}" />
 	</target>
 
 	<target name="recompile">
-		<exec dir="${location.mcp.new}" executable="cmd" osfamily="windows">
+		<exec dir="${location.tmp}/mcp" executable="cmd" osfamily="windows">
 			<arg line="/c recompile.bat" />
 		</exec>
-		<exec dir="${location.mcp.new}" executable="python2" osfamily="unix">
+		<exec dir="${location.tmp}/mcp" executable="python2" osfamily="unix">
 			<arg line="runtime/recompile.py" />
 		</exec>
 	</target>
 
 	<target name="reobfuscate">
-		<exec dir="${location.mcp.new}" executable="cmd" osfamily="windows">
+		<exec dir="${location.tmp}/mcp" executable="cmd" osfamily="windows">
 			<arg line="/c reobfuscate_srg.bat" />
 		</exec>
-		<exec dir="${location.mcp.new}" executable="python2" osfamily="unix">
+		<exec dir="${location.tmp}/mcp" executable="python2" osfamily="unix">
 			<arg line="runtime/reobfuscate.py --srgnames" />
 		</exec>
 	</target>
@@ -73,8 +74,8 @@
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
 		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
-			<fileset dir="${location.mcp.new}/reobf/minecraft" includes="com/" />
-			<fileset dir="${location.tmp}"/>
+			<fileset dir="${location.tmp}/mcp/reobf/minecraft" includes="com/" />
+			<fileset dir="${location.tmp}/resources"/>
 		</jar>
 
 		<!-- Clean up the MCP source now that we are done -->
