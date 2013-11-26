@@ -17,7 +17,7 @@
 	</target>
 
 	<target name="clean-builds">
-		<delete dir="${location.out}/*" />
+		<delete dir="${location.out}" />
 	</target>
 
 	<target name="set-forge-version">
