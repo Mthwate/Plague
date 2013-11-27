@@ -9,39 +9,35 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import com.mthwate.bookcase.LangHelper;
 
 public class Disease {
-	
+
 	private String unlocalizedName;
-	
-	public Disease setUnlocalizedName(String newName) {
-		this.unlocalizedName = newName;
-		return(this);
-	}
-	
-	public String getUnlocalizedName() {
-		return(this.unlocalizedName);
-	}
-	
+
+	// called when an entity is attacked
+	public void entityAttack(LivingAttackEvent event) {}
+
+	// called when an entity dies
+	public void entityDeath(LivingDeathEvent event) {}
+
+	// called when an entity spawns
+	public void entitySpawn(LivingSpawnEvent event) {}
+
+	public void entityUpdate(LivingUpdateEvent event) {}
+
 	public String getName() {
-		return(LangHelper.getLocalization("disease." + unlocalizedName + ".name"));
+		return LangHelper.getLocalization("disease." + unlocalizedName + ".name");
 	}
-	
-	public void entityUpdate(LivingUpdateEvent event) {
+
+	public String getUnlocalizedName() {
+		return unlocalizedName;
 	}
-	
-	//called when an entity is attacked
-	public void entityAttack(LivingAttackEvent event) {
-	}
-	
-	//called when an entity spawns
-	public void entitySpawn(LivingSpawnEvent event) {
-	}
-	
-	//called when an entity dies
-	public void entityDeath(LivingDeathEvent event) {
-	}
-	
-	//checks if an entity can catch the disease
+
+	// checks if an entity can catch the disease
 	public boolean isVulnerable(Entity entity) {
-		return(false);
+		return false;
+	}
+
+	public Disease setUnlocalizedName(String newName) {
+		unlocalizedName = newName;
+		return this;
 	}
 }

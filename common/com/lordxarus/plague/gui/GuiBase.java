@@ -17,29 +17,30 @@ public class GuiBase extends GuiContainer {
 
 	private Block block;
 	private ResourceLocation texture;
-	
-	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Block block, Container container) {
+
+	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Block block,
+			Container container) {
 		super(container);
-		
+
 		this.block = block;
-		this.texture = new ResourceLocation(Plague.modid, "textures/gui/" + block.getUnlocalizedName().substring(5) + ".png");
-		
+		texture = new ResourceLocation(Plague.modid, "textures/gui/" + block.getUnlocalizedName().substring(5) + ".png");
+
 		xSize = 176;
 		ySize = 166;
 	}
-	
-	@Override
-	public void drawGuiContainerForegroundLayer(int j, int i) {
-		String s = block.getLocalizedName();
-		this.fontRenderer.drawString(s, 8, 6, 4210752);
-		this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
-	}
-	
+
 	@Override
 	public void drawGuiContainerBackgroundLayer(float f, int j, int i) {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
-	
+
+	@Override
+	public void drawGuiContainerForegroundLayer(int j, int i) {
+		String s = block.getLocalizedName();
+		fontRenderer.drawString(s, 8, 6, 4210752);
+		fontRenderer.drawString(I18n.getString("container.inventory"), 8, ySize - 96 + 2, 4210752);
+	}
+
 }

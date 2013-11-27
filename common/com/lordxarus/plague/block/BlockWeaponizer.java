@@ -11,14 +11,14 @@ public class BlockWeaponizer extends BlockContainerBase {
 
 	protected BlockWeaponizer(int id) {
 		super(id, Material.iron);
-		this.setCreativeTab(CreativeTabs.tabBlock);
-		this.setHardness(5F);
-		this.setResistance(10F);
+		setCreativeTab(CreativeTabs.tabBlock);
+		setHardness(5F);
+		setResistance(10F);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return(new TileEntityWeaponizer());
+		return new TileEntityWeaponizer();
 	}
 
 }

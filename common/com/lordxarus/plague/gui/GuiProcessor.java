@@ -7,9 +7,9 @@ import com.lordxarus.plague.block.BlockPlague;
 import com.lordxarus.plague.container.ContainerProcessor;
 
 public class GuiProcessor extends GuiBase {
-	
+
 	public GuiProcessor(InventoryPlayer invPlayer, IInventory entity) {
 		super(invPlayer, entity, BlockPlague.processor, new ContainerProcessor(invPlayer, entity));
 	}
-	
+
 }

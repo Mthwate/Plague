@@ -15,48 +15,46 @@ import com.lordxarus.plague.disease.Disease;
 import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class EntityWeaponizedDisease extends EntityThrowable {
-	
+
 	public EntityWeaponizedDisease(World par1World) {
 		super(par1World);
 	}
 
-	public EntityWeaponizedDisease(World par1World, EntityLivingBase par2EntityLivingBase) {
-		super(par1World, par2EntityLivingBase);
+	public EntityWeaponizedDisease(World par1World, double par2, double par4,
+			double par6) {
+		super(par1World, par2, par4, par6);
 	}
 
-	public EntityWeaponizedDisease(World par1World, double par2, double par4, double par6) {
-		super(par1World, par2, par4, par6);
+	public EntityWeaponizedDisease(World par1World,
+			EntityLivingBase par2EntityLivingBase) {
+		super(par1World, par2EntityLivingBase);
 	}
 
 	@Override
 	protected void onImpact(MovingObjectPosition par1MovingObjectPosition) {
 		if (par1MovingObjectPosition.entityHit != null) {
-			byte b0 = 0;
+			if (par1MovingObjectPosition.entityHit instanceof EntityBlaze) {}
 
-			if (par1MovingObjectPosition.entityHit instanceof EntityBlaze) {
-				b0 = 3;
-			}
-
-			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 1);
+			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 1);
 		}
-		
-		String diseaseName = this.getEntityData().getString("disease");
-		
+
+		String diseaseName = getEntityData().getString("disease");
+
 		Disease weaponDisease = DiseaseHelper.getDiseaseFromString(diseaseName);
-		
-		double effectiveness = this.getEntityData().getDouble("effectiveness");
-		double radius = effectiveness/10;
-		
-		
-		List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(radius, radius, radius));
-		for(Entity entity : entities) {
-			if ((weaponDisease != null) && Plague.rand.nextInt(100) < effectiveness) {
+
+		double effectiveness = getEntityData().getDouble("effectiveness");
+		double radius = effectiveness / 10;
+
+		@SuppressWarnings("unchecked")
+		List<Entity> entities = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(radius, radius, radius));
+		for (Entity entity : entities) {
+			if (weaponDisease != null && Plague.rand.nextInt(100) < effectiveness) {
 				DiseaseHelper.addDisease(entity, weaponDisease);
 			}
 		}
 
-		if (!this.worldObj.isRemote) {
-			this.setDead();
+		if (!worldObj.isRemote) {
+			setDead();
 		}
 	}
 }

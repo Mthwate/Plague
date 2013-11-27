@@ -19,48 +19,31 @@ public class ItemCure extends ItemBaseFood {
 
 	public ItemCure(int id) {
 		super(id, 0, 0F, false);
-		this.maxStackSize = 1;
-		this.setAlwaysEdible();
+		maxStackSize = 1;
+		setAlwaysEdible();
 	}
 
-	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
-		--itemStack.stackSize;
-		
-		cure(itemStack, player);
-		
-		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
-		if (itemStack.stackSize <= 0) {
-			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
-			return itemStackSyringeEmpty;
-		}
-		player.inventory.addItemStackToInventory(itemStackSyringeEmpty);
-		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
-		return(itemStack);
-	}
-	
-	public EnumAction getItemUseAction(ItemStack itemstack) {
-		return(EnumAction.bow);
-	}
-	
+	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List dataList, boolean bool) {
 		if (itemStack.getTagCompound() != null) {
 			String diseaseName = itemStack.getTagCompound().getString("displayDisease");
-			
+
 			for (Disease disease : Plague.diseases) {
 				if (disease.getUnlocalizedName().equals(diseaseName)) {
 					diseaseName = disease.getName();
 				}
 			}
-			
+
 			dataList.add(itemStack.getDisplayName() + " for " + diseaseName);
 		}
 	}
-	
+
 	void cure(ItemStack itemStack, EntityPlayer player) {
 		String displayDisease = itemStack.getTagCompound().getString("displayDisease");
 		String cureDisease = itemStack.getTagCompound().getString("cureDisease");
-		
+
 		if (displayDisease.equals(cureDisease)) {
 			for (Disease disease : Plague.diseases) {
 				if (disease.getUnlocalizedName().equals(cureDisease)) {
@@ -71,6 +54,27 @@ public class ItemCure extends ItemBaseFood {
 			int index = Plague.rand.nextInt(Plague.diseases.size());
 			DiseaseHelper.addDisease(player, Plague.diseases.get(index));
 		}
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack itemstack) {
+		return EnumAction.bow;
+	}
+
+	@Override
+	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
+		--itemStack.stackSize;
+
+		cure(itemStack, player);
+
+		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
+		if (itemStack.stackSize <= 0) {
+			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
+			return itemStackSyringeEmpty;
+		}
+		player.inventory.addItemStackToInventory(itemStackSyringeEmpty);
+		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
+		return itemStack;
 	}
 
 }

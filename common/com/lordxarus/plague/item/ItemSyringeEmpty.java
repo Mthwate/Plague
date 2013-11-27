@@ -15,11 +15,17 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 
 	public ItemSyringeEmpty(int id) {
 		super(id, 0, 0F, false);
-		this.maxStackSize = 1;
-		this.setAlwaysEdible();
-		this.setCreativeTab(CreativeTabs.tabMisc);
+		maxStackSize = 1;
+		setAlwaysEdible();
+		setCreativeTab(CreativeTabs.tabMisc);
 	}
 
+	@Override
+	public EnumAction getItemUseAction(ItemStack itemstack) {
+		return EnumAction.bow;
+	}
+
+	@Override
 	public ItemStack onEaten(ItemStack ItemStack, World world, EntityPlayer player) {
 		--ItemStack.stackSize;
 		ItemStack itemStack = new ItemStack(ItemPlague.syringeFull);
@@ -34,12 +40,7 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 		}
 		player.inventory.addItemStackToInventory(itemStack);
 		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
-		return(ItemStack);
+		return ItemStack;
 	}
-	
-	public EnumAction getItemUseAction(ItemStack itemstack) {
-		return(EnumAction.bow);
-	}
-
 
 }

@@ -11,10 +11,12 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class DiseaseMalaria extends Disease {
 
+	void effect(Entity entityCarrier) {}
+
 	@Override
 	public void entityUpdate(LivingUpdateEvent event) {
 		Entity entity = event.entity;
-		if(isVulnerable(entity)) {
+		if (isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
 				effect(entity);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
@@ -22,23 +24,14 @@ public class DiseaseMalaria extends Disease {
 			}
 		}
 	}
-	
-	void effect(Entity entityCarrier) {
-	}
-	
-	//checks if an entity can catch the disease
+
+	// checks if an entity can catch the disease
 	@Override
 	public boolean isVulnerable(Entity entity) {
-		if(
-			entity instanceof EntityPlayer ||
-			entity instanceof EntityAnimal ||
-			entity instanceof EntityTameable ||
-			entity instanceof EntityVillager
-		) {
-			return(true);
-		} else {
-			return(false);
+		if (entity instanceof EntityPlayer || entity instanceof EntityAnimal || entity instanceof EntityTameable || entity instanceof EntityVillager) {
+			return true;
 		}
+		return false;
 	}
-	
+
 }

@@ -8,10 +8,10 @@ public class ContainerExtractor extends ContainerBase {
 
 	public ContainerExtractor(InventoryPlayer invPlayer, IInventory entity) {
 		super(invPlayer, entity);
-		
-		//adds the container's slots
-		this.addSlotToContainer(new Slot(entity, 0, 43, 35));
-		this.addSlotToContainer(new Slot(entity, 1, 79, 35));
+
+		// adds the container's slots
+		addSlotToContainer(new Slot(entity, 0, 43, 35));
+		addSlotToContainer(new Slot(entity, 1, 79, 35));
 	}
-	
+
 }

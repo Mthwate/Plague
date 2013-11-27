@@ -11,10 +11,10 @@ public class TileEntityAnalyzer extends TileEntityBase {
 	public TileEntityAnalyzer() {
 		super(BlockPlague.analyzer, 1);
 	}
-	
+
 	@Override
 	public void updateEntity() {
-		ItemStack stack = this.getStackInSlot(0);
+		ItemStack stack = getStackInSlot(0);
 		if (stack != null) {
 			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID) {
 				if (stack.getTagCompound().getInteger("analyzerDuration") < TimeHelper.mcToTick(100, 0, 0)) {

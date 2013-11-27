@@ -14,9 +14,9 @@ public class ItemBaseFood extends ItemFood {
 		super(id, heal, saturation, wolfFood);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister)
-	{
+	public void registerIcons(IconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Plague.modid + ":" + this.getUnlocalizedName().substring(5));
 	}
 

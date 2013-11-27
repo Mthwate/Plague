@@ -12,37 +12,37 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 public class EventHooksPlague {
 
 	@ForgeSubscribe
-	//called when an entity updates (every tick)
-	public void onEntityUpdate(LivingUpdateEvent event) {
-		for(Disease disease : Plague.diseases) {
-			disease.entityUpdate(event);
-		}
-		
-		//increases the duration of all active diseases
-		DiseaseHelper.count(event.entity);
-	}
-
-	@ForgeSubscribe
-	//called when an entity is attacked
+	// called when an entity is attacked
 	public void onEntityAttack(LivingAttackEvent event) {
-		for(Disease disease : Plague.diseases) {
+		for (Disease disease : Plague.diseases) {
 			disease.entityAttack(event);
 		}
 	}
 
 	@ForgeSubscribe
-	//called when an entity spawns
+	// called when an entity spawns
+	public void onEntityDeath(LivingDeathEvent event) {
+		for (Disease disease : Plague.diseases) {
+			disease.entityDeath(event);
+		}
+	}
+
+	@ForgeSubscribe
+	// called when an entity spawns
 	public void onEntitySpawn(LivingSpawnEvent event) {
-		for(Disease disease : Plague.diseases) {
+		for (Disease disease : Plague.diseases) {
 			disease.entitySpawn(event);
 		}
 	}
 
 	@ForgeSubscribe
-	//called when an entity spawns
-	public void onEntityDeath(LivingDeathEvent event) {
-		for(Disease disease : Plague.diseases) {
-			disease.entityDeath(event);
+	// called when an entity updates (every tick)
+	public void onEntityUpdate(LivingUpdateEvent event) {
+		for (Disease disease : Plague.diseases) {
+			disease.entityUpdate(event);
 		}
+
+		// increases the duration of all active diseases
+		DiseaseHelper.count(event.entity);
 	}
 }

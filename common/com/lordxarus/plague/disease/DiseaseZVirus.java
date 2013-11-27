@@ -1,7 +1,6 @@
 package com.lordxarus.plague.disease;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
@@ -14,21 +13,13 @@ import com.lordxarus.plague.lib.DiseaseHelper;
 
 public class DiseaseZVirus extends Disease {
 
+	// called when an entity is attacked
 	@Override
-	public void entityUpdate(LivingUpdateEvent event) {
-		EntityLivingBase entity = event.entityLiving;
-		if(isVulnerable(entity)) {
-			if (DiseaseHelper.isDiseaseActive(entity, this)) {
-				DiseaseHelper.spread(entity, this, 5.0, 10000);
-			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
-				if (event.entityLiving instanceof EntityZombie) {
-					DiseaseHelper.contract(entity, this, 100000);
-				}
-			}
-		}
+	public void entityAttack(LivingAttackEvent event) {
+		DiseaseHelper.spreadByAttack(event, this, 100);
 	}
-	
-	//called when an entity dies
+
+	// called when an entity dies
 	@Override
 	public void entityDeath(LivingDeathEvent event) {
 		EntityLivingBase entity = event.entityLiving;
@@ -43,24 +34,27 @@ public class DiseaseZVirus extends Disease {
 			}
 		}
 	}
-	
-	//called when an entity is attacked
+
 	@Override
-	public void entityAttack(LivingAttackEvent event) {
-		DiseaseHelper.spreadByAttack(event, this, 100);
+	public void entityUpdate(LivingUpdateEvent event) {
+		EntityLivingBase entity = event.entityLiving;
+		if (isVulnerable(entity)) {
+			if (DiseaseHelper.isDiseaseActive(entity, this)) {
+				DiseaseHelper.spread(entity, this, 5.0, 10000);
+			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
+				if (event.entityLiving instanceof EntityZombie) {
+					DiseaseHelper.contract(entity, this, 100000);
+				}
+			}
+		}
 	}
-	
-	//checks if an entity can catch the disease
+
+	// checks if an entity can catch the disease
 	@Override
 	public boolean isVulnerable(Entity entity) {
-		if(
-			entity instanceof EntityPlayer ||
-			entity instanceof EntityVillager ||
-			entity instanceof EntityZombie
-		) {
-			return(true);
-		} else {
-			return(false);
+		if (entity instanceof EntityPlayer || entity instanceof EntityVillager || entity instanceof EntityZombie) {
+			return true;
 		}
+		return false;
 	}
 }
