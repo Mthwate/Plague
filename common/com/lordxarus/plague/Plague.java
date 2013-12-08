@@ -76,7 +76,7 @@ public class Plague {
 	// random
 	public static Random rand = new Random();
 	
-	@SidedProxy(clientSide="com.lordxarus.com.proxy.ClientProxy", serverSide="com.lordxarus.com.proxy.CommonProxy")
+	@SidedProxy(clientSide="com.lordxarus.plague.proxy.ClientProxy", serverSide="com.lordxarus.plague.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	@EventHandler
