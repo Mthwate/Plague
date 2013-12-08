@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -22,6 +21,7 @@ import com.lordxarus.plague.disease.DiseaseWestNile;
 import com.lordxarus.plague.disease.DiseaseZVirus;
 import com.lordxarus.plague.entity.EntityWeaponizedDisease;
 import com.lordxarus.plague.item.ItemPlague;
+import com.lordxarus.plague.proxy.CommonProxy;
 import com.lordxarus.plague.tileentity.TileEntityAnalyzer;
 import com.lordxarus.plague.tileentity.TileEntityExtractor;
 import com.lordxarus.plague.tileentity.TileEntityProcessor;
@@ -29,10 +29,10 @@ import com.lordxarus.plague.tileentity.TileEntityWeaponizer;
 import com.mthwate.bookcase.LangHelper;
 import com.mthwate.bookcase.ModLogger;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -75,6 +75,9 @@ public class Plague {
 
 	// random
 	public static Random rand = new Random();
+	
+	@SidedProxy(clientSide="com.lordxarus.com.proxy.ClientProxy", serverSide="com.lordxarus.com.proxy.CommonProxy")
+	public static CommonProxy proxy;
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -120,7 +123,7 @@ public class Plague {
 		diseaseEndt = new DiseaseEndt().setUnlocalizedName("endt");
 		DiseaseRegistry.addDisease(diseaseEndt);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityWeaponizedDisease.class, new RenderSnowball(ItemPlague.weaponizedDisease));
+		proxy.registerEntityRenderingHandlers();
 		EntityRegistry.registerModEntity(EntityWeaponizedDisease.class, "weaponizedDisease", 1, this, 80, 1, true);
 	}
 
