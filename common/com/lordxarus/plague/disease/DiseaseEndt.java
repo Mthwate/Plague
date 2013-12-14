@@ -1,6 +1,9 @@
 package com.lordxarus.plague.disease;
 
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -18,6 +21,8 @@ public class DiseaseEndt extends Disease {
 
 	public void effect(EntityLivingBase entity) {
 		if (!(entity instanceof EntityEnderman)) {
+			
+			//teleport entity
 			if (Plague.rand.nextInt((int) TimeHelper.mcToTick(100000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entity, this)) {
 
 				int radius = 10;// TODO dynamic
@@ -27,11 +32,12 @@ public class DiseaseEndt extends Disease {
 
 				if (entity.worldObj.getBlockId(x, y, z) == 0 && entity.worldObj.getBlockId(x, y + 1, z) == 0) {
 					entity.setPositionAndUpdate(x + 0.5, y, z + 0.5);
-					Minecraft.getMinecraft().sndManager.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
-					// TODO add particles
+					Plague.proxy.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
+					spawnParticles(entity);
 				}
 			}
 
+			//move or delete items in inventory
 			if (entity instanceof EntityPlayer) {
 				if (Plague.rand.nextInt((int) TimeHelper.mcToTick(10000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entity, this)) {
 					EntityPlayer entityPlayer = (EntityPlayer) entity;
@@ -59,8 +65,8 @@ public class DiseaseEndt extends Disease {
 					if (exec) {
 						entityPlayer.inventory.setInventorySlotContents(slotOne, stackTwo);
 						entityPlayer.inventory.setInventorySlotContents(slotTwo, stackOne);
-						Minecraft.getMinecraft().sndManager.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
-						// TODO add particles
+						Plague.proxy.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
+						spawnParticles(entityPlayer);
 					}
 				}
 			}
@@ -101,5 +107,13 @@ public class DiseaseEndt extends Disease {
 			return true;
 		}
 		return false;
+	}
+	
+	public void spawnParticles(Entity entity) {
+		Random rand  = Plague.rand;
+		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+		for(int i = 0; i < 100; i++) {
+			player.worldObj.spawnParticle("portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+		}
 	}
 }

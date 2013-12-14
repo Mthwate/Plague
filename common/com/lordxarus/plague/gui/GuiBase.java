@@ -18,8 +18,7 @@ public class GuiBase extends GuiContainer {
 	private Block block;
 	private ResourceLocation texture;
 
-	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Block block,
-			Container container) {
+	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Block block, Container container) {
 		super(container);
 
 		this.block = block;
