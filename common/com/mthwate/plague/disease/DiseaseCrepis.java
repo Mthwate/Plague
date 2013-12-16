@@ -46,8 +46,8 @@ public class DiseaseCrepis extends Disease {
 				double mcDuration = TimeHelper.tickToMc(tickDuration);
 				int strength = (int) (mcDuration / (48 * 60 * 60));
 				if (strength > 0) {
-					if (strength > 7) {
-						strength = 7;
+					if (strength > 10) {
+						strength = 10;
 					}
 					double x = entity.posX;
 					double y = entity.posY;
