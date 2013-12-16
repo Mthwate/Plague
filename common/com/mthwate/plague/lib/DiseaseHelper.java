@@ -9,8 +9,10 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
+import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.disease.Disease;
 
@@ -126,6 +128,20 @@ public class DiseaseHelper {
 				AttributeInstance attributeInstance = entity.getEntityAttribute(attribute);
 				attributeInstance.setAttribute(attributeInstance.getBaseValue() - modifier * attributeInstance.getBaseValue() * getDiseaseDuration(entity, disease));
 			}
+		}
+	}
+	
+	public static void setDamaged(Entity entityInfected) {
+		if (entityInfected instanceof EntityPlayer) {
+			EntityPlayer entity = (EntityPlayer) entityInfected;
+			entity.getEntityData().setInteger(Plague.modid + ".damaged.cooldown", (int) TimeHelper.timeToTick(5));
+		}
+	}
+	
+	public static void reduceDamage(Entity entityInfected) {
+		if (entityInfected instanceof EntityPlayer) {
+			EntityPlayer entity = (EntityPlayer) entityInfected;
+			entity.getEntityData().setInteger(Plague.modid + ".damaged.cooldown", entity.getEntityData().getInteger(Plague.modid + ".damaged.cooldown"));
 		}
 	}
 }

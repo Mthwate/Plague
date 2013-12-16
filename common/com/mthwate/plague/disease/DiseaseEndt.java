@@ -19,6 +19,9 @@ import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.lib.DiseaseHelper;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class DiseaseEndt extends Disease {
 
 	public void effect(EntityLivingBase entity) {
@@ -34,6 +37,7 @@ public class DiseaseEndt extends Disease {
 
 				if (entity.worldObj.getBlockId(x, y, z) == 0 && entity.worldObj.getBlockId(x, y + 1, z) == 0) {
 					entity.setPositionAndUpdate(x + 0.5, y, z + 0.5);
+					DiseaseHelper.setDamaged(entity);
 					Plague.proxy.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
 					spawnParticles(entity);
 				}
@@ -125,11 +129,12 @@ public class DiseaseEndt extends Disease {
 		return false;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void spawnParticles(Entity entity) {
 		Random rand  = Plague.rand;
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		for(int i = 0; i < 100; i++) {
-			player.worldObj.spawnParticle("portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+			Plague.proxy.spawnParticle(player.worldObj, "portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 		}
 	}
 }

@@ -13,6 +13,7 @@ import com.mthwate.bookcase.LangHelper;
 import com.mthwate.bookcase.ModLogger;
 import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.command.CommandContract;
+import com.mthwate.plague.command.CommandCure;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.disease.DiseaseChickenpox;
 import com.mthwate.plague.disease.DiseaseCrepis;
@@ -172,6 +173,7 @@ public class Plague {
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandContract());
+		event.registerServerCommand(new CommandCure());
 	}
 
 }
