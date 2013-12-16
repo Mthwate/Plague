@@ -6,8 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -82,7 +84,21 @@ public class DiseaseEndt extends Disease {
 	// called when an entity dies
 	@Override
 	public void entityDeath(LivingDeathEvent event) {
-		// TODO teleport inv
+		if (event.entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			InventoryPlayer inv = player.inventory;
+			int invSize = inv.getSizeInventory();
+			int radius = (int) (DiseaseHelper.getDiseaseDuration(player, this)/TimeHelper.mcToTick(12, 0, 0));
+			for(int i=0; i<invSize;i++) {
+				ItemStack stack = inv.getStackInSlot(i);
+				if (stack != null) {
+					EntityItem entityItem = new EntityItem(player.worldObj, player.posX+Plague.rand.nextInt((radius*2)+1)-radius, player.posY+Plague.rand.nextInt((radius*2)+1)-radius, player.posZ+Plague.rand.nextInt((radius*2)+1)-radius, stack);
+					player.worldObj.spawnEntityInWorld(entityItem);
+					inv.setInventorySlotContents(i, null);
+					System.out.println(player.posX);
+				}
+			}
+		}
 	}
 
 	@Override
