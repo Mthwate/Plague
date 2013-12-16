@@ -2,8 +2,6 @@ package com.mthwate.plague.disease;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -18,9 +16,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.lib.DiseaseHelper;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class DiseaseEndt extends Disease {
 
@@ -129,12 +124,10 @@ public class DiseaseEndt extends Disease {
 		return false;
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public void spawnParticles(Entity entity) {
 		Random rand  = Plague.rand;
-		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		for(int i = 0; i < 100; i++) {
-			Plague.proxy.spawnParticle(player.worldObj, "portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+			Plague.proxy.spawnParticle("portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 		}
 	}
 }
