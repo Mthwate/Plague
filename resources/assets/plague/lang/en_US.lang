@@ -19,3 +19,6 @@ disease.westNile.name=West Nile Virus
 disease.rabies.name=Rabies
 disease.crepis.name=Crepis
 disease.zVirus.name=ZVirus
+disease.endt.name=Endt
+
+command.contract.usage=/contract <disease> [player] [severity]
