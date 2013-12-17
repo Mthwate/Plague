@@ -73,11 +73,10 @@ public class TileEntityProcessor extends TileEntityBase {
 						// set the display name to the disease it is curing
 						displayDisease = cureDisease;
 
-						// if the cure will not work
+					// if the cure will not work
 					} else {
 
-						// sets the display name to a Random disease other than
-						// the correct one
+						// sets the display name to a Random disease other than the correct one
 						displayDisease = cureDisease;
 						while (displayDisease.equals(cureDisease)) {
 							displayDisease = Plague.diseases.get(Plague.rand.nextInt(Plague.diseases.size())).getUnlocalizedName();
@@ -89,14 +88,33 @@ public class TileEntityProcessor extends TileEntityBase {
 					itemStack.getTagCompound().setString("displayDisease", displayDisease);
 
 					// empties the disease vile and gives the player a cure
-					setInventorySlotContents(1, itemStack);
-					setInventorySlotContents(0, new ItemStack(ItemPlague.diseaseVileEmpty));
+					ItemStack vileStack = new ItemStack(ItemPlague.diseaseVileEmpty);
+					vileStack.setTagCompound(new NBTTagCompound());
+					vileStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
 
-					// if the disease filled vile does not contain a disease
+					for (Disease disease : Plague.diseases) {
+						if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+							vileStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
+						}
+					}
+					
+					setInventorySlotContents(0, vileStack);
+					setInventorySlotContents(1, itemStack);
+
+				// if the disease filled vile does not contain a disease
 				} else {
 
 					// empties the disease filled vile
 					ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileEmpty);
+					itemStack.setTagCompound(new NBTTagCompound());
+					itemStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
+
+					for (Disease disease : Plague.diseases) {
+						if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+							itemStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
+						}
+					}
+					
 					setInventorySlotContents(0, itemStack);
 
 				}

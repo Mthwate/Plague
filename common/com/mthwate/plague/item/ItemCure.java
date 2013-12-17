@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.mthwate.plague.DamageSourcePlague;
@@ -64,10 +65,21 @@ public class ItemCure extends ItemBaseFood {
 	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
 		--itemStack.stackSize;
+		
+		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
+		itemStackSyringeEmpty.setTagCompound(new NBTTagCompound());
+		itemStackSyringeEmpty.getTagCompound().setString(Plague.modid + ".passive.owner", player.username);
+		
+		List<Disease> diseases = DiseaseHelper.getActiveDiseases(player);
+		if (diseases != null) {
+			for(Disease disease : diseases) {
+				itemStackSyringeEmpty.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
+			}
+		}
 
 		cure(itemStack, player);
 
-		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
+		
 		if (itemStack.stackSize <= 0) {
 			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 			return itemStackSyringeEmpty;

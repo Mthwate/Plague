@@ -25,6 +25,10 @@ public class TileEntityExtractor extends TileEntityBase {
 		if (stackZero != null && stackOne != null) {
 
 			if (stackZero.getItem().itemID == ItemPlague.syringeFull.itemID && stackOne.getItem().itemID == ItemPlague.diseaseVileEmpty.itemID) {
+				
+				ItemStack syringeStack = new ItemStack(ItemPlague.syringeEmpty);
+				syringeStack.setTagCompound(new NBTTagCompound());
+				syringeStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
 
 				ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileFull);
 				itemStack.setTagCompound(new NBTTagCompound());
@@ -34,9 +38,10 @@ public class TileEntityExtractor extends TileEntityBase {
 				for (Disease disease : Plague.diseases) {
 					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
 						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
+						syringeStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
 					}
 				}
-
+				
 				setInventorySlotContents(0, new ItemStack(ItemPlague.syringeEmpty));
 				setInventorySlotContents(1, itemStack);
 			}

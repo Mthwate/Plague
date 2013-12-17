@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.mthwate.plague.DamageSourcePlague;
+import com.mthwate.plague.Plague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.lib.DiseaseHelper;
 
@@ -26,21 +27,28 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack ItemStack, World world, EntityPlayer player) {
-		--ItemStack.stackSize;
-		ItemStack itemStack = new ItemStack(ItemPlague.syringeFull);
-		itemStack.setTagCompound(new NBTTagCompound());
-		itemStack.getTagCompound().setString("owner", player.getEntityName());
+	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
+		for (Disease disease : Plague.diseases) {
+			if (itemStack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
+				DiseaseHelper.addDisease(player, disease);
+			}
+		}
+		
+		--itemStack.stackSize;
+		
+		ItemStack syringeFullStack = new ItemStack(ItemPlague.syringeFull);
+		syringeFullStack.setTagCompound(new NBTTagCompound());
+		syringeFullStack.getTagCompound().setString("owner", player.username);
 		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
-			itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
+			syringeFullStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 		}
-		if (ItemStack.stackSize <= 0) {
+		if (itemStack.stackSize <= 0) {
 			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
-			return itemStack;
+			return syringeFullStack;
 		}
-		player.inventory.addItemStackToInventory(itemStack);
+		player.inventory.addItemStackToInventory(syringeFullStack);
 		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
-		return ItemStack;
+		return itemStack;
 	}
 
 }
