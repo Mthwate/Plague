@@ -38,6 +38,10 @@ public class EventHooksPlague {
 		for (Disease disease : Plague.diseases) {
 			disease.entityAttack(event);
 		}
+		
+		if (event.entityLiving instanceof EntityPlayer) {
+			DiseaseHelper.reduceDamage(event.entityLiving);
+		}
 	}
 
 	@ForgeSubscribe
@@ -47,7 +51,7 @@ public class EventHooksPlague {
 			disease.entityDeath(event);
 		}
 		
-		if (!event.source.equals(DamageSourcePlague.disease) && event.entityLiving instanceof EntityPlayer) {
+		if ((!event.source.equals(DamageSourcePlague.disease) || !DiseaseHelper.wasDamaged(event.entityLiving)) && event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			
 			GsonDiseases gsonDiseases = new GsonDiseases();

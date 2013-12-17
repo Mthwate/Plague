@@ -144,4 +144,12 @@ public class DiseaseHelper {
 			entity.getEntityData().setInteger(Plague.modid + ".damaged.cooldown", entity.getEntityData().getInteger(Plague.modid + ".damaged.cooldown"));
 		}
 	}
+
+	public static boolean wasDamaged(Entity entityInfected) {
+		if (entityInfected instanceof EntityPlayer) {
+			EntityPlayer entity = (EntityPlayer) entityInfected;
+			return(entity.getEntityData().getInteger(Plague.modid + ".damaged.cooldown") > 0);
+		}
+		return true;
+	}
 }
