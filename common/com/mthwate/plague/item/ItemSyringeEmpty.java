@@ -30,7 +30,9 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
 		for (Disease disease : Plague.diseases) {
 			if (itemStack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-				DiseaseHelper.addDisease(player, disease);
+				if (Plague.rand.nextInt(100) < 50) {
+					DiseaseHelper.addDisease(player, disease);
+				}
 			}
 		}
 		
