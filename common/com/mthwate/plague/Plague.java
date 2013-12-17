@@ -24,6 +24,7 @@ import com.mthwate.plague.disease.DiseaseWestNile;
 import com.mthwate.plague.disease.DiseaseZVirus;
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
 import com.mthwate.plague.item.ItemPlague;
+import com.mthwate.plague.lib.ConfigHelper;
 import com.mthwate.plague.proxy.CommonProxy;
 import com.mthwate.plague.tileentity.TileEntityAnalyzer;
 import com.mthwate.plague.tileentity.TileEntityExtractor;
@@ -53,10 +54,10 @@ public class Plague {
 	@Instance(modid)
 	public static Plague instance;
 
-	// a list of all the registered diseases in Plague
+	// a list of all the enabled diseases in Plague
 	public static List<Disease> diseases = new ArrayList<Disease>();
 
-	// a list of all the diseases enabled in the config file
+	// a list of all the disease names and if they are enabled in the config file
 	public static Map<String, Boolean> enabledDiseases = new HashMap<String, Boolean>();
 
 	// diseases
@@ -77,6 +78,7 @@ public class Plague {
 	// random
 	public static Random rand = new Random();
 	
+	// proxy
 	@SidedProxy(clientSide="com.mthwate.plague.proxy.ClientProxy", serverSide="com.mthwate.plague.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
@@ -87,18 +89,18 @@ public class Plague {
 		LangHelper.register(modid, "en_US");
 
 		// gui handler
-
 		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
 
 		// tile entities
-
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
 		GameRegistry.registerTileEntity(TileEntityAnalyzer.class, "plagueAnalyzer");
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
 		GameRegistry.registerTileEntity(TileEntityWeaponizer.class, "plagueWeaponizer");
 
+		// registers items
 		ItemPlague.register();
 
+		// registers blocks
 		BlockPlague.register();
 
 		// diseases
@@ -124,6 +126,7 @@ public class Plague {
 		diseaseEndt = new DiseaseEndt().setUnlocalizedName("endt");
 		DiseaseRegistry.addDisease(diseaseEndt);
 
+		// entities
 		proxy.registerEntityRenderingHandlers();
 		EntityRegistry.registerModEntity(EntityWeaponizedDisease.class, "weaponizedDisease", 1, this, 80, 1, true);
 	}
@@ -136,27 +139,13 @@ public class Plague {
 		config.load();
 
 		// items
-		ItemPlague.syringeEmptyId = config.getItem("Syringe", 3790).getInt();
-		ItemPlague.syringeFullId = config.getItem("FilledSyringe", 3791).getInt();
-		ItemPlague.diseaseVileEmptyId = config.getItem("Vile", 3792).getInt();
-		ItemPlague.diseaseVileFullId = config.getItem("FilledVile", 3793).getInt();
-		ItemPlague.cureId = config.getItem("Cure", 3794).getInt();
-		ItemPlague.weaponizedDiseaseId = config.getItem("WeaponizedDisease", 3795).getInt();
+		ConfigHelper.items(config);
 
 		// blocks
-		BlockPlague.extractorId = config.getBlock("Extractor", 2790).getInt();
-		BlockPlague.analyzerId = config.getBlock("Analyzer", 2791).getInt();
-		BlockPlague.processorId = config.getBlock("Processor", 2792).getInt();
-		BlockPlague.weaponizerId = config.getBlock("Weaponizer", 2793).getInt();
+		ConfigHelper.blocks(config);
 
 		// diseases
-		enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
-		enabledDiseases.put("westNile", config.get("Diseases", "WestNileVirus", true).getBoolean(true));
-		enabledDiseases.put("malaria", config.get("Diseases", "Malaria", true).getBoolean(true));
-		enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
-		enabledDiseases.put("crepis", config.get("Diseases", "Crepis", true).getBoolean(true));
-		enabledDiseases.put("zVirus", config.get("Diseases", "ZVirus", true).getBoolean(true));
-		enabledDiseases.put("endt", config.get("Diseases", "Endt", true).getBoolean(true));
+		ConfigHelper.diseases(config);
 
 		// settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
@@ -172,6 +161,7 @@ public class Plague {
 
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event) {
+		// server commands
 		event.registerServerCommand(new CommandContract());
 		event.registerServerCommand(new CommandCure());
 	}
