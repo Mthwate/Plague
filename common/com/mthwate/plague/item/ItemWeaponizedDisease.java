@@ -46,9 +46,10 @@ public class ItemWeaponizedDisease extends ItemBase {
 
 		if (!par2World.isRemote) {
 			EntityWeaponizedDisease entity = new EntityWeaponizedDisease(par2World, par3EntityPlayer);
-			entity.getEntityData().setDouble("effectiveness", par1ItemStack.getTagCompound().getDouble("effectiveness"));
-			// entity.getEntityData().setString("disease",
-			// par1ItemStack.getTagCompound().getString("disease"));
+			if (par1ItemStack.getTagCompound() != null) {
+				entity.getEntityData().setDouble("effectiveness", par1ItemStack.getTagCompound().getDouble("effectiveness"));
+				entity.getEntityData().setString("disease", par1ItemStack.getTagCompound().getString("disease"));
+			}
 			par2World.spawnEntityInWorld(entity);
 		}
 

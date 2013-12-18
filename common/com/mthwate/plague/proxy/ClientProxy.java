@@ -31,5 +31,4 @@ public class ClientProxy extends CommonProxy {
 			playerWorld.spawnParticle(particle, posX, posY, posZ, velX, velY, velZ);
 		}
 	}
-	
 }

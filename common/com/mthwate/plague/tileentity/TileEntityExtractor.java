@@ -24,7 +24,7 @@ public class TileEntityExtractor extends TileEntityBase {
 
 		if (stackZero != null && stackOne != null) {
 
-			if (stackZero.getItem().itemID == ItemPlague.syringeFull.itemID && stackOne.getItem().itemID == ItemPlague.diseaseVileEmpty.itemID) {
+			if (stackZero.getItem().itemID == ItemPlague.syringeFull.itemID && stackOne.getItem().itemID == ItemPlague.diseaseVileEmpty.itemID && stackZero.getTagCompound() != null) {
 				
 				ItemStack syringeStack = new ItemStack(ItemPlague.syringeEmpty);
 				syringeStack.setTagCompound(new NBTTagCompound());

@@ -42,18 +42,20 @@ public class ItemCure extends ItemBaseFood {
 	}
 
 	void cure(ItemStack itemStack, EntityPlayer player) {
-		String displayDisease = itemStack.getTagCompound().getString("displayDisease");
-		String cureDisease = itemStack.getTagCompound().getString("cureDisease");
-
-		if (displayDisease.equals(cureDisease)) {
-			for (Disease disease : Plague.diseases) {
-				if (disease.getUnlocalizedName().equals(cureDisease)) {
-					DiseaseHelper.setDiseaseDuration(player, disease, -1);
+		if (itemStack.getTagCompound() != null) {
+			String displayDisease = itemStack.getTagCompound().getString("displayDisease");
+			String cureDisease = itemStack.getTagCompound().getString("cureDisease");
+	
+			if (displayDisease.equals(cureDisease)) {
+				for (Disease disease : Plague.diseases) {
+					if (disease.getUnlocalizedName().equals(cureDisease)) {
+						DiseaseHelper.setDiseaseDuration(player, disease, -1);
+					}
 				}
+			} else {
+				int index = Plague.rand.nextInt(Plague.diseases.size());
+				DiseaseHelper.addDisease(player, Plague.diseases.get(index));
 			}
-		} else {
-			int index = Plague.rand.nextInt(Plague.diseases.size());
-			DiseaseHelper.addDisease(player, Plague.diseases.get(index));
 		}
 	}
 

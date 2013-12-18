@@ -12,6 +12,7 @@ public class ItemBaseFood extends ItemFood {
 
 	public ItemBaseFood(int id, int heal, float saturation, boolean wolfFood) {
 		super(id, heal, saturation, wolfFood);
+		this.setCreativeTab(null);
 	}
 
 	@Override
