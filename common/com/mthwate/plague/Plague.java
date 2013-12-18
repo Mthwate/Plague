@@ -44,7 +44,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Plague.modid, name = Plague.modName, version = "@VERSION@")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"PlagueParticle"}, packetHandler = PacketHandler.class)
 public class Plague {
 	// mod
 	public static final String modid = "plague";

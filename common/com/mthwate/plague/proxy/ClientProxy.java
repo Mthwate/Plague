@@ -1,8 +1,8 @@
 package com.mthwate.plague.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.world.World;
 
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
 import com.mthwate.plague.item.ItemPlague;
@@ -17,14 +17,19 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void playSound(String sound, float x, float y, float z, float volume, float pitch) {
-		Minecraft.getMinecraft().sndManager.playSound(sound, x, y, z, volume, pitch);
-	}
-	
-	@Override
-	public void spawnParticle(String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-		player.worldObj.spawnParticle(particle, posX, posY, posZ, velX, velY, velZ);
+	public void playSound(World world, String sound, float x, float y, float z, float volume, float pitch) {
+		World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
+		if (world.provider.dimensionId == playerWorld.provider.dimensionId) {
+			Minecraft.getMinecraft().sndManager.playSound(sound, x, y, z, volume, pitch);
+		}
 	}
 
+	@Override
+	public void spawnParticle(World world, String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+		World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
+		if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
+			playerWorld.spawnParticle(particle, posX, posY, posZ, velX, velY, velZ);
+		}
+	}
+	
 }

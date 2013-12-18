@@ -33,7 +33,7 @@ public class DiseaseEndt extends Disease {
 				if (entity.worldObj.getBlockId(x, y, z) == 0 && entity.worldObj.getBlockId(x, y + 1, z) == 0) {
 					entity.setPositionAndUpdate(x + 0.5, y, z + 0.5);
 					DiseaseHelper.setDamaged(entity);
-					Plague.proxy.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
+					Plague.proxy.playSound(entity.worldObj, "mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
 					spawnParticles(entity);
 				}
 			}
@@ -66,7 +66,7 @@ public class DiseaseEndt extends Disease {
 					if (exec) {
 						entityPlayer.inventory.setInventorySlotContents(slotOne, stackTwo);
 						entityPlayer.inventory.setInventorySlotContents(slotTwo, stackOne);
-						Plague.proxy.playSound("mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
+						Plague.proxy.playSound(entity.worldObj, "mob.endermen.portal", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
 						spawnParticles(entityPlayer);
 					}
 				}
@@ -124,10 +124,10 @@ public class DiseaseEndt extends Disease {
 		return false;
 	}
 	
-	public void spawnParticles(Entity entity) {
+	public void spawnParticles(EntityLivingBase entity) {
 		Random rand  = Plague.rand;
 		for(int i = 0; i < 100; i++) {
-			Plague.proxy.spawnParticle("portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
+			Plague.proxy.spawnParticle(entity.worldObj, "portal", entity.posX + (rand.nextDouble() - 0.5D) * entity.width, entity.posY + rand.nextDouble() * entity.height - 0.25D, entity.posZ + (rand.nextDouble() - 0.5D) * entity.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 		}
 	}
 }
