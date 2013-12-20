@@ -15,18 +15,21 @@ public class BlockPlague {
 	public static Block analyzer;
 	public static Block processor;
 	public static Block weaponizer;
+	public static Block boiler;
 
 	// block ids
 	public static int extractorId;
 	public static int analyzerId;
 	public static int processorId;
 	public static int weaponizerId;
+	public static int boilerId;
 
 	public static void register() {
 		extractor = registerBlock(extractor, new BlockExtractor(extractorId), "extractor");
 		analyzer = registerBlock(analyzer, new BlockAnalyzer(analyzerId), "analyzer");
 		processor = registerBlock(processor, new BlockProcessor(processorId), "processor");
 		weaponizer = registerBlock(weaponizer, new BlockWeaponizer(weaponizerId), "weaponizer");
+		boiler = registerBlock(boiler, new BlockBoiler(boilerId), "boiler");
 
 		registerRecipes();
 	}

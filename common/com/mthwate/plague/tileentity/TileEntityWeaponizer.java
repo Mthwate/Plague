@@ -11,6 +11,7 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
+import com.mthwate.plague.lib.InstrumentHelper;
 
 public class TileEntityWeaponizer extends TileEntityBase {
 
@@ -29,10 +30,8 @@ public class TileEntityWeaponizer extends TileEntityBase {
 				weaponStack.getTagCompound().setInteger("extractorDuration", stack.getTagCompound().getInteger("extractorDuration"));
 
 				List<String> diseaseNames = new ArrayList<String>();
-				for (Disease disease : Plague.diseases) {
-					if (stack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-						diseaseNames.add(disease.getUnlocalizedName());
-					}
+				for (Disease disease : InstrumentHelper.getDiseases(stack)) {
+					diseaseNames.add(disease.getUnlocalizedName());
 				}
 
 				String diseaseName = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));

@@ -12,6 +12,7 @@ import com.mthwate.plague.DamageSourcePlague;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.lib.DiseaseHelper;
+import com.mthwate.plague.lib.InstrumentHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -70,12 +71,12 @@ public class ItemCure extends ItemBaseFood {
 		
 		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
 		itemStackSyringeEmpty.setTagCompound(new NBTTagCompound());
-		itemStackSyringeEmpty.getTagCompound().setString(Plague.modid + ".passive.owner", player.username);
+		itemStackSyringeEmpty.getTagCompound().setString(Plague.modid + ".remnants.owner", player.username);
 		
 		List<Disease> diseases = DiseaseHelper.getActiveDiseases(player);
 		if (diseases != null) {
 			for(Disease disease : diseases) {
-				itemStackSyringeEmpty.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
+				InstrumentHelper.addRemnants(itemStackSyringeEmpty, disease);
 			}
 		}
 

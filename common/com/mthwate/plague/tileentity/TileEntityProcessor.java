@@ -11,6 +11,7 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
+import com.mthwate.plague.lib.InstrumentHelper;
 
 public class TileEntityProcessor extends TileEntityBase {
 
@@ -33,10 +34,8 @@ public class TileEntityProcessor extends TileEntityBase {
 				List<String> diseaseNames = new ArrayList<String>();
 
 				// checks what diseases the disease filled vile contains
-				for (Disease disease : Plague.diseases) {
-					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-						diseaseNames.add(disease.getUnlocalizedName());
-					}
+				for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
+					diseaseNames.add(disease.getUnlocalizedName());
 				}
 
 				// if the disease filled vile contains at least 1 disease
@@ -90,12 +89,10 @@ public class TileEntityProcessor extends TileEntityBase {
 					// empties the disease vile and gives the player a cure
 					ItemStack vileStack = new ItemStack(ItemPlague.diseaseVileEmpty);
 					vileStack.setTagCompound(new NBTTagCompound());
-					vileStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
+					vileStack.getTagCompound().setString(Plague.modid + ".remnants.owner", stackZero.getTagCompound().getString("owner"));
 
-					for (Disease disease : Plague.diseases) {
-						if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-							vileStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
-						}
+					for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
+						InstrumentHelper.addRemnants(vileStack, disease);
 					}
 					
 					setInventorySlotContents(0, vileStack);
@@ -107,12 +104,11 @@ public class TileEntityProcessor extends TileEntityBase {
 					// empties the disease filled vile
 					ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileEmpty);
 					itemStack.setTagCompound(new NBTTagCompound());
-					itemStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
+					itemStack.getTagCompound().setString(Plague.modid + ".remnants.owner", stackZero.getTagCompound().getString("owner"));
 
-					for (Disease disease : Plague.diseases) {
-						if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-							itemStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
-						}
+
+					for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
+						InstrumentHelper.addRemnants(itemStack, disease);
 					}
 					
 					setInventorySlotContents(0, itemStack);

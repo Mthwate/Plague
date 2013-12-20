@@ -12,6 +12,7 @@ tile.extractor.name=Extractor
 tile.analyzer.name=Analyzer
 tile.processor.name=Processor
 tile.weaponizer.name=Weaponizer
+tile.boiler.name=Boiler
 
 disease.malaria.name=Malaria
 disease.chickenpox.name=Chickenpox

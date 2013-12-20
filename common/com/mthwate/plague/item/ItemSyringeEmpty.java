@@ -11,6 +11,7 @@ import com.mthwate.plague.DamageSourcePlague;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.lib.DiseaseHelper;
+import com.mthwate.plague.lib.InstrumentHelper;
 
 public class ItemSyringeEmpty extends ItemBaseFood {
 
@@ -28,11 +29,9 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 
 	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
-		for (Disease disease : Plague.diseases) {
-			if (itemStack.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-				if (Plague.rand.nextInt(100) < 50) {
-					DiseaseHelper.addDisease(player, disease);
-				}
+		for (Disease disease : InstrumentHelper.getRemnants(itemStack)) {
+			if (Plague.rand.nextInt(100) < 50) {
+				DiseaseHelper.addDisease(player, disease);
 			}
 		}
 		

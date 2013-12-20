@@ -27,6 +27,7 @@ import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.ConfigHelper;
 import com.mthwate.plague.proxy.CommonProxy;
 import com.mthwate.plague.tileentity.TileEntityAnalyzer;
+import com.mthwate.plague.tileentity.TileEntityBoiler;
 import com.mthwate.plague.tileentity.TileEntityExtractor;
 import com.mthwate.plague.tileentity.TileEntityProcessor;
 import com.mthwate.plague.tileentity.TileEntityWeaponizer;
@@ -96,6 +97,7 @@ public class Plague {
 		GameRegistry.registerTileEntity(TileEntityAnalyzer.class, "plagueAnalyzer");
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
 		GameRegistry.registerTileEntity(TileEntityWeaponizer.class, "plagueWeaponizer");
+		GameRegistry.registerTileEntity(TileEntityBoiler.class, "plagueBoiler");
 
 		// registers items
 		ItemPlague.register();

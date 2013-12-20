@@ -8,6 +8,7 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
+import com.mthwate.plague.lib.InstrumentHelper;
 
 public class TileEntityExtractor extends TileEntityBase {
 
@@ -28,22 +29,20 @@ public class TileEntityExtractor extends TileEntityBase {
 				
 				ItemStack syringeStack = new ItemStack(ItemPlague.syringeEmpty);
 				syringeStack.setTagCompound(new NBTTagCompound());
-				syringeStack.getTagCompound().setString(Plague.modid + ".passive.owner", stackZero.getTagCompound().getString("owner"));
+				syringeStack.getTagCompound().setString(Plague.modid + ".remnants.owner", stackZero.getTagCompound().getString("owner"));
 
-				ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileFull);
-				itemStack.setTagCompound(new NBTTagCompound());
-				itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
-				itemStack.getTagCompound().setBoolean("complete", false);
+				ItemStack vileStack = new ItemStack(ItemPlague.diseaseVileFull);
+				vileStack.setTagCompound(new NBTTagCompound());
+				vileStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
+				vileStack.getTagCompound().setBoolean("complete", false);
 
-				for (Disease disease : Plague.diseases) {
-					if (stackZero.getTagCompound().getBoolean(disease.getUnlocalizedName())) {
-						itemStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
-						syringeStack.getTagCompound().setBoolean(Plague.modid + ".passive." + disease.getUnlocalizedName(), true);
-					}
+				for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
+					InstrumentHelper.addDisease(vileStack, disease);
+					InstrumentHelper.addRemnants(syringeStack, disease);
 				}
 				
-				setInventorySlotContents(0, new ItemStack(ItemPlague.syringeEmpty));
-				setInventorySlotContents(1, itemStack);
+				setInventorySlotContents(0, syringeStack);
+				setInventorySlotContents(1, vileStack);
 			}
 		}
 
