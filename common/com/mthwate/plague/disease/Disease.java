@@ -1,6 +1,9 @@
 package com.mthwate.plague.disease;
 
-import net.minecraft.entity.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -11,6 +14,15 @@ import com.mthwate.bookcase.LangHelper;
 public class Disease {
 
 	private String unlocalizedName;
+	
+	private List<Class<? extends EntityLivingBase>> targets;
+	
+	private double luckModifier;
+	
+	public Disease(double modifier) {
+		luckModifier = modifier;
+		targets = new ArrayList<Class<? extends EntityLivingBase>>();
+	}
 
 	// called when an entity is attacked
 	public void entityAttack(LivingAttackEvent event) {}
@@ -32,12 +44,26 @@ public class Disease {
 	}
 
 	// checks if an entity can catch the disease
-	public boolean isVulnerable(Entity entity) {
+	public boolean isVulnerable(EntityLivingBase entity) {
+		for (Class<? extends EntityLivingBase> target : targets) {
+			if (target.isInstance(entity)) {
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
 	public Disease setUnlocalizedName(String newName) {
 		unlocalizedName = newName;
 		return this;
+	}
+	
+	public void addTarget(Class<? extends EntityLivingBase> target) {
+		targets.add(target);
+	}
+	
+	public double getModifier() {
+		return luckModifier;
 	}
 }

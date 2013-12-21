@@ -2,7 +2,6 @@ package com.mthwate.plague.disease;
 
 import java.util.Random;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -18,6 +17,11 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.lib.DiseaseHelper;
 
 public class DiseaseEndt extends Disease {
+
+	public DiseaseEndt(double modifier) {
+		super(modifier);
+		addTarget(EntityLivingBase.class);
+	}
 
 	public void effect(EntityLivingBase entity) {
 		if (!(entity instanceof EntityEnderman)) {
@@ -113,15 +117,6 @@ public class DiseaseEndt extends Disease {
 				}
 			}
 		}
-	}
-
-	// checks if an entity can catch the disease
-	@Override
-	public boolean isVulnerable(Entity entity) {
-		if (entity instanceof EntityLivingBase) {
-			return true;
-		}
-		return false;
 	}
 	
 	public void spawnParticles(EntityLivingBase entity) {

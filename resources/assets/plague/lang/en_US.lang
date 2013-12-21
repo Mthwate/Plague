@@ -14,12 +14,13 @@ tile.processor.name=Processor
 tile.weaponizer.name=Weaponizer
 tile.boiler.name=Boiler
 
-disease.malaria.name=Malaria
 disease.chickenpox.name=Chickenpox
 disease.westNile.name=West Nile Virus
 disease.rabies.name=Rabies
 disease.crepis.name=Crepis
 disease.zVirus.name=ZVirus
 disease.endt.name=Endt
+disease.vampyra.name=Vampyra
 
 command.contract.usage=/contract <disease> [player] [severity]
+command.cure.usage=/cure <disease> [player]

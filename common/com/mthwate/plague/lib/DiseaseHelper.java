@@ -30,7 +30,7 @@ public class DiseaseHelper {
 
 	// gives the entity a small chance of catching the disease Randomly
 	public static void contract(Entity entity, Disease disease, int modifier) {
-		if (Plague.rand.nextInt(modifier) == 0) {
+		if (Plague.rand.nextInt((int) (modifier * disease.getModifier())) == 0) {
 			DiseaseHelper.addDisease(entity, disease);
 			Plague.logger.log(Level.INFO, entity.getEntityName() + " contracted " + disease.getName().toLowerCase() + "!", true);
 		}
@@ -85,11 +85,14 @@ public class DiseaseHelper {
 	public static void spread(Entity entityCarrier, Disease disease, double radius, int modifier) {
 		@SuppressWarnings("unchecked")
 		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(radius, radius, radius));
-		for (Entity entityTarget : entities) {
-			if (disease.isVulnerable(entityTarget) && !DiseaseHelper.isDiseaseActive(entityTarget, disease)) {
-				if (Plague.rand.nextInt(modifier) == 0) {
-					DiseaseHelper.addDisease(entityTarget, disease);
-					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
+		for (Entity entity : entities) {
+			if (entity instanceof EntityLivingBase) {
+				EntityLivingBase entityTarget = (EntityLivingBase) entity;
+				if (disease.isVulnerable(entityTarget) && !DiseaseHelper.isDiseaseActive(entityTarget, disease)) {
+					if (Plague.rand.nextInt((int) (modifier * disease.getModifier())) == 0) {
+						DiseaseHelper.addDisease(entityTarget, disease);
+						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityCarrier.getEntityName() + "!", true);
+					}
 				}
 			}
 		}
@@ -99,7 +102,7 @@ public class DiseaseHelper {
 	public static void spreadByAttack(LivingAttackEvent event, Disease disease, int modifier) {
 
 		// gets the attacker and the victim of the attack
-		Entity entityVictim = event.entity;
+		EntityLivingBase entityVictim = event.entityLiving;
 		Entity entityAttacker = event.source.getEntity();
 
 		// checks if the entity is able to contract the disease and does not
@@ -109,7 +112,7 @@ public class DiseaseHelper {
 			if (event.source.getEntity() != null) {
 				if (event.source.getEntity() instanceof EntityLiving) {
 					if (DiseaseHelper.isDiseaseActive(entityAttacker, disease)) {
-						if (Plague.rand.nextInt(modifier) == 0) {
+						if (Plague.rand.nextInt((int) (modifier * disease.getModifier())) == 0) {
 							addDisease(entityVictim, disease);
 							Plague.logger.log(Level.INFO, entityVictim.getEntityName() + " contracted " + disease.getName().toLowerCase() + " from " + entityAttacker.getEntityName() + "!", true);
 						}

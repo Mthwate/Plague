@@ -18,8 +18,8 @@ import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.disease.DiseaseChickenpox;
 import com.mthwate.plague.disease.DiseaseCrepis;
 import com.mthwate.plague.disease.DiseaseEndt;
-import com.mthwate.plague.disease.DiseaseMalaria;
 import com.mthwate.plague.disease.DiseaseRabies;
+import com.mthwate.plague.disease.DiseaseVampyra;
 import com.mthwate.plague.disease.DiseaseWestNile;
 import com.mthwate.plague.disease.DiseaseZVirus;
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
@@ -69,6 +69,7 @@ public class Plague {
 	public static Disease diseaseCrepis;
 	public static Disease diseaseZVirus;
 	public static Disease diseaseEndt;
+	public static Disease diseaseVampyra;
 
 	// settings
 	public static boolean verbose;
@@ -107,26 +108,26 @@ public class Plague {
 
 		// diseases
 
-		diseaseRabies = new DiseaseRabies().setUnlocalizedName("rabies");
+		diseaseRabies = new DiseaseRabies(1.0).setUnlocalizedName("rabies");
 		DiseaseRegistry.addDisease(diseaseRabies);
 
-		diseaseWestNile = new DiseaseWestNile().setUnlocalizedName("westNile");
+		diseaseWestNile = new DiseaseWestNile(1.0).setUnlocalizedName("westNile");
 		DiseaseRegistry.addDisease(diseaseWestNile);
 
-		diseaseMalaria = new DiseaseMalaria().setUnlocalizedName("malaria");
-		DiseaseRegistry.addDisease(diseaseMalaria);
-
-		diseaseChickenpox = new DiseaseChickenpox().setUnlocalizedName("chickenpox");
+		diseaseChickenpox = new DiseaseChickenpox(1.0).setUnlocalizedName("chickenpox");
 		DiseaseRegistry.addDisease(diseaseChickenpox);
 
-		diseaseCrepis = new DiseaseCrepis().setUnlocalizedName("crepis");
+		diseaseCrepis = new DiseaseCrepis(1.0).setUnlocalizedName("crepis");
 		DiseaseRegistry.addDisease(diseaseCrepis);
 
-		diseaseZVirus = new DiseaseZVirus().setUnlocalizedName("zVirus");
+		diseaseZVirus = new DiseaseZVirus(1.0).setUnlocalizedName("zVirus");
 		DiseaseRegistry.addDisease(diseaseZVirus);
 
-		diseaseEndt = new DiseaseEndt().setUnlocalizedName("endt");
+		diseaseEndt = new DiseaseEndt(1.0).setUnlocalizedName("endt");
 		DiseaseRegistry.addDisease(diseaseEndt);
+
+		diseaseVampyra = new DiseaseVampyra(1.0).setUnlocalizedName("vampyra");
+		DiseaseRegistry.addDisease(diseaseVampyra);
 
 		// entities
 		proxy.registerEntityRenderingHandlers();
@@ -151,6 +152,7 @@ public class Plague {
 
 		// settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
+		//TODO made difficulty modifiers configurable
 
 		config.save();
 

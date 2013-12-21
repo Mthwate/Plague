@@ -1,6 +1,5 @@
 package com.mthwate.plague.disease;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -13,6 +12,11 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.lib.DiseaseHelper;
 
 public class DiseaseCrepis extends Disease {
+
+	public DiseaseCrepis(double modifier) {
+		super(modifier);
+		addTarget(EntityLivingBase.class);
+	}
 
 	public void effect(EntityLivingBase entity) {
 		if (!(entity instanceof EntityCreeper)) {
@@ -71,15 +75,6 @@ public class DiseaseCrepis extends Disease {
 				}
 			}
 		}
-	}
-
-	// checks if an entity can catch the disease
-	@Override
-	public boolean isVulnerable(Entity entity) {
-		if (entity instanceof EntityLivingBase) {
-			return true;
-		}
-		return false;
 	}
 
 }

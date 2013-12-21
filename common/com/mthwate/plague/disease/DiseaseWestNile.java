@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -16,6 +17,14 @@ import com.mthwate.bookcase.EntityHelper;
 import com.mthwate.plague.lib.DiseaseHelper;
 
 public class DiseaseWestNile extends Disease {
+
+	public DiseaseWestNile(double modifier) {
+		super(modifier);
+		addTarget(EntityPlayer.class);
+		addTarget(EntityAnimal.class);
+		addTarget(EntityTameable.class);
+		addTarget(EntityVillager.class);
+	}
 
 	// randomly contracts disease
 	void contract(Entity entity) {
@@ -44,7 +53,7 @@ public class DiseaseWestNile extends Disease {
 
 	@Override
 	public void entityUpdate(LivingUpdateEvent event) {
-		Entity entity = event.entity;
+		EntityLivingBase entity = event.entityLiving;
 		if (isVulnerable(entity)) {
 			if (DiseaseHelper.isDiseaseActive(entity, this)) {
 				effect(entity);
@@ -52,15 +61,6 @@ public class DiseaseWestNile extends Disease {
 				contract(entity);
 			}
 		}
-	}
-
-	// checks if an entity can catch the disease
-	@Override
-	public boolean isVulnerable(Entity entity) {
-		if (entity instanceof EntityPlayer || entity instanceof EntityAnimal || entity instanceof EntityTameable || entity instanceof EntityVillager) {
-			return true;
-		}
-		return false;
 	}
 
 }

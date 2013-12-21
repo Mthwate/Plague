@@ -19,6 +19,13 @@ import com.mthwate.plague.lib.DiseaseHelper;
 
 public class DiseaseZVirus extends Disease {
 
+	public DiseaseZVirus(double modifier) {
+		super(modifier);
+		addTarget(EntityPlayer.class);
+		addTarget(EntityVillager.class);
+		addTarget(EntityZombie.class);
+	}
+
 	void effect(Entity entityCarrier) {
 
 		// damages self
@@ -72,14 +79,5 @@ public class DiseaseZVirus extends Disease {
 				}
 			}
 		}
-	}
-
-	// checks if an entity can catch the disease
-	@Override
-	public boolean isVulnerable(Entity entity) {
-		if (entity instanceof EntityPlayer || entity instanceof EntityVillager || entity instanceof EntityZombie) {
-			return true;
-		}
-		return false;
 	}
 }
