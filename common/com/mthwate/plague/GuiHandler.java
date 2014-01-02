@@ -6,16 +6,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.mthwate.plague.container.ContainerAnalyzer;
+import com.mthwate.plague.container.ContainerAnalyzerElectric;
 import com.mthwate.plague.container.ContainerBoiler;
 import com.mthwate.plague.container.ContainerExtractor;
 import com.mthwate.plague.container.ContainerProcessor;
 import com.mthwate.plague.container.ContainerWeaponizer;
 import com.mthwate.plague.gui.GuiAnalyzer;
+import com.mthwate.plague.gui.GuiAnalyzerElectric;
 import com.mthwate.plague.gui.GuiBoiler;
 import com.mthwate.plague.gui.GuiExtractor;
 import com.mthwate.plague.gui.GuiProcessor;
 import com.mthwate.plague.gui.GuiWeaponizer;
 import com.mthwate.plague.tileentity.TileEntityAnalyzer;
+import com.mthwate.plague.tileentity.TileEntityAnalyzerElectric;
 import com.mthwate.plague.tileentity.TileEntityBoiler;
 import com.mthwate.plague.tileentity.TileEntityExtractor;
 import com.mthwate.plague.tileentity.TileEntityProcessor;
@@ -44,6 +47,8 @@ public class GuiHandler implements IGuiHandler {
 					return new GuiWeaponizer(player.inventory, inv);
 				} else if (inv instanceof TileEntityBoiler) {
 					return new GuiBoiler(player.inventory, inv);
+				} else if (inv instanceof TileEntityAnalyzerElectric) {
+					return new GuiAnalyzerElectric(player.inventory, inv);
 				} else {
 					return null;
 				}
@@ -71,6 +76,8 @@ public class GuiHandler implements IGuiHandler {
 					return new ContainerWeaponizer(player.inventory, inv);
 				} else if (inv instanceof TileEntityBoiler) {
 					return new ContainerBoiler(player.inventory, inv);
+				} else if (inv instanceof TileEntityAnalyzerElectric) {
+					return new ContainerAnalyzerElectric(player.inventory, inv);
 				} else {
 					return null;
 				}

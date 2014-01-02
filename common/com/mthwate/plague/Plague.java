@@ -27,6 +27,7 @@ import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.ConfigHelper;
 import com.mthwate.plague.proxy.CommonProxy;
 import com.mthwate.plague.tileentity.TileEntityAnalyzer;
+import com.mthwate.plague.tileentity.TileEntityAnalyzerElectric;
 import com.mthwate.plague.tileentity.TileEntityBoiler;
 import com.mthwate.plague.tileentity.TileEntityExtractor;
 import com.mthwate.plague.tileentity.TileEntityProcessor;
@@ -45,7 +46,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Plague.modid, name = Plague.modName, version = "@VERSION@")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"PlagueParticle"}, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"PlagueParticle", "PlagueSound"}, packetHandler = PacketHandler.class)
 public class Plague {
 	// mod
 	public static final String modid = "plague";
@@ -99,6 +100,7 @@ public class Plague {
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
 		GameRegistry.registerTileEntity(TileEntityWeaponizer.class, "plagueWeaponizer");
 		GameRegistry.registerTileEntity(TileEntityBoiler.class, "plagueBoiler");
+		GameRegistry.registerTileEntity(TileEntityAnalyzerElectric.class, "plagueAnalyzerElectric");
 
 		// registers items
 		ItemPlague.register();

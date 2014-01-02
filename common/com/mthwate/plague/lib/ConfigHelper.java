@@ -24,6 +24,7 @@ public class ConfigHelper {
 		BlockPlague.processorId = config.getBlock("Processor", 2792).getInt();
 		BlockPlague.weaponizerId = config.getBlock("Weaponizer", 2793).getInt();
 		BlockPlague.boilerId = config.getBlock("Boiler", 2794).getInt();
+		BlockPlague.analyzerElectricId = config.getBlock("Electric Analyzer", 2795).getInt();
 	}
 	
 	public static void items(Configuration config) {

@@ -16,6 +16,7 @@ public class BlockPlague {
 	public static Block processor;
 	public static Block weaponizer;
 	public static Block boiler;
+	public static Block analyzerElectric;
 
 	// block ids
 	public static int extractorId;
@@ -23,6 +24,7 @@ public class BlockPlague {
 	public static int processorId;
 	public static int weaponizerId;
 	public static int boilerId;
+	public static int analyzerElectricId;
 
 	public static void register() {
 		extractor = registerBlock(extractor, new BlockExtractor(extractorId), "extractor");
@@ -30,6 +32,7 @@ public class BlockPlague {
 		processor = registerBlock(processor, new BlockProcessor(processorId), "processor");
 		weaponizer = registerBlock(weaponizer, new BlockWeaponizer(weaponizerId), "weaponizer");
 		boiler = registerBlock(boiler, new BlockBoiler(boilerId), "boiler");
+		analyzerElectric = registerBlock(analyzerElectric, new BlockAnalyzerElectric(analyzerElectricId), "analyzerElectric");
 
 		registerRecipes();
 	}
