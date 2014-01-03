@@ -29,6 +29,18 @@
 		</loadresource>
 	</target>
 
+	<target name="set-ue-version">
+		<loadresource property="location.ue.new">
+			<propertyresource name="location.ue"/>
+			<filterchain>
+				<tokenfilter>
+					<filetokenizer/>
+					<replacestring from="@UEVER@" to="${ue.version}"/>
+				</tokenfilter>
+			</filterchain>
+		</loadresource>
+	</target>
+
 	<target name="prep">
 		<mkdir dir="${location.tmp}" />
 		<copy todir="${location.tmp}">
@@ -41,6 +53,9 @@
 		<copy todir="${location.tmp}/mcp/src/minecraft">
 			<fileset dir="${location.src}/common/" />
 			<fileset dir="${location.bookcase}/common/" />
+		</copy>
+		<copy todir="${location.tmp}/mcp/lib">
+			<file file="${location.ue.new}" />
 		</copy>
 	</target>
 
@@ -69,7 +84,7 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="set-forge-version, clean, prep, replace-tokens, recompile, reobfuscate">
+	<target name="build" depends="set-forge-version, set-ue-version, clean, prep, replace-tokens, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />

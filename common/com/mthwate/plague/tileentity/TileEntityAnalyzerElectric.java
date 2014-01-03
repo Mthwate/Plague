@@ -6,6 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.compatibility.TileEntityUniversalElectrical;
 
@@ -116,7 +117,7 @@ public class TileEntityAnalyzerElectric extends TileEntityUniversalElectrical im
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64;
+		return player.getDistanceSq(((TileEntity) this).xCoord + 0.5D, ((TileEntity) this).yCoord + 0.5D, ((TileEntity) this).zCoord + 0.5D) <= 64;
 	}
 
 	@Override
