@@ -58,7 +58,7 @@
 			<file file="${location.ue.new}" />
 		</copy>
 		<mkdir dir="${location.tmp}/ue/"/>
-		<unzip src="${location.ue}" dest="${location.tmp}/ue/"/>
+		<unzip src="${location.ue.new}" dest="${location.tmp}/ue/"/>
 	</target>
 
 	<target name="replace-tokens">
