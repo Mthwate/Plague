@@ -16,6 +16,7 @@ public class BlockPlague {
 	public static Block processor;
 	public static Block weaponizer;
 	public static Block boiler;
+	public static Block extractorElectric;
 	public static Block analyzerElectric;
 
 	// block ids
@@ -24,6 +25,7 @@ public class BlockPlague {
 	public static int processorId;
 	public static int weaponizerId;
 	public static int boilerId;
+	public static int extractorElectricId;
 	public static int analyzerElectricId;
 
 	public static void register() {
@@ -32,6 +34,7 @@ public class BlockPlague {
 		processor = registerBlock(processor, new BlockProcessor(processorId), "processor");
 		weaponizer = registerBlock(weaponizer, new BlockWeaponizer(weaponizerId), "weaponizer");
 		boiler = registerBlock(boiler, new BlockBoiler(boilerId), "boiler");
+		extractorElectric = registerBlock(extractorElectric, new BlockExtractorElectric(extractorElectricId), "extractorElectric");
 		analyzerElectric = registerBlock(analyzerElectric, new BlockAnalyzerElectric(analyzerElectricId), "analyzerElectric");
 
 		registerRecipes();
@@ -51,6 +54,12 @@ public class BlockPlague {
 		GameRegistry.addRecipe(new ItemStack(processor), "ppp", "i i", " g ", 'p', Block.planks, 'i', Item.ingotIron, 'g', Item.ingotGold);
 
 		GameRegistry.addRecipe(new ItemStack(weaponizer), "iii", "iei", "iii", 'i', Item.ingotIron, 'e', Item.eyeOfEnder);
+
+		GameRegistry.addRecipe(new ItemStack(boiler), "iii", "ifi", "isi", 'i', Item.ingotIron, 'f', Block.furnaceIdle, 's', Item.flintAndSteel);
+		
+		GameRegistry.addRecipe(new ItemStack(extractorElectric), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.extractor);
+
+		GameRegistry.addRecipe(new ItemStack(analyzerElectric), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.analyzer);
 	}
 
 }

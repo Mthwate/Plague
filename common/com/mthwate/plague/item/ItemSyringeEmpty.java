@@ -39,7 +39,6 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 		
 		ItemStack syringeFullStack = new ItemStack(ItemPlague.syringeFull);
 		syringeFullStack.setTagCompound(new NBTTagCompound());
-		syringeFullStack.getTagCompound().setString("owner", player.username);
 		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
 			syringeFullStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 		}

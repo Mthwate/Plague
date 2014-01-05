@@ -71,7 +71,6 @@ public class ItemCure extends ItemBaseFood {
 		
 		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
 		itemStackSyringeEmpty.setTagCompound(new NBTTagCompound());
-		itemStackSyringeEmpty.getTagCompound().setString(Plague.modid + ".remnants.owner", player.username);
 		
 		List<Disease> diseases = DiseaseHelper.getActiveDiseases(player);
 		if (diseases != null) {

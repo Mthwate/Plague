@@ -47,9 +47,6 @@ public class TileEntityProcessor extends TileEntityBase {
 					// initialize the item's NBT tag compound
 					itemStack.setTagCompound(new NBTTagCompound());
 
-					// set the owner of the disease to the cure item
-					itemStack.getTagCompound().setString("owner", stackZero.getTagCompound().getString("owner"));
-
 					// picks a Random disease in the disease filled vile
 					String cureDisease = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));
 
@@ -89,7 +86,6 @@ public class TileEntityProcessor extends TileEntityBase {
 					// empties the disease vile and gives the player a cure
 					ItemStack vileStack = new ItemStack(ItemPlague.diseaseVileEmpty);
 					vileStack.setTagCompound(new NBTTagCompound());
-					vileStack.getTagCompound().setString(Plague.modid + ".remnants.owner", stackZero.getTagCompound().getString("owner"));
 
 					for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
 						InstrumentHelper.addRemnants(vileStack, disease);
@@ -104,7 +100,6 @@ public class TileEntityProcessor extends TileEntityBase {
 					// empties the disease filled vile
 					ItemStack itemStack = new ItemStack(ItemPlague.diseaseVileEmpty);
 					itemStack.setTagCompound(new NBTTagCompound());
-					itemStack.getTagCompound().setString(Plague.modid + ".remnants.owner", stackZero.getTagCompound().getString("owner"));
 
 
 					for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {

@@ -5,11 +5,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.mthwate.plague.tileentity.TileEntityAnalyzerElectric;
+import com.mthwate.plague.tileentity.TileEntityExtractorElectric;
 
-public class BlockAnalyzerElectric extends BlockContainerElectricBase {
+public class BlockExtractorElectric extends BlockContainerElectricBase {
 
-	public BlockAnalyzerElectric(int id) {
+	public BlockExtractorElectric(int id) {
 		super(id, Material.iron);
 		setCreativeTab(CreativeTabs.tabBlock);
 		setHardness(5F);
@@ -18,7 +18,7 @@ public class BlockAnalyzerElectric extends BlockContainerElectricBase {
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityAnalyzerElectric();
+		return new TileEntityExtractorElectric();
 	}
 
 }

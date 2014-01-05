@@ -30,6 +30,7 @@ import com.mthwate.plague.tileentity.TileEntityAnalyzer;
 import com.mthwate.plague.tileentity.TileEntityAnalyzerElectric;
 import com.mthwate.plague.tileentity.TileEntityBoiler;
 import com.mthwate.plague.tileentity.TileEntityExtractor;
+import com.mthwate.plague.tileentity.TileEntityExtractorElectric;
 import com.mthwate.plague.tileentity.TileEntityProcessor;
 import com.mthwate.plague.tileentity.TileEntityWeaponizer;
 
@@ -100,6 +101,7 @@ public class Plague {
 		GameRegistry.registerTileEntity(TileEntityProcessor.class, "plagueProcessor");
 		GameRegistry.registerTileEntity(TileEntityWeaponizer.class, "plagueWeaponizer");
 		GameRegistry.registerTileEntity(TileEntityBoiler.class, "plagueBoiler");
+		GameRegistry.registerTileEntity(TileEntityExtractorElectric.class, "plagueExtractorElectric");
 		GameRegistry.registerTileEntity(TileEntityAnalyzerElectric.class, "plagueAnalyzerElectric");
 
 		// registers items
