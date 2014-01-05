@@ -8,6 +8,7 @@ import java.util.Random;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import universalelectricity.compatibility.Compatibility;
 
 import com.mthwate.bookcase.LangHelper;
 import com.mthwate.bookcase.ModLogger;
@@ -91,6 +92,9 @@ public class Plague {
 
 		// lang
 		LangHelper.register(modid, "en_US");
+		
+		//universal electricity compatibility
+		Compatibility.initiate();
 
 		// gui handler
 		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
