@@ -57,6 +57,8 @@
 		<copy todir="${location.tmp}/mcp/lib">
 			<file file="${location.ue.new}" />
 		</copy>
+		<mkdir dir="${location.tmp}/ue/"/>
+		<unzip src="${location.ue}" dest="${location.tmp}/ue/"/>
 	</target>
 
 	<target name="replace-tokens">
@@ -91,6 +93,7 @@
 		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
 			<fileset dir="${location.tmp}/mcp/reobf/minecraft" includes="com/" />
 			<fileset dir="${location.tmp}/resources"/>
+			<fileset dir="${location.tmp}/ue"/>
 		</jar>
 
 		<!-- Clean up the MCP source now that we are done -->
