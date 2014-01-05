@@ -17,6 +17,7 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 
 		// gets the item stacks in all inventory slots
 		ItemStack stackZero = getStackInSlot(0);

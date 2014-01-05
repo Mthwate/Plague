@@ -14,6 +14,7 @@ public class TileEntityAnalyzerElectric extends TileEntityBaseElectric {
 
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		ItemStack stack = getStackInSlot(0);
 		if (stack != null) {
 			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID && stack.getTagCompound() != null && this.getEnergyStored() >= 1) {
