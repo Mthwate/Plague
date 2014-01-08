@@ -14,15 +14,26 @@ public class PacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 
-		if (packet.channel.equals("PlagueParticle")) {
-			spawnParticle(packet);
-		} else if (packet.channel.equals("PlagueSound")) {
-			playSound(packet);
+		if (packet.channel.equals("Plague")) {
+			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+			String type;
+			try {
+				type = inputStream.readUTF();
+			
+				if(type.equals("sound")) {
+					playSound(inputStream);
+				} else if (type.equals("particle")) {
+					spawnParticle(inputStream);
+				} else if(type.equals("energy")) {
+					updateElectricity(inputStream);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private void spawnParticle(Packet250CustomPayload packet) {
-		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+	private void spawnParticle(DataInputStream inputStream) {
 
 		String particle;
 		double posX;
@@ -46,8 +57,7 @@ public class PacketHandler implements IPacketHandler {
 		}
 	}
 
-	private void playSound(Packet250CustomPayload packet) {
-		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+	private void playSound(DataInputStream inputStream) {
 
 		String sound;
 		float posX;
@@ -64,6 +74,24 @@ public class PacketHandler implements IPacketHandler {
 			volume = inputStream.readFloat();
 			pitch = inputStream.readFloat();
 			Plague.proxy.playSound(null, sound, posX, posY, posZ, volume, pitch);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateElectricity(DataInputStream inputStream) {
+
+		float posX;
+		float posY;
+		float posZ;
+		long energy;
+
+		try {
+			posX = inputStream.readFloat();
+			posY = inputStream.readFloat();
+			posZ = inputStream.readFloat();
+			energy = inputStream.readLong();
+			Plague.proxy.updateElectricity(null, posX, posY, posZ, energy);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

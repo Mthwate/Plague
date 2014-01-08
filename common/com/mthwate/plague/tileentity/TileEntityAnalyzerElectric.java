@@ -17,7 +17,7 @@ public class TileEntityAnalyzerElectric extends TileEntityBaseElectric {
 		super.updateEntity();
 		ItemStack stack = getStackInSlot(0);
 		if (stack != null) {
-			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID && stack.getTagCompound() != null && this.getEnergyStored() >= 1) {
+			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID && stack.getTagCompound() != null && this.getEnergy(null) >= 1) {
 				
 				if (stack.getTagCompound().getInteger("analyzerDuration") < TimeHelper.mcToTick(100, 0, 0)) {
 					stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 2);
@@ -27,7 +27,7 @@ public class TileEntityAnalyzerElectric extends TileEntityBaseElectric {
 					stack.getTagCompound().setInteger("analyzerDuration", (int) TimeHelper.mcToTick(100, 0, 0));
 				}
 				
-				this.setEnergyStored(this.getEnergyStored() - 1);
+				this.modifyEnergyStored(-1);
 				
 			}
 		}

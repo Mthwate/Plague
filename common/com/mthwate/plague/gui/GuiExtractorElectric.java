@@ -1,5 +1,6 @@
 package com.mthwate.plague.gui;
 
+import universalelectricity.api.energy.UnitDisplay;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 
@@ -19,8 +20,7 @@ public class GuiExtractorElectric extends GuiBase {
 	@Override
 	public void drawGuiContainerForegroundLayer(int j, int i) {
 		super.drawGuiContainerForegroundLayer(j, i);
-		Integer s = (int) tileEntity.getEnergyStored();
-		fontRenderer.drawString(s.toString(), 8, 26, 4210752);
+		fontRenderer.drawString(UnitDisplay.getDisplay(tileEntity.getEnergy(null), UnitDisplay.Unit.JOULES), 8, 26, 4210752);
 	}
 
 }

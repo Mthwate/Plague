@@ -1,140 +1,79 @@
 package com.mthwate.plague.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.compatibility.TileEntityUniversalElectrical;
+import universalelectricity.api.UniversalClass;
+import universalelectricity.api.energy.EnergyStorageHandler;
+import universalelectricity.api.energy.IEnergyContainer;
+import universalelectricity.api.energy.IEnergyInterface;
 
-public class TileEntityBaseElectric extends TileEntityUniversalElectrical implements IInventory {
+import com.mthwate.plague.Plague;
 
-
-	private ItemStack[] inventory;
-	private Block block;
+@UniversalClass
+public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface {
+	
+	private EnergyStorageHandler energyStorage;
 
 	public TileEntityBaseElectric(Block block, int slots) {
-		// sets the number of slots in the inventory
-		inventory = new ItemStack[slots];
-
-		this.block = block;
+		super(block, slots);
+		energyStorage = new EnergyStorageHandler(50000, 200);
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
 	}
 
 	@Override
-	public float getMaxEnergyStored() {
-		return 50000;
-	}
-
-	@Override
-	public float getRequest(ForgeDirection direction) {
-		return Math.min((this.getMaxEnergyStored() - this.getEnergyStored()), 200);
-	}
-
-	@Override
-	public float getProvide(ForgeDirection direction) {
-		return 1000;
-	}
-
-	@Override
-	public void closeChest() {}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int amount) {
-		ItemStack itemstack = getStackInSlot(slot);
-		if (itemstack != null) {
-			if (itemstack.stackSize <= amount) {
-				setInventorySlotContents(slot, null);
-			} else {
-				itemstack = itemstack.splitStack(amount);
-				onInventoryChanged();
-			}
+	public boolean canConnect(ForgeDirection direction) {
+		System.out.println("AAAAA");
+		if (direction == null || direction.equals(ForgeDirection.UNKNOWN)) {
+			return false;
 		}
-		return itemstack;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public String getInvName() {
-		return block.getUnlocalizedName().substring(5);
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot) {
-		return inventory[slot];
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int slot) {
-		ItemStack itemstack = getStackInSlot(slot);
-		setInventorySlotContents(slot, null);
-		return itemstack;
-	}
-
-	@Override
-	public boolean isInvNameLocalized() {
-		return false;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
 		return true;
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return player.getDistanceSq(((TileEntity) this).xCoord + 0.5D, ((TileEntity) this).yCoord + 0.5D, ((TileEntity) this).zCoord + 0.5D) <= 64;
+	public long onExtractEnergy(ForgeDirection direction, long energy, boolean doExtract) {
+		return this.energyStorage.extractEnergy(energy, doExtract);
 	}
 
 	@Override
-	public void openChest() {}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound) {
-		super.readFromNBT(compound);
-		NBTTagList list = compound.getTagList("items");
-		for (int i = 0; i < list.tagCount(); i++) {
-			NBTTagCompound item = (NBTTagCompound) list.tagAt(i);
-			int slot = item.getByte("slot");
-			if (slot >= 0 && slot < getSizeInventory()) {
-				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
-			}
-		}
+	public long onReceiveEnergy(ForgeDirection direction, long energy, boolean doReceive) {
+		return this.energyStorage.receiveEnergy(energy, doReceive);
 	}
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack itemstack) {
-		inventory[slot] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
-		}
-		onInventoryChanged();
+	public long getEnergy(ForgeDirection direction) {
+		return this.energyStorage.getEnergy();
 	}
 
+	@Override
+	public long getEnergyCapacity(ForgeDirection direction) {
+		return this.energyStorage.getEnergyCapacity();
+	}
+
+	@Override
+	public void setEnergy(ForgeDirection direction, long energy) {
+		this.energyStorage.setEnergy(energy);
+	}
+	
+	public void modifyEnergyStored(long energy) {
+		this.energyStorage.modifyEnergyStored(energy);
+	}
+	
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		NBTTagList list = new NBTTagList();
-		for (int i = 0; i < getSizeInventory(); i++) {
-			ItemStack itemstack = getStackInSlot(i);
-			if (itemstack != null) {
-				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("slot", (byte) i);
-				itemstack.writeToNBT(item);
-				list.appendTag(item);
-			}
-		}
-		compound.setTag("items", list);
+		this.energyStorage.writeToNBT(compound);
 	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		this.energyStorage.readFromNBT(compound);
+	}
+	
 }

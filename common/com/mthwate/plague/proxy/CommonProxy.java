@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
+import com.mthwate.plague.Plague;
+
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -20,6 +22,7 @@ public class CommonProxy {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		try {
+			outputStream.writeUTF("sound");
 			outputStream.writeUTF(sound);
 			outputStream.writeFloat(x);
 			outputStream.writeFloat(y);
@@ -32,7 +35,7 @@ public class CommonProxy {
 		}
 
 		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = "PlagueSound";
+		packet.channel = Plague.channel;
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 		
@@ -49,6 +52,7 @@ public class CommonProxy {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		try {
+			outputStream.writeUTF("particle");
 			outputStream.writeUTF(particle);
 			outputStream.writeDouble(posX);
 			outputStream.writeDouble(posY);
@@ -62,7 +66,7 @@ public class CommonProxy {
 		}
 
 		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = "PlagueParticle";
+		packet.channel = Plague.channel;
 		packet.data = bos.toByteArray();
 		packet.length = bos.size();
 		
@@ -73,5 +77,35 @@ public class CommonProxy {
 			}
 		}
 	}
+
+	public void updateElectricity(World world, double posX, double posY, double posZ, long energy) {
+
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeUTF("energy");
+			outputStream.writeDouble(posX);
+			outputStream.writeDouble(posY);
+			outputStream.writeDouble(posZ);
+			outputStream.writeLong(energy);
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = Plague.channel;
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		
+		for (Object object : world.playerEntities) {
+			if(object instanceof Player) {
+				Player player = (Player) object;
+				PacketDispatcher.sendPacketToPlayer(packet, player);
+			}
+		}
+	}
+	
+	public void init() {}
 
 }

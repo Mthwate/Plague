@@ -8,7 +8,6 @@ import java.util.Random;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import universalelectricity.compatibility.Compatibility;
 
 import com.mthwate.bookcase.LangHelper;
 import com.mthwate.bookcase.ModLogger;
@@ -43,16 +42,17 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Plague.modid, name = Plague.modName, version = "@VERSION@")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"PlagueParticle", "PlagueSound"}, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {Plague.channel}, packetHandler = PacketHandler.class)
 public class Plague {
 	// mod
 	public static final String modid = "plague";
 	static final String modName = "Plague";
+	
+	public static final String channel = modName;
 
 	// instance
 	@Instance(modid)
@@ -93,11 +93,7 @@ public class Plague {
 		// lang
 		LangHelper.register(modid, "en_US");
 		
-		//universal electricity compatibility
-		Compatibility.initiate();
-
-		// gui handler
-		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
+		proxy.init();
 
 		// tile entities
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");

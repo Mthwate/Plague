@@ -2,6 +2,7 @@ package com.mthwate.plague.tileentity;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import universalelectricity.api.UniversalClass;
 
 import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.block.BlockPlague;
@@ -9,6 +10,7 @@ import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.InstrumentHelper;
 
+@UniversalClass
 public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 
 	public TileEntityExtractorElectric() {
@@ -18,13 +20,12 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-
+		
 		// gets the item stacks in all inventory slots
 		ItemStack stackZero = getStackInSlot(0);
 		ItemStack stackOne = getStackInSlot(1);
 
 		if (stackZero != null && stackOne != null) {
-
 			if (stackZero.getItem().itemID == ItemPlague.syringeFull.itemID && stackOne.getItem().itemID == ItemPlague.diseaseVileEmpty.itemID && stackZero.getTagCompound() != null) {
 				
 				ItemStack syringeStack = new ItemStack(ItemPlague.syringeEmpty);
@@ -45,7 +46,7 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 		}
 
 		if (stackOne != null) {
-			if (stackOne.getItem().itemID == ItemPlague.diseaseVileFull.itemID && !stackOne.getTagCompound().getBoolean("complete") && this.getEnergyStored() >= 1) {
+			if (stackOne.getItem().itemID == ItemPlague.diseaseVileFull.itemID && !stackOne.getTagCompound().getBoolean("complete") && this.getEnergy(null) >= 1) {
 				
 				if (stackOne.getTagCompound().getInteger("extractorDuration") < TimeHelper.mcToTick(100, 0, 0)) {
 					stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 2);
@@ -55,7 +56,7 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 					stackOne.getTagCompound().setInteger("extractorDuration", (int) TimeHelper.mcToTick(100, 0, 0));
 				}
 
-				this.setEnergyStored(this.getEnergyStored() - 1);
+				this.modifyEnergyStored(-1);
 			}
 		}
 	}
