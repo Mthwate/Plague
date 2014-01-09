@@ -40,7 +40,11 @@ public class PacketHandler implements IPacketHandler {
 						b.process(inputStream);
 					}
 				}
-			} catch (InstantiationException | IllegalAccessException | IOException e) {
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}

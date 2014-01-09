@@ -28,7 +28,6 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 
 	@Override
 	public boolean canConnect(ForgeDirection direction) {
-		System.out.println("AAAAA");
 		if (direction == null || direction.equals(ForgeDirection.UNKNOWN)) {
 			return false;
 		}
