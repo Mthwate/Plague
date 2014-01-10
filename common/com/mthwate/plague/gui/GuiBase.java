@@ -1,6 +1,5 @@
 package com.mthwate.plague.gui;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -12,17 +11,19 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.mthwate.plague.Plague;
+import com.mthwate.plague.tileentity.TileEntityBase;
 
 public class GuiBase extends GuiContainer {
-
-	private Block block;
+	
 	private ResourceLocation texture;
+	TileEntityBase tileEntityBase;
 
-	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Block block, Container container) {
+	public GuiBase(InventoryPlayer invPlayer, IInventory entity, Container container) {
 		super(container);
+		
+		tileEntityBase = (TileEntityBase) entity;
 
-		this.block = block;
-		texture = new ResourceLocation(Plague.modid, "textures/gui/" + block.getUnlocalizedName().substring(5) + ".png");
+		texture = new ResourceLocation(Plague.modid, "textures/gui/" + tileEntityBase.getInvName() + ".png");
 
 		xSize = 176;
 		ySize = 166;
@@ -37,7 +38,7 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	public void drawGuiContainerForegroundLayer(int j, int i) {
-		String s = block.getLocalizedName();
+		String s = tileEntityBase.getBlockType().getLocalizedName();
 		fontRenderer.drawString(s, 8, 6, 4210752);
 		fontRenderer.drawString(I18n.getString("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}

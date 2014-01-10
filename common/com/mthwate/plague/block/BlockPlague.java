@@ -16,8 +16,8 @@ public class BlockPlague {
 	public static Block processor;
 	public static Block weaponizer;
 	public static Block boiler;
-	public static Block extractorElectric;
-	public static Block analyzerElectric;
+	public static Block extractorElectricT1;
+	public static Block analyzerElectricT1;
 
 	// block ids
 	public static int extractorId;
@@ -25,8 +25,8 @@ public class BlockPlague {
 	public static int processorId;
 	public static int weaponizerId;
 	public static int boilerId;
-	public static int extractorElectricId;
-	public static int analyzerElectricId;
+	public static int extractorElectricT1Id;
+	public static int analyzerElectricT1Id;
 
 	public static void register() {
 		extractor = registerBlock(extractor, new BlockExtractor(extractorId), "extractor");
@@ -34,8 +34,8 @@ public class BlockPlague {
 		processor = registerBlock(processor, new BlockProcessor(processorId), "processor");
 		weaponizer = registerBlock(weaponizer, new BlockWeaponizer(weaponizerId), "weaponizer");
 		boiler = registerBlock(boiler, new BlockBoiler(boilerId), "boiler");
-		extractorElectric = registerBlock(extractorElectric, new BlockExtractorElectric(extractorElectricId), "extractorElectric");
-		analyzerElectric = registerBlock(analyzerElectric, new BlockAnalyzerElectric(analyzerElectricId), "analyzerElectric");
+		extractorElectricT1 = registerBlock(extractorElectricT1, new BlockExtractorElectric(extractorElectricT1Id, 1), "extractorElectric");
+		analyzerElectricT1 = registerBlock(analyzerElectricT1, new BlockAnalyzerElectric(analyzerElectricT1Id, 1), "analyzerElectric");
 
 		registerRecipes();
 	}
@@ -57,9 +57,9 @@ public class BlockPlague {
 
 		GameRegistry.addRecipe(new ItemStack(boiler), "iii", "ifi", "isi", 'i', Item.ingotIron, 'f', Block.furnaceIdle, 's', Item.flintAndSteel);
 		
-		GameRegistry.addRecipe(new ItemStack(extractorElectric), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.extractor);
+		GameRegistry.addRecipe(new ItemStack(extractorElectricT1), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.extractor);
 
-		GameRegistry.addRecipe(new ItemStack(analyzerElectric), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.analyzer);
+		GameRegistry.addRecipe(new ItemStack(analyzerElectricT1), "iti", "bmb", "iii", 'i', Item.ingotIron, 't', Block.torchRedstoneActive, 'b', Block.blockRedstone, 'm', BlockPlague.analyzer);
 	}
 
 }

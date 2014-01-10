@@ -9,8 +9,8 @@ import com.mthwate.plague.tileentity.TileEntityAnalyzerElectric;
 
 public class BlockAnalyzerElectric extends BlockContainerElectricBase {
 
-	public BlockAnalyzerElectric(int id) {
-		super(id, Material.iron);
+	public BlockAnalyzerElectric(int id, int tier) {
+		super(id, Material.iron, tier);
 		setCreativeTab(CreativeTabs.tabBlock);
 		setHardness(5F);
 		setResistance(10F);

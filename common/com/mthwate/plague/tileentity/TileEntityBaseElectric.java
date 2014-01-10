@@ -1,6 +1,5 @@
 package com.mthwate.plague.tileentity;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.api.UniversalClass;
@@ -9,20 +8,28 @@ import universalelectricity.api.energy.IEnergyContainer;
 import universalelectricity.api.energy.IEnergyInterface;
 
 import com.mthwate.plague.Plague;
+import com.mthwate.plague.block.BlockContainerElectricBase;
 
 @UniversalClass
 public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface {
 	
 	private EnergyStorageHandler energyStorage;
 
-	public TileEntityBaseElectric(Block block, int slots) {
-		super(block, slots);
-		energyStorage = new EnergyStorageHandler(50000, 200);
+	public TileEntityBaseElectric(int slots) {
+		super(slots);
+		this.energyStorage = new EnergyStorageHandler((long) (125000000 * Math.pow(4, 10)));
 	}
 	
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		
+		long cap = (long) (125000000 * Math.pow(4, this.getTier()));
+		
+		if (this.energyStorage.getEnergyCapacity() != cap) {
+			this.energyStorage.setCapacity(cap);
+		}
+		
 		Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
 	}
 
@@ -36,7 +43,7 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 
 	@Override
 	public long onExtractEnergy(ForgeDirection direction, long energy, boolean doExtract) {
-		return this.energyStorage.extractEnergy(energy, doExtract);
+		return 0;
 	}
 
 	@Override
@@ -73,6 +80,14 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		this.energyStorage.readFromNBT(compound);
+	}
+	
+	public int getTier() {
+		return ((BlockContainerElectricBase) this.getBlockType()).getTier();
+	}
+	
+	public long getEnergyUsage() {
+		return (long) (2500 * Math.pow(4, this.getTier()));
 	}
 	
 }

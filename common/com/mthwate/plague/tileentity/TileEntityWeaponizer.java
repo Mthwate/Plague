@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.Plague;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.InstrumentHelper;
@@ -16,7 +15,7 @@ import com.mthwate.plague.lib.InstrumentHelper;
 public class TileEntityWeaponizer extends TileEntityBase {
 
 	public TileEntityWeaponizer() {
-		super(BlockPlague.analyzer, 2);
+		super(2);
 	}
 
 	@Override

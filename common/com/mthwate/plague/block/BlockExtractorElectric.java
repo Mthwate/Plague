@@ -9,8 +9,8 @@ import com.mthwate.plague.tileentity.TileEntityExtractorElectric;
 
 public class BlockExtractorElectric extends BlockContainerElectricBase {
 
-	public BlockExtractorElectric(int id) {
-		super(id, Material.iron);
+	public BlockExtractorElectric(int id, int tier) {
+		super(id, Material.iron, tier);
 		setCreativeTab(CreativeTabs.tabBlock);
 		setHardness(5F);
 		setResistance(10F);

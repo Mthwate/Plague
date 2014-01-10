@@ -8,9 +8,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 
 public class BlockContainerElectricBase extends BlockContainerBase {
+	
+	int tier;
 
-	protected BlockContainerElectricBase(int par1, Material material) {
+	protected BlockContainerElectricBase(int par1, Material material, int tier) {
 		super(par1, material);
+		this.tier = tier;
 	}
 
 	@Override
@@ -19,6 +22,10 @@ public class BlockContainerElectricBase extends BlockContainerBase {
 		frontIcon = iconRegister.registerIcon(Plague.modid + ":" + getUnlocalizedName().substring(5));
 		topBottomIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricTopBottom");
 		sideIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricSide");
+	}
+	
+	public int getTier() {
+		return tier;
 	}
 
 }

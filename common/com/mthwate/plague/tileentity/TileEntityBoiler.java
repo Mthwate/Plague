@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 
 import com.mthwate.bookcase.TimeHelper;
 import com.mthwate.plague.Plague;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.InstrumentHelper;
@@ -22,7 +21,7 @@ public class TileEntityBoiler extends TileEntityBase {
 	private Map<Integer, Integer> cleanerItems = new HashMap<Integer, Integer>();
 	
 	public TileEntityBoiler() {
-		super(BlockPlague.boiler, 3);
+		super(3);
 		
 		fuelItems.put(Item.coal.itemID, 14);
 		

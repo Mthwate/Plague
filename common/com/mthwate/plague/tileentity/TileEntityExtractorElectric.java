@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import universalelectricity.api.UniversalClass;
 
 import com.mthwate.bookcase.TimeHelper;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.InstrumentHelper;
@@ -14,7 +13,7 @@ import com.mthwate.plague.lib.InstrumentHelper;
 public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 
 	public TileEntityExtractorElectric() {
-		super(BlockPlague.extractorElectric, 2);
+		super(2);
 	}
 
 	@Override
@@ -46,17 +45,17 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 		}
 
 		if (stackOne != null) {
-			if (stackOne.getItem().itemID == ItemPlague.diseaseVileFull.itemID && !stackOne.getTagCompound().getBoolean("complete") && this.getEnergy(null) >= 1) {
+			if (stackOne.getItem().itemID == ItemPlague.diseaseVileFull.itemID && !stackOne.getTagCompound().getBoolean("complete") && this.getEnergy(null) >= this.getEnergyUsage()) {
 				
 				if (stackOne.getTagCompound().getInteger("extractorDuration") < TimeHelper.mcToTick(100, 0, 0)) {
-					stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + 2);
+					stackOne.getTagCompound().setInteger("extractorDuration", stackOne.getTagCompound().getInteger("extractorDuration") + (int) Math.pow(2, this.getTier()));
 				}
 				
 				if (stackOne.getTagCompound().getInteger("extractorDuration") > TimeHelper.mcToTick(100, 0, 0)) {
 					stackOne.getTagCompound().setInteger("extractorDuration", (int) TimeHelper.mcToTick(100, 0, 0));
 				}
 
-				this.modifyEnergyStored(-1);
+				this.modifyEnergyStored(-this.getEnergyUsage());
 			}
 		}
 	}

@@ -15,10 +15,9 @@ import com.mthwate.plague.container.ContainerExtractorElectric;
 import com.mthwate.plague.container.ContainerProcessor;
 import com.mthwate.plague.container.ContainerWeaponizer;
 import com.mthwate.plague.gui.GuiAnalyzer;
-import com.mthwate.plague.gui.GuiAnalyzerElectric;
 import com.mthwate.plague.gui.GuiBoiler;
+import com.mthwate.plague.gui.GuiElectric;
 import com.mthwate.plague.gui.GuiExtractor;
-import com.mthwate.plague.gui.GuiExtractorElectric;
 import com.mthwate.plague.gui.GuiProcessor;
 import com.mthwate.plague.gui.GuiWeaponizer;
 import com.mthwate.plague.tileentity.TileEntityAnalyzer;
@@ -63,11 +62,11 @@ public class GuiHandler implements IGuiHandler {
 				}
 				
 				if(inv instanceof TileEntityExtractorElectric) {
-					return new GuiExtractorElectric(player.inventory, inv);
+					return new GuiElectric(player.inventory, inv, new ContainerExtractorElectric(player.inventory, inv));
 				}
 				
 				if(inv instanceof TileEntityAnalyzerElectric) {
-					return new GuiAnalyzerElectric(player.inventory, inv);
+					return new GuiElectric(player.inventory, inv, new ContainerAnalyzerElectric(player.inventory, inv));
 				}
 				
 				return null;

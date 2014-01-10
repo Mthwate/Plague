@@ -3,7 +3,6 @@ package com.mthwate.plague.gui;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.container.ContainerBoiler;
 import com.mthwate.plague.tileentity.TileEntityBoiler;
 
@@ -12,7 +11,7 @@ public class GuiBoiler extends GuiBase {
 	private TileEntityBoiler inv;
 
 	public GuiBoiler(InventoryPlayer invPlayer, IInventory entity) {
-		super(invPlayer, entity, BlockPlague.boiler, new ContainerBoiler(invPlayer, entity));
+		super(invPlayer, entity, new ContainerBoiler(invPlayer, entity));
 		inv = (TileEntityBoiler) entity;
 	}
 

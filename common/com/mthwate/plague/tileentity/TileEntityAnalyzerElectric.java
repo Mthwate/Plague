@@ -3,13 +3,12 @@ package com.mthwate.plague.tileentity;
 import net.minecraft.item.ItemStack;
 
 import com.mthwate.bookcase.TimeHelper;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.item.ItemPlague;
 
 public class TileEntityAnalyzerElectric extends TileEntityBaseElectric {
 
 	public TileEntityAnalyzerElectric() {
-		super(BlockPlague.analyzerElectric, 1);
+		super(1);
 	}
 
 	@Override
@@ -17,17 +16,17 @@ public class TileEntityAnalyzerElectric extends TileEntityBaseElectric {
 		super.updateEntity();
 		ItemStack stack = getStackInSlot(0);
 		if (stack != null) {
-			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID && stack.getTagCompound() != null && this.getEnergy(null) >= 1) {
+			if (stack.getItem().itemID == ItemPlague.diseaseVileFull.itemID && stack.getTagCompound() != null && this.getEnergy(null) >= this.getEnergyUsage()) {
 				
 				if (stack.getTagCompound().getInteger("analyzerDuration") < TimeHelper.mcToTick(100, 0, 0)) {
-					stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + 2);
+					stack.getTagCompound().setInteger("analyzerDuration", stack.getTagCompound().getInteger("analyzerDuration") + (int) Math.pow(2, this.getTier()));
 				}
 				
 				if (stack.getTagCompound().getInteger("analyzerDuration") > TimeHelper.mcToTick(100, 0, 0)) {
 					stack.getTagCompound().setInteger("analyzerDuration", (int) TimeHelper.mcToTick(100, 0, 0));
 				}
 				
-				this.modifyEnergyStored(-1);
+				this.modifyEnergyStored(-this.getEnergyUsage());
 				
 			}
 		}

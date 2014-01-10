@@ -1,6 +1,5 @@
 package com.mthwate.plague.tileentity;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -11,13 +10,10 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityBase extends TileEntity implements IInventory {
 
 	private ItemStack[] inventory;
-	private Block block;
 
-	public TileEntityBase(Block block, int slots) {
+	public TileEntityBase(int slots) {
 		// sets the number of slots in the inventory
 		inventory = new ItemStack[slots];
-
-		this.block = block;
 	}
 
 	@Override
@@ -44,7 +40,7 @@ public class TileEntityBase extends TileEntity implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return block.getUnlocalizedName().substring(5);
+		return this.getBlockType().getUnlocalizedName().substring(5);
 	}
 
 	@Override

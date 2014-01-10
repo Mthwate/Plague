@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.mthwate.bookcase.TimeHelper;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.lib.InstrumentHelper;
@@ -12,7 +11,7 @@ import com.mthwate.plague.lib.InstrumentHelper;
 public class TileEntityExtractor extends TileEntityBase {
 
 	public TileEntityExtractor() {
-		super(BlockPlague.extractor, 2);
+		super(2);
 	}
 
 	@Override

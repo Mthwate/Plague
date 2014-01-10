@@ -3,13 +3,12 @@ package com.mthwate.plague.tileentity;
 import net.minecraft.item.ItemStack;
 
 import com.mthwate.bookcase.TimeHelper;
-import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.item.ItemPlague;
 
 public class TileEntityAnalyzer extends TileEntityBase {
 
 	public TileEntityAnalyzer() {
-		super(BlockPlague.analyzer, 1);
+		super(1);
 	}
 
 	@Override
