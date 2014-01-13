@@ -29,6 +29,14 @@
 		</loadresource>
 	</target>
 
+	<target name="check-ue">
+		<available file="${location.ue.new}" property="ue.exists"/>
+	</target>
+
+	<target name="download-ue" depends="check-ue" unless="ue.exists">
+		<get src="http://calclavia.com/jenkins/jobs/Universal Electricity/builds/${ue.build}/archive/output/Universal-Electricity-${ue.version}-core.zip" dest="${location.ue.new}"/>
+	</target>
+
 	<target name="set-ue-version">
 		<loadresource property="location.ue.new">
 			<propertyresource name="location.ue"/>
