@@ -18,8 +18,7 @@ public class GuiElectric extends GuiBase {
 
 	@Override
 	public void drawGuiContainerForegroundLayer(int j, int i) {
-		String s = tileEntityElectric.getBlockType().getLocalizedName() + " Tier " + tileEntityElectric.getTier();
-		fontRenderer.drawString(s, 8, 6, 4210752);
+		super.drawGuiContainerForegroundLayer(j, i);
 		fontRenderer.drawString(UnitDisplay.getDisplay(tileEntityElectric.getEnergy(null), UnitDisplay.Unit.JOULES), 8, 26, 4210752);
 	}
 

@@ -20,8 +20,8 @@ public class BlockContainerElectricBase extends BlockContainerBase {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		frontIcon = iconRegister.registerIcon(Plague.modid + ":" + getUnlocalizedName().substring(5));
-		topBottomIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricTopBottom");
-		sideIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricSide");
+		topBottomIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricTopBottomT" + this.getTier());
+		sideIcon = iconRegister.registerIcon(Plague.modid + ":containerElectricSideT" + this.getTier());
 	}
 	
 	public int getTier() {

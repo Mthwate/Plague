@@ -14,6 +14,8 @@ import com.mthwate.plague.block.BlockContainerElectricBase;
 public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface {
 	
 	private EnergyStorageHandler energyStorage;
+	long cap = -1;
+	int count = -1;
 
 	public TileEntityBaseElectric(int slots) {
 		super(slots);
@@ -24,13 +26,19 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	public void updateEntity() {
 		super.updateEntity();
 		
-		long cap = (long) (125000000 * Math.pow(4, this.getTier()));
+		if(cap == -1) {
+			cap = (long) (125000000 * Math.pow(4, this.getTier()));
+		}
 		
 		if (this.energyStorage.getEnergyCapacity() != cap) {
 			this.energyStorage.setCapacity(cap);
 		}
 		
-		Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
+		if (count == 10) {
+			Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
+			count = -1;
+		}
+		count++;
 	}
 
 	@Override
@@ -88,6 +96,11 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	
 	public long getEnergyUsage() {
 		return (long) (2500 * Math.pow(4, this.getTier()));
+	}
+
+	@Override
+	public String getInvName() {
+		return this.getBlockType().getUnlocalizedName().substring(5, this.getBlockType().getUnlocalizedName().length()-2);
 	}
 	
 }
