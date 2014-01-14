@@ -34,7 +34,7 @@
 	</target>
 
 	<target name="download-ue" depends="check-ue" unless="ue.exists">
-		<get src="http://calclavia.com/jenkins/jobs/Universal Electricity/builds/${ue.build}/archive/output/Universal-Electricity-${ue.version}-core.zip" dest="${location.ue.new}"/>
+		<get src="http://calclavia.com/jenkins/jobs/Universal Electricity/builds/${ue.build}/archive/output/Universal-Electricity-${ue.version}-core.jar" dest="${location.ue.new}"/>
 	</target>
 
 	<target name="set-ue-version">
@@ -54,19 +54,20 @@
 		<copy todir="${location.tmp}">
 			<fileset dir="${location.src}" includes="resources/" />
 		</copy>
+		
 		<mkdir dir="${location.tmp}/mcp" />
 		<copy todir="${location.tmp}/mcp">
 			<fileset dir="${location.mcp.new}" />
 		</copy>
+		
 		<copy todir="${location.tmp}/mcp/src/minecraft">
 			<fileset dir="${location.src}/common/" />
 			<fileset dir="${location.bookcase}/common/" />
 		</copy>
+		
 		<copy todir="${location.tmp}/mcp/lib">
 			<file file="${location.ue.new}" />
 		</copy>
-		<mkdir dir="${location.tmp}/ue/"/>
-		<unzip src="${location.ue.new}" dest="${location.tmp}/ue/"/>
 	</target>
 
 	<target name="replace-tokens">
@@ -94,14 +95,14 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="set-forge-version, set-ue-version, clean, prep, replace-tokens, recompile, reobfuscate">
+	<target name="build" depends="set-forge-version, set-ue-version, clean, download-ue, prep, replace-tokens, recompile, reobfuscate">
 
 		<!-- Build the jar -->
 		<mkdir dir="${location.out}" />
 		<jar destfile="${location.out}/${mod.name}-${minecraft.version}-${mod.version}.jar">
 			<fileset dir="${location.tmp}/mcp/reobf/minecraft" includes="com/" />
+			<fileset dir="${location.tmp}/mcp/reobf/minecraft" includes="universalelectricity/" />
 			<fileset dir="${location.tmp}/resources"/>
-			<fileset dir="${location.tmp}/ue"/>
 		</jar>
 
 		<!-- Clean up the MCP source now that we are done -->

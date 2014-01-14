@@ -3,4 +3,4 @@ location.mcp=${location.src}/forge/mcp
 location.out=${location.src}/bin
 location.tmp=${location.src}/tmp
 location.bookcase=${location.src}/Bookcase
-location.ue=${location.src}/UniversalElectricity.jar
+location.ue=${location.src}/UniversalElectricityCore.jar
