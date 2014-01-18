@@ -51,4 +51,15 @@ public class TileEntityExtractor extends TileEntityBase {
 		}
 	}
 
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if (slot == 0 && itemStack.itemID == ItemPlague.syringeFull.itemID) {
+			return true;
+		}
+		if (slot == 1 && itemStack.itemID == ItemPlague.diseaseVileEmpty.itemID) {
+			return true;
+		}
+		return false;
+	}
+
 }

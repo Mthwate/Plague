@@ -1,5 +1,7 @@
 package com.mthwate.plague.tileentity;
 
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.api.UniversalClass;
@@ -11,14 +13,18 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.block.BlockContainerElectricBase;
 
 @UniversalClass
-public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface {
+public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface, ISidedInventory {
+	
+	private int[] outSides;
 	
 	private EnergyStorageHandler energyStorage;
-	long cap = -1;
-	int count = -1;
+	private long cap = -1;
+	private int count = -1;
+	private int outPercdent = 0;
 
 	public TileEntityBaseElectric(int slots) {
 		super(slots);
+		outSides = new int[slots];
 		this.energyStorage = new EnergyStorageHandler((long) (125000000 * Math.pow(4, 10)));
 	}
 	
@@ -36,6 +42,10 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 		
 		if (count == 10) {
 			Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
+			Plague.proxy.updateOutPercent(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getOutPercent());
+			for (int i=0; i<outSides.length; i++) {
+				Plague.proxy.updateOutSlot(this.worldObj, this.xCoord, this.yCoord, this.zCoord, i, outSides[i]);
+			}
 			count = -1;
 		}
 		count++;
@@ -101,6 +111,43 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	@Override
 	public String getInvName() {
 		return this.getBlockType().getUnlocalizedName().substring(5, this.getBlockType().getUnlocalizedName().length()-2);
+	}
+
+	public void increaseOutPercent(int i) {
+		this.outPercdent += i;
+		if (this.outPercdent > 100) {
+			this.outPercdent = 100;
+		} else if (this.outPercdent < 0) {
+			this.outPercdent = 0;
+		}
+	}
+
+	public void setOutPercent(int i) {
+		this.outPercdent = i;
+	}
+
+	public int getOutPercent() {
+		return this.outPercdent;
+	}
+	
+	public void changeOutDirection(int slot) {
+		outSides[slot]++;
+		if (outSides[slot] > ForgeDirection.VALID_DIRECTIONS.length) {
+			outSides[slot] = 0;
+		}
+	}
+	
+	public int getOutDirection(int slot) {
+		return outSides[slot];
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
+		return this.isItemValidForSlot(slot, itemStack);
+	}
+
+	public void setOutSlot(int slot, int side) {
+		outSides[slot] = side;
 	}
 	
 }

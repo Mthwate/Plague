@@ -62,4 +62,29 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 			}
 		}
 	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if (slot == 0 && itemStack.itemID == ItemPlague.syringeFull.itemID) {
+			return true;
+		}
+		if (slot == 1 && itemStack.itemID == ItemPlague.diseaseVileEmpty.itemID) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+		if (itemStack.itemID == ItemPlague.diseaseVileFull.itemID && itemStack.getTagCompound() != null) {
+			System.out.println(TimeHelper.tickToMc(itemStack.getTagCompound().getInteger("extractorDuration")) / (60 * 60) + ":" + this.getOutPercent());
+			return this.getOutDirection(slot) == side && TimeHelper.tickToMc(itemStack.getTagCompound().getInteger("extractorDuration")) / (60 * 60) >= this.getOutPercent();
+		}
+		return this.getOutDirection(slot) == side;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		return new int[] {0, 1};
+	}
 }

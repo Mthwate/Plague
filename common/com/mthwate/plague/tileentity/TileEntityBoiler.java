@@ -82,4 +82,18 @@ public class TileEntityBoiler extends TileEntityBase {
 		return(getRemainingCleaner() > 0);
 	}
 
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if (slot == 0 && itemStack.itemID == ItemPlague.syringeEmpty.itemID) {
+			return true;
+		}
+		if (slot == 1 && this.cleanerItems.containsKey(itemStack.itemID)) {
+			return true;
+		}
+		if (slot == 2 && this.fuelItems.containsKey(itemStack.itemID)) {
+			return true;
+		}
+		return false;
+	}
+
 }

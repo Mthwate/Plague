@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityBase extends TileEntity implements IInventory {
+public abstract class TileEntityBase extends TileEntity implements IInventory {
 
 	private ItemStack[] inventory;
 
@@ -63,11 +63,6 @@ public class TileEntityBase extends TileEntity implements IInventory {
 	@Override
 	public boolean isInvNameLocalized() {
 		return false;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
-		return true;
 	}
 
 	@Override

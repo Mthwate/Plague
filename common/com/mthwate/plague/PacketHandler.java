@@ -11,7 +11,11 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 
 import com.mthwate.plague.packet.Packet;
 import com.mthwate.plague.packet.PacketEnergy;
+import com.mthwate.plague.packet.PacketOutButton;
+import com.mthwate.plague.packet.PacketOutPercent;
+import com.mthwate.plague.packet.PacketOutSlot;
 import com.mthwate.plague.packet.PacketParticle;
+import com.mthwate.plague.packet.PacketPercentButton;
 import com.mthwate.plague.packet.PacketSound;
 
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -25,6 +29,7 @@ public class PacketHandler implements IPacketHandler {
 		if (packet.channel.equals("Plague")) {
 			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 			try {
+				
 				String type = inputStream.readUTF();
 				
 				//TODO clean up names and move elsewhere
@@ -33,6 +38,10 @@ public class PacketHandler implements IPacketHandler {
 				test.add(PacketSound.class);
 				test.add(PacketParticle.class);
 				test.add(PacketEnergy.class);
+				test.add(PacketOutSlot.class);
+				test.add(PacketOutButton.class);
+				test.add(PacketPercentButton.class);
+				test.add(PacketOutPercent.class);
 				
 				for(Class<? extends Packet> a : test) {
 					Packet b = a.newInstance();

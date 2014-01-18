@@ -112,4 +112,15 @@ public class TileEntityProcessor extends TileEntityBase {
 		}
 	}
 
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if (slot == 0 && itemStack.itemID == ItemPlague.diseaseVileFull.itemID) {
+			return true;
+		}
+		if (slot == 1 && itemStack.itemID == ItemPlague.syringeEmpty.itemID) {
+			return true;
+		}
+		return false;
+	}
+
 }

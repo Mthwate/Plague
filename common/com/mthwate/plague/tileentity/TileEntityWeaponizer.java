@@ -15,7 +15,7 @@ import com.mthwate.plague.lib.InstrumentHelper;
 public class TileEntityWeaponizer extends TileEntityBase {
 
 	public TileEntityWeaponizer() {
-		super(2);
+		super(1);
 	}
 
 	@Override
@@ -50,5 +50,13 @@ public class TileEntityWeaponizer extends TileEntityBase {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
+		if (slot == 0 && itemStack.itemID == ItemPlague.diseaseVileFull.itemID) {
+			return true;
+		}
+		return false;
 	}
 }
