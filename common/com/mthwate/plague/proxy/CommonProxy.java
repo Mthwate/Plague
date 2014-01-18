@@ -59,8 +59,6 @@ public class CommonProxy {
 			e.printStackTrace();
 		}
 	}
-	
-	public void init() {}
 
 	public void updateOutSlot(World world, double posX, double posY, double posZ, int slot, int side) {
 		try {

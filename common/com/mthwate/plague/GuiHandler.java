@@ -1,8 +1,6 @@
 package com.mthwate.plague;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -34,7 +32,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Gui getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getBlockTileEntity(x, y, z);
 		IInventory inv = null;
 		if (entity instanceof IInventory) {
@@ -77,7 +75,7 @@ public class GuiHandler implements IGuiHandler {
 	}
 
 	@Override
-	public Container getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getBlockTileEntity(x, y, z);
 		IInventory inv = null;
 		if (entity instanceof IInventory) {

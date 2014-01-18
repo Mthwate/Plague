@@ -9,7 +9,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.mthwate.plague.GuiHandler;
 import com.mthwate.plague.Plague;
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
 import com.mthwate.plague.item.ItemPlague;
@@ -18,7 +17,6 @@ import com.mthwate.plague.packet.PacketPercentButton;
 import com.mthwate.plague.tileentity.TileEntityBaseElectric;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class ClientProxy extends CommonProxy {
@@ -56,11 +54,6 @@ public class ClientProxy extends CommonProxy {
 				}
 			}
 		}
-	}
-	
-	@Override
-	public void init() {
-		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
 	}
 
 	@Override

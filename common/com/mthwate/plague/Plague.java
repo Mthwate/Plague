@@ -40,6 +40,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -87,8 +88,8 @@ public class Plague {
 
 		// lang
 		LangHelper.register(modid, "en_US");
-		
-		proxy.init();
+
+		NetworkRegistry.instance().registerGuiHandler(Plague.instance, new GuiHandler());
 
 		// tile entities
 		GameRegistry.registerTileEntity(TileEntityExtractor.class, "plagueExtractor");
