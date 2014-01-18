@@ -46,15 +46,13 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void updateElectricity(World world, double posX, double posY, double posZ, long energy) {
-		if (world != null) {
-			if (Minecraft.getMinecraft().thePlayer != null) {
-				World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-				if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
-					TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
-					if(tileEntity instanceof TileEntityBaseElectric) {
-						TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
-						machine.setEnergy(null, energy);
-					}
+		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
+			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
+			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
+				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
+				if(tileEntity instanceof TileEntityBaseElectric) {
+					TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
+					machine.setEnergy(null, energy);
 				}
 			}
 		}
@@ -67,7 +65,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void updateOutSlot(World world, double posX, double posY, double posZ, int slot, int side) {
-		if (Minecraft.getMinecraft().thePlayer != null) {
+		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
 			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
 			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
 				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
@@ -104,7 +102,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void updateOutPercent(World world, double posX, double posY, double posZ, int ammount) {
-		if (Minecraft.getMinecraft().thePlayer != null) {
+		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
 			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
 			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
 				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
