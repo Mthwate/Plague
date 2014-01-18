@@ -10,8 +10,6 @@ public class ConfigHelper {
 	
 	public static void diseases(Configuration config) {
 		Plague.enabledDiseases.put("rabies", config.get("Diseases", "Rabies", true).getBoolean(true));
-		Plague.enabledDiseases.put("westNile", config.get("Diseases", "WestNileVirus", true).getBoolean(true));
-		Plague.enabledDiseases.put("chickenpox", config.get("Diseases", "Chickenpox", true).getBoolean(true));
 		Plague.enabledDiseases.put("crepis", config.get("Diseases", "Crepis", true).getBoolean(true));
 		Plague.enabledDiseases.put("zVirus", config.get("Diseases", "ZVirus", true).getBoolean(true));
 		Plague.enabledDiseases.put("endt", config.get("Diseases", "Endt", true).getBoolean(true));

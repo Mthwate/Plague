@@ -15,12 +15,10 @@ import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.command.CommandContract;
 import com.mthwate.plague.command.CommandCure;
 import com.mthwate.plague.disease.Disease;
-import com.mthwate.plague.disease.DiseaseChickenpox;
 import com.mthwate.plague.disease.DiseaseCrepis;
 import com.mthwate.plague.disease.DiseaseEndt;
 import com.mthwate.plague.disease.DiseaseRabies;
 import com.mthwate.plague.disease.DiseaseVampyra;
-import com.mthwate.plague.disease.DiseaseWestNile;
 import com.mthwate.plague.disease.DiseaseZVirus;
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
 import com.mthwate.plague.item.ItemPlague;
@@ -66,9 +64,6 @@ public class Plague {
 
 	// diseases
 	public static Disease diseaseRabies;
-	public static Disease diseaseWestNile;
-	public static Disease diseaseMalaria;
-	public static Disease diseaseChickenpox;
 	public static Disease diseaseCrepis;
 	public static Disease diseaseZVirus;
 	public static Disease diseaseEndt;
@@ -114,12 +109,6 @@ public class Plague {
 
 		diseaseRabies = new DiseaseRabies(1.0).setUnlocalizedName("rabies");
 		DiseaseRegistry.addDisease(diseaseRabies);
-
-		diseaseWestNile = new DiseaseWestNile(1.0).setUnlocalizedName("westNile");
-		DiseaseRegistry.addDisease(diseaseWestNile);
-
-		diseaseChickenpox = new DiseaseChickenpox(1.0).setUnlocalizedName("chickenpox");
-		DiseaseRegistry.addDisease(diseaseChickenpox);
 
 		diseaseCrepis = new DiseaseCrepis(1.0).setUnlocalizedName("crepis");
 		DiseaseRegistry.addDisease(diseaseCrepis);

@@ -16,11 +16,11 @@ import com.mthwate.plague.block.BlockContainerElectricBase;
 public abstract class TileEntityBaseElectric extends TileEntityBase implements IEnergyContainer, IEnergyInterface, ISidedInventory {
 	
 	private int[] outSides;
+	private int outPercdent = 0;
 	
 	private EnergyStorageHandler energyStorage;
 	private long cap = -1;
 	private int count = -1;
-	private int outPercdent = 0;
 
 	public TileEntityBaseElectric(int slots) {
 		super(slots);
@@ -92,12 +92,16 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		this.energyStorage.writeToNBT(compound);
+		compound.setInteger(Plague.modid + ".outPercent", this.outPercdent);
+		compound.setIntArray(Plague.modid + ".outSides", this.outSides);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		this.energyStorage.readFromNBT(compound);
+		this.outPercdent = compound.getInteger(Plague.modid + ".outPercent");
+		this.outSides = compound.getIntArray(Plague.modid + ".outSides");
 	}
 	
 	public int getTier() {
