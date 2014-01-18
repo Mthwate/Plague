@@ -46,13 +46,15 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void updateElectricity(World world, double posX, double posY, double posZ, long energy) {
-		if (Minecraft.getMinecraft().thePlayer != null) {
-			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
-				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
-				if(tileEntity instanceof TileEntityBaseElectric) {
-					TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
-					machine.setEnergy(null, energy);
+		if (world != null) {
+			if (Minecraft.getMinecraft().thePlayer != null) {
+				World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
+				if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
+					TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
+					if(tileEntity instanceof TileEntityBaseElectric) {
+						TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
+						machine.setEnergy(null, energy);
+					}
 				}
 			}
 		}
