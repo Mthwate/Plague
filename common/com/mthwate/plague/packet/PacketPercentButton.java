@@ -50,7 +50,7 @@ public class PacketPercentButton extends Packet {
 	
 	@Override
 	void exec() {
-		Plague.proxy.clickPercentButton(null, dimId, posX, posY, posZ, ammount);
+		Plague.proxy.clickPercentButton(dimId, posX, posY, posZ, ammount);
 	}
 
 }

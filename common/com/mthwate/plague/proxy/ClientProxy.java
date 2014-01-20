@@ -9,7 +9,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.mthwate.plague.Plague;
 import com.mthwate.plague.entity.EntityWeaponizedDisease;
 import com.mthwate.plague.item.ItemPlague;
 import com.mthwate.plague.packet.PacketOutButton;
@@ -27,27 +26,27 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void playSound(World world, String sound, float posX, float posY, float posZ, float volume, float pitch) {
+	public void playSound(int dimId, String sound, float posX, float posY, float posZ, float volume, float pitch) {
 		World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-		if (world.provider.dimensionId == playerWorld.provider.dimensionId) {
+		if (dimId == playerWorld.provider.dimensionId) {
 			Minecraft.getMinecraft().sndManager.playSound(sound, posX, posY, posZ, volume, pitch);
 		}
 	}
 
 	@Override
-	public void spawnParticle(World world, String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+	public void spawnParticle(int dimId, String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) {
 		World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-		if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
+		if(dimId == playerWorld.provider.dimensionId) {
 			playerWorld.spawnParticle(particle, posX, posY, posZ, velX, velY, velZ);
 		}
 	}
 
 	@Override
-	public void updateElectricity(World world, double posX, double posY, double posZ, long energy) {
-		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
+	public void updateElectricity(int dimId, int posX, int posY, int posZ, long energy) {
+		if (Minecraft.getMinecraft().thePlayer != null) {
 			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
-				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
+			if(dimId == playerWorld.provider.dimensionId) {
+				TileEntity tileEntity = playerWorld.getBlockTileEntity(posX, posY, posZ);
 				if(tileEntity instanceof TileEntityBaseElectric) {
 					TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
 					machine.setEnergy(null, energy);
@@ -57,11 +56,11 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void updateOutSlot(World world, double posX, double posY, double posZ, int slot, int side) {
-		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
+	public void updateOutSlot(int dimId, int posX, int posY, int posZ, int slot, int side) {
+		if (Minecraft.getMinecraft().thePlayer != null) {
 			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
-				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
+			if(dimId == playerWorld.provider.dimensionId) {
+				TileEntity tileEntity = playerWorld.getBlockTileEntity(posX, posY, posZ);
 				if(tileEntity instanceof TileEntityBaseElectric) {
 					TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
 					machine.setOutSlot(slot, side);
@@ -71,8 +70,8 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
-	public void clickOutButton(World world, int dimId, int posX, int posY, int posZ, int slot) {
-		if(world != null && world.isRemote) {
+	public void clickOutButton(int dimId, int posX, int posY, int posZ, int slot) {
+		if(MinecraftServer.getServer() == null) {
 			try {
 				
 				PacketOutButton packetOutButton = new PacketOutButton();
@@ -84,21 +83,16 @@ public class ClientProxy extends CommonProxy {
 				e.printStackTrace();
 			}
 		} else {
-			TileEntity tileEntity = MinecraftServer.getServer().worldServerForDimension(dimId).getBlockTileEntity(posX, posY, posZ);
-			if (tileEntity instanceof TileEntityBaseElectric) {
-				TileEntityBaseElectric tileEntityElectric = (TileEntityBaseElectric) tileEntity;
-				tileEntityElectric.changeOutDirection(slot);
-				Plague.proxy.updateOutSlot(MinecraftServer.getServer().worldServerForDimension(dimId), posX, posY, posZ, slot, tileEntityElectric.getOutDirection(slot));
-			}
+			super.clickOutButton(dimId, posX, posY, posZ, slot);
 		}
 	}
 
 	@Override
-	public void updateOutPercent(World world, double posX, double posY, double posZ, int ammount) {
-		if (Minecraft.getMinecraft().thePlayer != null && world != null) {
+	public void updateOutPercent(int dimId, int posX, int posY, int posZ, int ammount) {
+		if (Minecraft.getMinecraft().thePlayer != null) {
 			World playerWorld = Minecraft.getMinecraft().thePlayer.worldObj;
-			if(world.provider.dimensionId == playerWorld.provider.dimensionId) {
-				TileEntity tileEntity = playerWorld.getBlockTileEntity((int) posX, (int) posY, (int) posZ);
+			if(dimId == playerWorld.provider.dimensionId) {
+				TileEntity tileEntity = playerWorld.getBlockTileEntity(posX, posY, posZ);
 				if(tileEntity instanceof TileEntityBaseElectric) {
 					TileEntityBaseElectric machine = (TileEntityBaseElectric) tileEntity;
 					machine.setOutPercent(ammount);
@@ -108,8 +102,8 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
-	public void clickPercentButton(World world, int dimId, int posX, int posY, int posZ, int ammount) {
-		if(world != null && world.isRemote) {
+	public void clickPercentButton(int dimId, int posX, int posY, int posZ, int ammount) {
+		if(MinecraftServer.getServer() == null) {
 			try {
 				
 				PacketPercentButton packetPercentButton = new PacketPercentButton();
@@ -121,12 +115,7 @@ public class ClientProxy extends CommonProxy {
 				e.printStackTrace();
 			}
 		} else {
-			TileEntity tileEntity = MinecraftServer.getServer().worldServerForDimension(dimId).getBlockTileEntity(posX, posY, posZ);
-			if (tileEntity instanceof TileEntityBaseElectric) {
-				TileEntityBaseElectric tileEntityElectric = (TileEntityBaseElectric) tileEntity;
-				tileEntityElectric.increaseOutPercent(ammount);
-				Plague.proxy.updateOutPercent(MinecraftServer.getServer().worldServerForDimension(dimId), posX, posY, posZ, tileEntityElectric.getOutPercent());
-			}
+			super.clickPercentButton(dimId, posX, posY, posZ, ammount);
 		}
 	}
 	

@@ -12,9 +12,10 @@ import com.mthwate.plague.Plague;
 
 public class PacketOutPercent extends Packet {
 
-	float posX;
-	float posY;
-	float posZ;
+	int dimId;
+	int posX;
+	int posY;
+	int posZ;
 	int percent;
 	
 	@Override
@@ -24,21 +25,23 @@ public class PacketOutPercent extends Packet {
 
 	@Override
 	void read(DataInputStream inputStream) throws IOException {
-		posX = inputStream.readFloat();
-		posY = inputStream.readFloat();
-		posZ = inputStream.readFloat();
+		dimId = inputStream.readInt();
+		posX = inputStream.readInt();
+		posY = inputStream.readInt();
+		posZ = inputStream.readInt();
 		percent = inputStream.readInt();
 	}
 	
-	public Packet250CustomPayload form(double posX, double posY, double posZ, int percent) throws IOException {
+	public Packet250CustomPayload form(int dimId, int posX, int posY, int posZ, int percent) throws IOException {
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 
 		outputStream.writeUTF(this.getName());
-		outputStream.writeDouble(posX);
-		outputStream.writeDouble(posY);
-		outputStream.writeDouble(posZ);
+		outputStream.writeInt(dimId);
+		outputStream.writeInt(posX);
+		outputStream.writeInt(posY);
+		outputStream.writeInt(posZ);
 		outputStream.writeInt(percent);
 		outputStream.close();
 		
@@ -47,7 +50,7 @@ public class PacketOutPercent extends Packet {
 	
 	@Override
 	void exec() {
-		Plague.proxy.updateOutPercent(null, posX, posY, posZ, percent);
+		Plague.proxy.updateOutPercent(dimId, posX, posY, posZ, percent);
 	}
 
 }

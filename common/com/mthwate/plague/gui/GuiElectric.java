@@ -42,19 +42,19 @@ public class GuiElectric extends GuiBase {
 		switch(guibutton.id) {
 			
 			case 1:
-				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 1);
+				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 1);
 				break;
 				
 			case 2:
-				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, -1);
+				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, -1);
 				break;
 				
 			case 3:
-				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 10);
+				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 10);
 				break;
 				
 			case 4:
-				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, -10);
+				Plague.proxy.clickPercentButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, -10);
 				break;
 		}
 	}

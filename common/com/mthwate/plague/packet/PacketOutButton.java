@@ -50,6 +50,6 @@ public class PacketOutButton extends Packet {
 	
 	@Override
 	void exec() {
-		Plague.proxy.clickOutButton(null, dimId, posX, posY, posZ, slot);
+		Plague.proxy.clickOutButton(dimId, posX, posY, posZ, slot);
 	}
 }

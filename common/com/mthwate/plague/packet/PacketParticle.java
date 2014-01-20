@@ -12,6 +12,7 @@ import com.mthwate.plague.Plague;
 
 public class PacketParticle extends Packet {
 
+	int dimId;
 	String particle;
 	double posX;
 	double posY;
@@ -25,12 +26,13 @@ public class PacketParticle extends Packet {
 		return "particle";
 	}
 	
-	public Packet250CustomPayload form(String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) throws IOException {
+	public Packet250CustomPayload form(int dimId, String particle, double posX, double posY, double posZ, double velX, double velY, double velZ) throws IOException {
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 
 		outputStream.writeUTF(this.getName());
+		outputStream.writeInt(dimId);
 		outputStream.writeUTF(particle);
 		outputStream.writeDouble(posX);
 		outputStream.writeDouble(posY);
@@ -45,18 +47,19 @@ public class PacketParticle extends Packet {
 
 	@Override
 	void read(DataInputStream inputStream) throws IOException {
+		dimId = inputStream.readInt();
 		particle = inputStream.readUTF();
-		posX = inputStream.readFloat();
-		posY = inputStream.readFloat();
-		posZ = inputStream.readFloat();
-		velX = inputStream.readFloat();
-		velY = inputStream.readFloat();
-		velZ = inputStream.readFloat();
+		posX = inputStream.readDouble();
+		posY = inputStream.readDouble();
+		posZ = inputStream.readDouble();
+		velX = inputStream.readDouble();
+		velY = inputStream.readDouble();
+		velZ = inputStream.readDouble();
 	}
 	
 	@Override
 	void exec() {
-		Plague.proxy.spawnParticle(null, particle, posX, posY, posZ, velX, velY, velZ);
+		Plague.proxy.spawnParticle(dimId, particle, posX, posY, posZ, velX, velY, velZ);
 	}
 
 }

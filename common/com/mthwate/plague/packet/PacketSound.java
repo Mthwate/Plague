@@ -12,6 +12,7 @@ import com.mthwate.plague.Plague;
 
 public class PacketSound extends Packet {
 
+	int dimId;
 	String sound;
 	float posX;
 	float posY;
@@ -26,6 +27,7 @@ public class PacketSound extends Packet {
 
 	@Override
 	void read(DataInputStream inputStream) throws IOException {
+		dimId = inputStream.readInt();
 		sound = inputStream.readUTF();
 		posX = inputStream.readFloat();
 		posY = inputStream.readFloat();
@@ -34,12 +36,13 @@ public class PacketSound extends Packet {
 		pitch = inputStream.readFloat();
 	}
 	
-	public Packet250CustomPayload form(String sound, float x, float y, float z, float volume, float pitch) throws IOException {
+	public Packet250CustomPayload form(int dimId, String sound, float x, float y, float z, float volume, float pitch) throws IOException {
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 
 		outputStream.writeUTF(this.getName());
+		outputStream.writeInt(dimId);
 		outputStream.writeUTF(sound);
 		outputStream.writeFloat(x);
 		outputStream.writeFloat(y);
@@ -53,7 +56,7 @@ public class PacketSound extends Packet {
 
 	@Override
 	void exec() {
-		Plague.proxy.playSound(null, sound, posX, posY, posZ, volume, pitch);
+		Plague.proxy.playSound(dimId, sound, posX, posY, posZ, volume, pitch);
 	}
 	
 }

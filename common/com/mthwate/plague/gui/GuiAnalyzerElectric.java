@@ -37,7 +37,7 @@ public class GuiAnalyzerElectric extends GuiElectric {
 		switch (guibutton.id) {
 			
 			case 5:
-				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 0);
+				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 0);
 				break;
 		}
 	}

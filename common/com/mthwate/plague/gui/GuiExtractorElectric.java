@@ -38,11 +38,11 @@ public class GuiExtractorElectric extends GuiElectric {
 		switch (guibutton.id) {
 			
 			case 5:
-				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 0);
+				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 0);
 				break;
 				
 			case 6:
-				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj, this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 1);
+				Plague.proxy.clickOutButton(this.tileEntityBase.worldObj.provider.dimensionId, this.tileEntityBase.xCoord, this.tileEntityBase.yCoord, this.tileEntityBase.zCoord, 1);
 				break;
 		}
 	}

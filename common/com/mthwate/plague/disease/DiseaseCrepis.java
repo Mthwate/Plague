@@ -23,7 +23,7 @@ public class DiseaseCrepis extends Disease {
 			if (Plague.rand.nextInt((int) TimeHelper.mcToTick(100000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entity, this)) {
 
 				entity.attackEntityFrom(DamageSourcePlague.disease, 0.1F);
-				Plague.proxy.playSound(entity.worldObj, "mob.creeper.say", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
+				Plague.proxy.playSound(entity.worldObj.provider.dimensionId, "mob.creeper.say", (float) entity.posX, (float) entity.posY, (float) entity.posZ, 2.0F, 1.0F);
 				int hissCount = entity.getEntityData().getInteger(Plague.modid + ".disease." + getUnlocalizedName() + ".hissCount") + 1;
 				entity.getEntityData().setInteger(Plague.modid + ".disease." + getUnlocalizedName() + ".hissCount", hissCount);
 				if (hissCount >= 5) {

@@ -12,9 +12,10 @@ import com.mthwate.plague.Plague;
 
 public class PacketEnergy extends Packet {
 
-	float posX;
-	float posY;
-	float posZ;
+	int dimId;
+	int posX;
+	int posY;
+	int posZ;
 	long energy;
 	
 	@Override
@@ -24,21 +25,23 @@ public class PacketEnergy extends Packet {
 
 	@Override
 	void read(DataInputStream inputStream) throws IOException {
-		posX = inputStream.readFloat();
-		posY = inputStream.readFloat();
-		posZ = inputStream.readFloat();
+		dimId = inputStream.readInt();
+		posX = inputStream.readInt();
+		posY = inputStream.readInt();
+		posZ = inputStream.readInt();
 		energy = inputStream.readLong();
 	}
 	
-	public Packet250CustomPayload form(double posX, double posY, double posZ, long energy) throws IOException {
+	public Packet250CustomPayload form(int dimId, int posX, int posY, int posZ, long energy) throws IOException {
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 
 		outputStream.writeUTF(this.getName());
-		outputStream.writeDouble(posX);
-		outputStream.writeDouble(posY);
-		outputStream.writeDouble(posZ);
+		outputStream.writeInt(dimId);
+		outputStream.writeInt(posX);
+		outputStream.writeInt(posY);
+		outputStream.writeInt(posZ);
 		outputStream.writeLong(energy);
 		outputStream.close();
 		
@@ -47,7 +50,7 @@ public class PacketEnergy extends Packet {
 	
 	@Override
 	void exec() {
-		Plague.proxy.updateElectricity(null, posX, posY, posZ, energy);
+		Plague.proxy.updateElectricity(dimId, posX, posY, posZ, energy);
 	}
 
 }

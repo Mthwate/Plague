@@ -41,10 +41,11 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 		}
 		
 		if (count == 10) {
-			Plague.proxy.updateElectricity(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
-			Plague.proxy.updateOutPercent(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getOutPercent());
+			int dimId = this.worldObj.provider.dimensionId;
+			Plague.proxy.updateElectricity(dimId, this.xCoord, this.yCoord, this.zCoord, this.getEnergy(null));
+			Plague.proxy.updateOutPercent(dimId, this.xCoord, this.yCoord, this.zCoord, this.getOutPercent());
 			for (int i=0; i<outSides.length; i++) {
-				Plague.proxy.updateOutSlot(this.worldObj, this.xCoord, this.yCoord, this.zCoord, i, outSides[i]);
+				Plague.proxy.updateOutSlot(dimId, this.xCoord, this.yCoord, this.zCoord, i, outSides[i]);
 			}
 			count = -1;
 		}
