@@ -1,6 +1,7 @@
 package com.mthwate.plague.item;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -34,9 +35,24 @@ public class ItemSyringeEmpty extends ItemBase {
 
 	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
+		return this.onUse(itemStack, player, player);
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 32;
+	}
+	
+	@Override
+	public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity) {
+		player.inventory.addItemStackToInventory(this.onUse(itemStack, player, entity));
+		return true;
+	}
+	
+	public ItemStack onUse(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity) {
 		for (Disease disease : InstrumentHelper.getRemnants(itemStack)) {
 			if (Plague.rand.nextInt(100) < 50) {
-				DiseaseHelper.addDisease(player, disease);
+				DiseaseHelper.addDisease(entity, disease);
 			}
 		}
 
@@ -44,21 +60,18 @@ public class ItemSyringeEmpty extends ItemBase {
 
 		ItemStack syringeFullStack = new ItemStack(ItemPlague.syringeFull);
 		syringeFullStack.setTagCompound(new NBTTagCompound());
-		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
+		for (Disease disease : DiseaseHelper.getActiveDiseases(entity)) {
 			syringeFullStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
 		}
+		
+		entity.attackEntityFrom(DamageSourcePlague.syringe, 1);
+		
 		if (itemStack.stackSize <= 0) {
-			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 			return syringeFullStack;
 		}
+		
 		player.inventory.addItemStackToInventory(syringeFullStack);
-		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		return itemStack;
-	}
-
-	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-		return 32;
 	}
 
 }

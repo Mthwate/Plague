@@ -2,6 +2,7 @@ package com.mthwate.plague.item;
 
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -41,7 +42,7 @@ public class ItemCure extends ItemBase {
 		}
 	}
 
-	void cure(ItemStack itemStack, EntityPlayer player) {
+	void cure(ItemStack itemStack, EntityLivingBase entity) {
 		if (itemStack.getTagCompound() != null) {
 			String displayDisease = itemStack.getTagCompound().getString("displayDisease");
 			String cureDisease = itemStack.getTagCompound().getString("cureDisease");
@@ -49,12 +50,12 @@ public class ItemCure extends ItemBase {
 			if (displayDisease.equals(cureDisease)) {
 				for (Disease disease : Plague.diseases) {
 					if (disease.getUnlocalizedName().equals(cureDisease)) {
-						DiseaseHelper.setDiseaseDuration(player, disease, -1);
+						DiseaseHelper.setDiseaseDuration(entity, disease, -1);
 					}
 				}
 			} else {
 				int index = Plague.rand.nextInt(Plague.diseases.size());
-				DiseaseHelper.addDisease(player, Plague.diseases.get(index));
+				DiseaseHelper.addDisease(entity, Plague.diseases.get(index));
 			}
 		}
 	}
@@ -72,33 +73,43 @@ public class ItemCure extends ItemBase {
 
 	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
+		return this.onUse(itemStack, player, player);
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 32;
+	}
+	
+	@Override
+	public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity) {
+		player.inventory.addItemStackToInventory(this.onUse(itemStack, player, entity));
+		return true;
+	}
+	
+	public ItemStack onUse(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity) {
 		--itemStack.stackSize;
 		
 		ItemStack itemStackSyringeEmpty = new ItemStack(ItemPlague.syringeEmpty);
 		itemStackSyringeEmpty.setTagCompound(new NBTTagCompound());
 		
-		List<Disease> diseases = DiseaseHelper.getActiveDiseases(player);
+		List<Disease> diseases = DiseaseHelper.getActiveDiseases(entity);
 		if (diseases != null) {
 			for(Disease disease : diseases) {
 				InstrumentHelper.addRemnants(itemStackSyringeEmpty, disease);
 			}
 		}
 
-		cure(itemStack, player);
+		cure(itemStack, entity);
 
+		entity.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		
 		if (itemStack.stackSize <= 0) {
-			player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 			return itemStackSyringeEmpty;
 		}
+		
 		player.inventory.addItemStackToInventory(itemStackSyringeEmpty);
-		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		return itemStack;
-	}
-
-	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-		return 32;
 	}
 
 }
