@@ -17,12 +17,11 @@ import com.mthwate.plague.lib.InstrumentHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCure extends ItemBaseFood {
+public class ItemCure extends ItemBase {
 
 	public ItemCure(int id) {
-		super(id, 0, 0F, false);
+		super(id);
 		maxStackSize = 1;
-		setAlwaysEdible();
 	}
 
 	@Override
@@ -66,6 +65,12 @@ public class ItemCure extends ItemBaseFood {
 	}
 
 	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+		return par1ItemStack;
+	}
+
+	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
 		--itemStack.stackSize;
 		
@@ -89,6 +94,11 @@ public class ItemCure extends ItemBaseFood {
 		player.inventory.addItemStackToInventory(itemStackSyringeEmpty);
 		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		return itemStack;
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 32;
 	}
 
 }

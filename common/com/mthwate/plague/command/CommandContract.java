@@ -40,7 +40,7 @@ public class CommandContract extends CommandBase {
 				error();
 			}
 			
-			// if 2 args, apply to player with name matching arg
+		// if 2 args, apply to player with name matching arg
 		} else if (astring.length == 2) {
 			String diseaseName = astring[0];
 			String targetName = astring[1];
@@ -57,7 +57,7 @@ public class CommandContract extends CommandBase {
 				error();
 			}
 			
-			// if 3 args, apply to player with name matching arg
+		// if 3 args, apply to player with name matching arg
 		} else if (astring.length == 3) {
 			String diseaseName = astring[0];
 			String targetName = astring[1];

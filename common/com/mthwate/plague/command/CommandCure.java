@@ -40,7 +40,7 @@ public class CommandCure extends CommandBase {
 				error();
 			}
 			
-			// if 2 args, apply to player with name matching arg
+		// if 2 args, apply to player with name matching arg
 		} else if (astring.length == 2) {
 			String diseaseName = astring[0];
 			String targetName = astring[1];
@@ -56,7 +56,7 @@ public class CommandCure extends CommandBase {
 			} else {
 				error();
 			}
-			// else fail
+		// else fail
 		} else {
 			error();
 		}

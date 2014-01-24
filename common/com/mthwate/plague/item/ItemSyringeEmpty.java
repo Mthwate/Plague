@@ -13,12 +13,11 @@ import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.lib.DiseaseHelper;
 import com.mthwate.plague.lib.InstrumentHelper;
 
-public class ItemSyringeEmpty extends ItemBaseFood {
+public class ItemSyringeEmpty extends ItemBase {
 
 	public ItemSyringeEmpty(int id) {
-		super(id, 0, 0F, false);
+		super(id);
 		maxStackSize = 1;
-		setAlwaysEdible();
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
 
@@ -28,15 +27,21 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 	}
 
 	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+		return par1ItemStack;
+	}
+
+	@Override
 	public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player) {
 		for (Disease disease : InstrumentHelper.getRemnants(itemStack)) {
 			if (Plague.rand.nextInt(100) < 50) {
 				DiseaseHelper.addDisease(player, disease);
 			}
 		}
-		
+
 		--itemStack.stackSize;
-		
+
 		ItemStack syringeFullStack = new ItemStack(ItemPlague.syringeFull);
 		syringeFullStack.setTagCompound(new NBTTagCompound());
 		for (Disease disease : DiseaseHelper.getActiveDiseases(player)) {
@@ -49,6 +54,11 @@ public class ItemSyringeEmpty extends ItemBaseFood {
 		player.inventory.addItemStackToInventory(syringeFullStack);
 		player.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		return itemStack;
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+		return 32;
 	}
 
 }
