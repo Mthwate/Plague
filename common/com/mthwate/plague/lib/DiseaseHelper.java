@@ -36,8 +36,7 @@ public class DiseaseHelper {
 		}
 	}
 
-	// increases the duration of all diseases an entity has by 1 (the duration
-	// is measured in ticks)
+	// increases the duration (in ticks) of all diseases an entity has by 1
 	public static void count(Entity entity) {
 		List<Disease> diseases = getActiveDiseases(entity);
 		for (Disease disease : diseases) {
@@ -80,8 +79,7 @@ public class DiseaseHelper {
 		entity.getEntityData().setInteger(Plague.modid + ".disease." + disease.getUnlocalizedName(), duration);
 	}
 
-	// gives an infected entity a chance to spread their disease to others
-	// within the radius
+	// gives an infected entity a chance to spread their disease to others within the radius
 	public static void spread(Entity entityCarrier, Disease disease, double radius, int modifier) {
 		@SuppressWarnings("unchecked")
 		List<Entity> entities = entityCarrier.worldObj.getEntitiesWithinAABBExcludingEntity(entityCarrier, entityCarrier.boundingBox.expand(radius, radius, radius));
@@ -105,8 +103,7 @@ public class DiseaseHelper {
 		EntityLivingBase entityVictim = event.entityLiving;
 		Entity entityAttacker = event.source.getEntity();
 
-		// checks if the entity is able to contract the disease and does not
-		// already have it
+		// checks if the entity is able to contract the disease and does not already have it
 		if (disease.isVulnerable(entityVictim) && !DiseaseHelper.isDiseaseActive(entityVictim, disease)) {
 
 			if (event.source.getEntity() != null) {
@@ -154,5 +151,21 @@ public class DiseaseHelper {
 			return(entity.getEntityData().getInteger(Plague.modid + ".damaged.cooldown") > 0);
 		}
 		return true;
+	}
+	
+	//sets the strain of the specified entity's disease
+	public static void setStrain(Entity entity, Disease disease, String strain) {
+		if (disease != null) {
+			entity.getEntityData().setString(Plague.modid + ".disease." + disease.getUnlocalizedName() + ".strain", strain);
+		}
+	}
+	
+	// generates a random 5 digit string to represent the strain
+	public static String getNewStrain() {
+		String strain = "";
+		for (int i=0; i<5; i++) {
+			strain += Plague.rand.nextInt(10);
+		}
+		return strain;
 	}
 }
