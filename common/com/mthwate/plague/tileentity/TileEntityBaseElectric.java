@@ -110,7 +110,7 @@ public abstract class TileEntityBaseElectric extends TileEntityBase implements I
 	}
 	
 	public long getEnergyUsage() {
-		return (long) (2500 * Math.pow(4, this.getTier()));
+		return (long) (5000 * Math.pow(4, this.getTier()));
 	}
 
 	@Override

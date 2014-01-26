@@ -76,11 +76,21 @@ public class TileEntityExtractorElectric extends TileEntityBaseElectric {
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
-		if (itemStack.itemID == ItemPlague.diseaseVileFull.itemID && itemStack.getTagCompound() != null) {
-			return this.getOutDirection(slot) == side && TimeHelper.tickToMc(itemStack.getTagCompound().getInteger("extractorDuration")) / (60 * 60) >= this.getOutPercent();
+		
+		if (slot == 0) {
+			
+			return this.getOutDirection(slot) == side && itemStack.itemID != ItemPlague.syringeFull.itemID;
+			
+		} else if (slot == 1) {
+			
+			if (itemStack.itemID == ItemPlague.diseaseVileFull.itemID && itemStack.getTagCompound() != null) {
+				return this.getOutDirection(slot) == side && TimeHelper.tickToMc(itemStack.getTagCompound().getInteger("extractorDuration")) / (60 * 60) >= this.getOutPercent();
+			}
+			
+			return this.getOutDirection(slot) == side && itemStack.itemID != ItemPlague.diseaseVileEmpty.itemID;
 		}
-
-		return this.getOutDirection(slot) == side && itemStack.itemID != ItemPlague.syringeFull.itemID;
+		
+		return false;
 	}
 
 	@Override

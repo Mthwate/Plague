@@ -83,7 +83,7 @@ public class ItemCure extends ItemBase {
 	
 	@Override
 	public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity) {
-		player.inventory.addItemStackToInventory(this.onUse(itemStack, player, entity));
+		player.inventory.setInventorySlotContents(player.inventory.currentItem, this.onUse(itemStack, player, entity));
 		return true;
 	}
 	

@@ -71,7 +71,7 @@ public class DiseaseCrepis extends Disease {
 				DiseaseHelper.spread(entity, this, 5.0, 10000);
 			} else if (!DiseaseHelper.isDiseaseActive(entity, this)) {
 				if (event.entityLiving instanceof EntityCreeper) {
-					DiseaseHelper.contract(entity, this, 100000);
+					DiseaseHelper.contract(entity, this, 1000000);
 				}
 			}
 		}
