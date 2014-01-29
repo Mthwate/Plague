@@ -30,7 +30,7 @@ public class DiseaseRabies extends Disease {
 		addTarget(EntityVillager.class);
 	}
 
-	void effect(Entity entityCarrier) {
+	void effect(EntityLivingBase entityCarrier) {
 
 		// attacks nearby players
 		@SuppressWarnings("unchecked")
@@ -38,13 +38,9 @@ public class DiseaseRabies extends Disease {
 		for (Entity entityTarget : entities) {
 			if (entityTarget instanceof EntityLiving || entityTarget instanceof EntityPlayer) {
 				if (Plague.rand.nextInt((int) TimeHelper.mcToTick(1000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
-					if (entityCarrier instanceof EntityLiving) {
-						entityTarget.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving) entityCarrier), 1);
-						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
-					} else if (entityCarrier instanceof EntityPlayer) {
-						entityTarget.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityCarrier), 1);
-						Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
-					}
+					entityCarrier.swingItem();
+					entityTarget.attackEntityFrom(DamageSource.causeMobDamage(entityCarrier), 1);
+					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
 				}
 			}
 		}

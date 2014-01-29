@@ -14,6 +14,7 @@ import com.mthwate.bookcase.ModLogger;
 import com.mthwate.plague.block.BlockPlague;
 import com.mthwate.plague.command.CommandContract;
 import com.mthwate.plague.command.CommandCure;
+import com.mthwate.plague.command.CommandListd;
 import com.mthwate.plague.disease.Disease;
 import com.mthwate.plague.disease.DiseaseCrepis;
 import com.mthwate.plague.disease.DiseaseEndt;
@@ -162,6 +163,7 @@ public class Plague {
 		// server commands
 		event.registerServerCommand(new CommandContract());
 		event.registerServerCommand(new CommandCure());
+		event.registerServerCommand(new CommandListd());
 	}
 
 }

@@ -36,7 +36,7 @@ public class TileEntityProcessor extends TileEntityBase {
 				for (Disease disease : InstrumentHelper.getDiseases(stackZero)) {
 					diseaseNames.add(disease.getUnlocalizedName());
 				}
-
+				
 				// if the disease filled vile contains at least 1 disease
 				if (diseaseNames.size() > 0) {
 

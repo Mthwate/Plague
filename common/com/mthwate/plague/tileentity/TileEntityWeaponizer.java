@@ -33,10 +33,19 @@ public class TileEntityWeaponizer extends TileEntityBase {
 					diseaseNames.add(disease.getUnlocalizedName());
 				}
 
-				String diseaseName = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));
-				weaponStack.getTagCompound().setString("disease", diseaseName);
-
-				setInventorySlotContents(0, weaponStack);
+				if (diseaseNames.isEmpty()) {
+					ItemStack vileStack = new ItemStack(ItemPlague.diseaseVileEmpty);
+					vileStack.setTagCompound(new NBTTagCompound());
+					for (Disease disease : InstrumentHelper.getRemnants(stack)) {
+						InstrumentHelper.addDisease(vileStack, disease);
+					}
+					setInventorySlotContents(0, vileStack);
+				} else {
+					String diseaseName = diseaseNames.get(Plague.rand.nextInt(diseaseNames.size()));
+					weaponStack.getTagCompound().setString("disease", diseaseName);
+					
+					setInventorySlotContents(0, weaponStack);
+				}
 
 			} else if (stack.getItem().itemID == ItemPlague.weaponizedDisease.itemID) {
 				if (stack.getTagCompound().getInteger("weaponizerDuration") < TimeHelper.mcToTick(100, 0, 0)) {

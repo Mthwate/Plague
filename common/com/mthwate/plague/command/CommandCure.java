@@ -26,30 +26,30 @@ public class CommandCure extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender icommandsender, String[] astring) {
+	public void processCommand(ICommandSender icommandsender, String[] params) {
 
 		// if one arg, apply to sender
-		if (astring.length == 1) {
-			String diseaseName = astring[0];
+		if (params.length == 1) {
+			String diseaseName = params[0];
 			Disease disease = DiseaseHelper.getDiseaseFromString(diseaseName);
 			EntityPlayer senderEntity = getCommandSenderAsPlayer(icommandsender);
 			if (disease != null) {
 				DiseaseHelper.setDiseaseDuration(senderEntity, disease, -1);
-				icommandsender.sendChatToPlayer(ChatMessageComponent.createFromText(senderEntity.getCommandSenderName() + " was cured of " + disease.getName().toLowerCase() + "."));
+				icommandsender.sendChatToPlayer(ChatMessageComponent.createFromText(senderEntity.getDisplayName() + " was cured of " + disease.getName().toLowerCase() + "."));
 			} else {
 				error();
 			}
 			
 		// if 2 args, apply to player with name matching arg
-		} else if (astring.length == 2) {
-			String diseaseName = astring[0];
-			String targetName = astring[1];
+		} else if (params.length == 2) {
+			String diseaseName = params[0];
+			String targetName = params[1];
 			EntityPlayer targetEntity = icommandsender.getEntityWorld().getPlayerEntityByName(targetName);
 			if (targetEntity != null) {
 				Disease disease = DiseaseHelper.getDiseaseFromString(diseaseName);
 				if (disease != null) {
 					DiseaseHelper.setDiseaseDuration(targetEntity, disease, -1);
-					icommandsender.sendChatToPlayer(ChatMessageComponent.createFromText(targetEntity.getCommandSenderName() + " was cured of " + disease.getName().toLowerCase() + "."));
+					icommandsender.sendChatToPlayer(ChatMessageComponent.createFromText(targetEntity.getDisplayName() + " was cured of " + disease.getName().toLowerCase() + "."));
 				} else {
 					error();
 				}
@@ -63,21 +63,21 @@ public class CommandCure extends CommandBase {
 	}
 
 	@Override
-	public List<?> addTabCompletionOptions(ICommandSender icommandsender, String[] astring) {
-		if(astring.length == 1) {
+	public List<?> addTabCompletionOptions(ICommandSender icommandsender, String[] params) {
+		if(params.length == 1) {
 			String[] diseases = new String[Plague.diseases.size()];
 			for (int i=0; i<Plague.diseases.size(); i++) {
 				diseases[i] = Plague.diseases.get(i).getUnlocalizedName().toLowerCase();
 			}
-			return getListOfStringsMatchingLastWord(astring, diseases);
-		} else if(astring.length == 2) {
-			return getListOfStringsMatchingLastWord(astring, MinecraftServer.getServer().getAllUsernames());
+			return getListOfStringsMatchingLastWord(params, diseases);
+		} else if(params.length == 2) {
+			return getListOfStringsMatchingLastWord(params, MinecraftServer.getServer().getAllUsernames());
 		}
 		return null;
 	}
 	
 	private void error() {
-		throw(new WrongUsageException("command.cure.usage", new Object[0]));
+		throw(new WrongUsageException(getCommandUsage(null), new Object[0]));
 	}
 
 }

@@ -2,16 +2,23 @@ package com.mthwate.plague.container;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+
+import com.mthwate.plague.item.ItemPlague;
+import com.mthwate.plague.slot.SlotMachine;
 
 public class ContainerProcessor extends ContainerBase {
 
 	public ContainerProcessor(InventoryPlayer invPlayer, IInventory entity) {
 		super(invPlayer, entity);
 
-		// adds the container's slots
-		addSlotToContainer(new Slot(entity, 0, 43, 35));
-		addSlotToContainer(new Slot(entity, 1, 79, 35));
+		SlotMachine slotVile = new SlotMachine(entity, 0, 43, 35);
+		SlotMachine slotSyringe = new SlotMachine(entity, 1, 79, 35);
+		
+		slotVile.addValidItem(ItemPlague.diseaseVileFull.itemID);
+		slotSyringe.addValidItem(ItemPlague.syringeEmpty.itemID);
+
+		addSlotToContainer(slotVile);
+		addSlotToContainer(slotSyringe);
 	}
 
 }

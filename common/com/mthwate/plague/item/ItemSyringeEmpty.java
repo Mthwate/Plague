@@ -56,22 +56,15 @@ public class ItemSyringeEmpty extends ItemBase {
 			}
 		}
 
-		--itemStack.stackSize;
-
 		ItemStack syringeFullStack = new ItemStack(ItemPlague.syringeFull);
 		syringeFullStack.setTagCompound(new NBTTagCompound());
 		for (Disease disease : DiseaseHelper.getActiveDiseases(entity)) {
-			syringeFullStack.getTagCompound().setBoolean(disease.getUnlocalizedName(), true);
+			InstrumentHelper.addDisease(syringeFullStack, disease);
 		}
 		
 		entity.attackEntityFrom(DamageSourcePlague.syringe, 1);
 		
-		if (itemStack.stackSize <= 0) {
-			return syringeFullStack;
-		}
-		
-		player.inventory.addItemStackToInventory(syringeFullStack);
-		return itemStack;
+		return syringeFullStack;
 	}
 
 }

@@ -6,10 +6,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.mthwate.plague.container.ContainerAnalyzer;
-import com.mthwate.plague.container.ContainerAnalyzerElectric;
 import com.mthwate.plague.container.ContainerBoiler;
 import com.mthwate.plague.container.ContainerExtractor;
-import com.mthwate.plague.container.ContainerExtractorElectric;
 import com.mthwate.plague.container.ContainerProcessor;
 import com.mthwate.plague.container.ContainerWeaponizer;
 import com.mthwate.plague.gui.GuiAnalyzer;
@@ -61,11 +59,11 @@ public class GuiHandler implements IGuiHandler {
 				}
 				
 				if(inv instanceof TileEntityExtractorElectric) {
-					return new GuiExtractorElectric(player.inventory, inv, new ContainerExtractorElectric(player.inventory, inv));
+					return new GuiExtractorElectric(player.inventory, inv, new ContainerExtractor(player.inventory, inv));
 				}
 				
 				if(inv instanceof TileEntityAnalyzerElectric) {
-					return new GuiAnalyzerElectric(player.inventory, inv, new ContainerAnalyzerElectric(player.inventory, inv));
+					return new GuiAnalyzerElectric(player.inventory, inv, new ContainerAnalyzer(player.inventory, inv));
 				}
 				
 				return null;
@@ -104,11 +102,11 @@ public class GuiHandler implements IGuiHandler {
 				}
 				
 				if(inv instanceof TileEntityExtractorElectric) {
-					return new ContainerExtractorElectric(player.inventory, inv);
+					return new ContainerExtractor(player.inventory, inv);
 				}
 				
 				if(inv instanceof TileEntityAnalyzerElectric) {
-					return new ContainerAnalyzerElectric(player.inventory, inv);
+					return new ContainerAnalyzer(player.inventory, inv);
 				}
 				
 				return null;
