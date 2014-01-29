@@ -1,20 +1,16 @@
 package universalelectricity.api.energy;
 
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.api.net.INetwork;
+import universalelectricity.api.net.INodeNetwork;
+import universalelectricity.api.net.IUpdate;
 
 /**
- * The Energy Network in interface form.
+ * The Energy Network for energy items and blocks.
  * 
  * @author Calclavia
  */
-public interface IEnergyNetwork extends INetwork<IEnergyNetwork, IConductor, Object>
+public interface IEnergyNetwork extends INodeNetwork<IEnergyNetwork, IConductor, Object>, IUpdate
 {
-	/**
-	 * Reconstructs the energy network.
-	 */
-	public void reconstruct();
-
 	/**
 	 * Produces power to the energy network.
 	 * 
@@ -24,6 +20,11 @@ public interface IEnergyNetwork extends INetwork<IEnergyNetwork, IConductor, Obj
 	 * @return The amount that was accepted by the network.
 	 */
 	public long produce(IConductor conductor, ForgeDirection from, long amount, boolean doProduce);
+
+	/**
+	 * @return The current buffer in the network that is going sent to all energy handlers.
+	 */
+	public long getBuffer();
 
 	/**
 	 * @return The last buffer in the network that was sent to all energy handlers.
@@ -55,5 +56,12 @@ public interface IEnergyNetwork extends INetwork<IEnergyNetwork, IConductor, Obj
 	 * @param conductor
 	 */
 	public void setBufferFor(IConductor conductor, long buffer);
+
+	/**
+	 * Sets the buffer of the network.
+	 * 
+	 * @param newBuffer
+	 */
+	public void setBuffer(long newBuffer);
 
 }

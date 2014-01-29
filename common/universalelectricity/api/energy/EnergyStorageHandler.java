@@ -21,6 +21,11 @@ public class EnergyStorageHandler
 	 */
 	protected long lastEnergy;
 
+	public EnergyStorageHandler()
+	{
+		this(0);
+	}
+
 	public EnergyStorageHandler(long capacity)
 	{
 		this(capacity, capacity, capacity);
@@ -140,6 +145,16 @@ public class EnergyStorageHandler
 		return energyReceived;
 	}
 
+	public long receiveEnergy(boolean doReceive)
+	{
+		return this.receiveEnergy(this.getMaxReceive(), doReceive);
+	}
+
+	public long receiveEnergy()
+	{
+		return this.receiveEnergy(true);
+	}
+
 	public long extractEnergy(long extract, boolean doExtract)
 	{
 		long energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, extract));
@@ -152,9 +167,24 @@ public class EnergyStorageHandler
 		return energyExtracted;
 	}
 
+	public long extractEnergy(boolean doExtract)
+	{
+		return this.extractEnergy(this.getMaxExtract(), doExtract);
+	}
+
+	public long extractEnergy()
+	{
+		return this.extractEnergy(true);
+	}
+
 	public boolean checkReceive(long receive)
 	{
 		return this.receiveEnergy(receive, false) >= receive;
+	}
+
+	public boolean checkReceive()
+	{
+		return this.checkReceive(this.getMaxReceive());
 	}
 
 	public boolean checkExtract(long extract)
@@ -162,9 +192,19 @@ public class EnergyStorageHandler
 		return this.extractEnergy(extract, false) >= extract;
 	}
 
+	public boolean checkExtract()
+	{
+		return this.checkExtract(this.getMaxExtract());
+	}
+
 	public boolean isFull()
 	{
 		return this.getEnergy() >= this.getEnergyCapacity();
+	}
+
+	public boolean isEmpty()
+	{
+		return this.getEnergy() == 0;
 	}
 
 	public long getLastEnergy()
