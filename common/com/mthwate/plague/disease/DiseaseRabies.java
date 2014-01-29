@@ -23,7 +23,7 @@ import com.mthwate.plague.lib.DiseaseHelper;
 import com.mthwate.plague.proxy.ClientProxy;
 
 public class DiseaseRabies extends Disease {
-	
+
 	public DiseaseRabies(double modifier) {
 		super(modifier);
 		addTarget(EntityPlayer.class);
