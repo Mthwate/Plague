@@ -102,5 +102,7 @@ public class CommonProxy {
 			Plague.proxy.updateOutPercent(dimId, posX, posY, posZ, tileEntityElectric.getOutPercent());
 		}
 	}
+	
+	public void swingArm(){}
 
 }
