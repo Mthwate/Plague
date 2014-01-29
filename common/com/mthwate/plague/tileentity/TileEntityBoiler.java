@@ -53,7 +53,7 @@ public class TileEntityBoiler extends TileEntityBase {
 		}
 		
 		if (slotItem != null && isCleaning()) {
-			if (slotItem.itemID == ItemPlague.syringeEmpty.itemID) {
+			if (slotItem.itemID == ItemPlague.syringeEmpty.itemID || slotItem.itemID == ItemPlague.diseaseVileEmpty.itemID) {
 				for (Disease disease : InstrumentHelper.getRemnants(slotItem)) {
 					if (Plague.rand.nextInt(100) < 1) {
 						InstrumentHelper.removeRemnants(slotItem, disease);

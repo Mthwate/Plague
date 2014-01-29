@@ -21,7 +21,7 @@ import com.mthwate.plague.Plague;
 import com.mthwate.plague.lib.DiseaseHelper;
 
 public class DiseaseRabies extends Disease {
-	
+
 	public DiseaseRabies(double modifier) {
 		super(modifier);
 		addTarget(EntityPlayer.class);
@@ -38,7 +38,6 @@ public class DiseaseRabies extends Disease {
 		for (Entity entityTarget : entities) {
 			if (entityTarget instanceof EntityLiving || entityTarget instanceof EntityPlayer) {
 				if (Plague.rand.nextInt((int) TimeHelper.mcToTick(1000, 0, 0, 0)) <= DiseaseHelper.getDiseaseDuration(entityCarrier, this)) {
-					entityCarrier.swingItem();
 					entityTarget.attackEntityFrom(DamageSource.causeMobDamage(entityCarrier), 1);
 					Plague.logger.log(Level.INFO, entityTarget.getEntityName() + " was attacked by " + entityCarrier.getEntityName() + " due to " + entityCarrier.getEntityName() + "'s " + getName() + ".", true);
 				}
