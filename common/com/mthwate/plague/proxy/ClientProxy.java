@@ -121,7 +121,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void swingArm() {
-		
+		System.out.println("AAAAAAAAAAAAAAAa");
 		Minecraft.getMinecraft().thePlayer.swingItem();
 		
 	}

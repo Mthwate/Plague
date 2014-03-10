@@ -46,12 +46,12 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Plague.modid, name = Plague.modName, version = "@VERSION@")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {Plague.channel}, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { Plague.channel }, packetHandler = PacketHandler.class)
 public class Plague {
 	// mod
 	public static final String modid = "plague";
 	static final String modName = "Plague";
-	
+
 	public static final String channel = modName;
 
 	// instance
@@ -79,9 +79,9 @@ public class Plague {
 
 	// random
 	public static Random rand = new Random();
-	
+
 	// proxy
-	@SidedProxy(clientSide="com.mthwate.plague.proxy.ClientProxy", serverSide="com.mthwate.plague.proxy.CommonProxy")
+	@SidedProxy(clientSide = "com.mthwate.plague.proxy.ClientProxy", serverSide = "com.mthwate.plague.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	@EventHandler
@@ -147,7 +147,7 @@ public class Plague {
 
 		// settings
 		verbose = config.get("Settings", "Verbose", false).getBoolean(false);
-		//TODO made difficulty modifiers configurable
+		// TODO made difficulty modifiers configurable
 
 		config.save();
 

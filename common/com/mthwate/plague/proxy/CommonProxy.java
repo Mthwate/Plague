@@ -103,6 +103,8 @@ public class CommonProxy {
 		}
 	}
 	
-	public void swingArm(){}
+	public void swingArm() {
+		System.out.println("BBBBBBBBBBBBBBBBB");
+		}
 
 }
